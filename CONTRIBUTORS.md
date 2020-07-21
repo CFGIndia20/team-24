@@ -20,7 +20,7 @@ Mobile No: +91 8828192013
 
 Github UserName: RiyaDichwalkar
 
-##Namita Shetty
+## Namita Shetty  
 hello!I am very excited to be a member of this team.I hope that all of us will give our best in this virtual hackathon and complete it successfully.  
 Looking forward to meet my other team mates :)  
 
@@ -29,4 +29,13 @@ Email:shetty.namitak@gmail.com
 Mobile No:+91 6360379519  
 
 Github Username:namita2310  
+
+## [Samakshi Malhotra](https://github.com/samakshi1234)
+hii teammates!I'm very happy and excited too to be a part of this team too.I hope we give our best, learn as much as we can and enjoy it as well.It would be best if we get to know each other before the event. Looking forward to work with you all :)
+
+Email:samakshimalhotra24@gmail.com
+
+Mobile No:9988045059
+
+GitHub UserName:samakshi1234
 
