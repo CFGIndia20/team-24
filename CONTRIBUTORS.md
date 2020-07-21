@@ -20,5 +20,13 @@ Mobile No: +91 8828192013
 
 Github UserName: RiyaDichwalkar
 
+##Namita Shetty
+hello!I am very excited to be a member of this team.I hope that all of us will give our best in this virtual hackathon and complete it successfully.  
+Looking forward to meet my other team mates :)  
 
+Email:shetty.namitak@gmail.com  
+
+Mobile No:+91 6360379519  
+
+Github Username:namita2310  
 
