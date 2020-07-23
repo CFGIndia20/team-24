@@ -57,3 +57,12 @@ Mobile: 9653484023
 
 Github Username: VishalMakwana01
 
+## Kshitij Shah
+Hey! Excited and glad to meet you all, lets win it :)
+
+email: shahkshitij15@gmail.com
+
+Mobile: 9820877533
+
+Github Username: shahkshitij15
+
