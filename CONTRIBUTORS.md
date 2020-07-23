@@ -48,3 +48,12 @@ Mobile: 8769294456
 
 Github Username: jaY-S-99
 
+## Vishal Makwana
+Hello! Excited and glad to be a part of this team. Looking forward to the event, let's try to win it. :)
+
+email: vishal.makwana3@gmail.com 
+
+Mobile: 9653484023
+
+Github Username: VishalMakwana01
+
