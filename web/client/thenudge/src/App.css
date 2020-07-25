@@ -1,3 +1,18 @@
 .font-small{
     font-size: x-small;
 }
+.bg-light{
+    background-color: #e4e4e4;
+}
+body {
+      background-color: rgba(0,0,0,0.1);
+}
+.rounded-border{
+    border-radius: 10px;
+}
+.box-shadow-down-black{
+    box-shadow: 0px 1px 3px -2px black;
+}
+.box-shadow-around-black{
+    box-shadow: 0px 0px 20px -5px black;
+}

@@ -21,6 +21,7 @@ class AdminDashboard extends Component {
         this.props.getStudents();
     }
 
+<<<<<<< HEAD
     componentWillReceiveProps(nextProps) {
         if (nextProps.students.users) {
             this.setState({ students: nextProps.students })
@@ -99,6 +100,44 @@ class AdminDashboard extends Component {
                 </>
             );
         }
+=======
+    render() {
+
+        return (
+            <>
+                <SidebarComponent user="admin" />
+                <div className="main">
+                    <div className="container main-content">
+                        <h1 className="display-4">Student Insights</h1>
+                        <hr />
+                        <div className="row ">
+                            <div className="col-6 bg-light">
+                                <ChartComponent
+                                    labels={[
+                                        "9-10 A.M.",
+                                        "10-11 A.M.",
+                                        "11-12 Noon",
+                                        "12-1 P.M.",
+                                        "2-3 P.M.",
+                                        "3-4 P.M.",
+                                        "5-6 P.M.",
+                                        "6-7 P.M."
+                                    ]}
+                                    dataset={[
+                                        {
+                                            title: "Time Slot Preference",
+                                            values: ['12','10','35','45','32','49','23','19'],
+                                            color: "#000",
+                                        }
+                                    ]}
+                                />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </>
+        );
+>>>>>>> 4eb8020ef4a908ec27b95537370190f817e04291
     }
 }
 

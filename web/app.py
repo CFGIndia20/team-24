@@ -46,17 +46,14 @@ def student_signup():
     if student != None:
         return jsonify({'status': 'Duplicate signup. Failed'}), 418
     # If no duplicate signup then
-    # student_phno = data['PhoneNo']
-    student_phno = "9876543210"
+    student_phno = data['PhoneNo']
     student_password = data['Password']
     hashedPassword = generate_password_hash(student_password, method='sha256')
     student_dob = data['dob']
     student_attendance = 100
     student_starting_score = data['student_starting_score']
     assigned_slot = 0
-    preference1 = data['pref1']
-    preference2 = data['pref2']
-    preference3 = data['pref3']
+    preference = data['preference']
 
     # add all these values as a single record of a student in the Student database
     try:
@@ -404,6 +401,81 @@ def get_complaint():
                 [complaint_dict['email'], complaint_dict['complaint']])
 
     return jsonify(unresolved_complaints)
+
+
+def addMarks(marks, batch, student_dict):
+    if marks >= 50 and marks < 60:
+        batch["50"].append(student_dict['name'])
+    elif marks >= 60 and marks < 70:
+        batch["60"].append(student_dict['name'])
+    elif marks >= 70 and marks < 80:
+        batch["70"].append(student_dict['name'])
+    elif marks >= 80 and marks < 90:
+        batch["80"].append(student_dict['name'])
+    else:
+        batch["90"].append(student_dict['name'])
+
+
+def valid(key, slot):
+    if slot[key][0] < 8:
+        return True
+
+
+@app.route('/allocateBatch')
+def allocatebatch():
+    batch = {
+        "50": [],
+        "60": [],
+        "70": [],
+        "80": [],
+        "90": []
+    }
+
+    slot_preference = {
+        "N"+str(i): 0 for i in range(1, 76)
+    }
+
+    slot = {
+        "1": [0, 0],
+        "2": [0, 0],
+        "3": [0, 0],
+        "4": [0, 0],
+        "5": [0, 0],
+        "6": [0, 0],
+        "7": [0, 0],
+        "8": [0, 0]
+    }
+
+    students_data = students_ref.get()
+    for row in students_data:
+        student_dict = row.to_dict()
+        marks = student_dict['starting_score']
+        addMarks(marks, batch, student_dict)
+        slot_preference[student_dict['name']] = student_dict['preference']
+
+    for key, value in batch.items():
+        student = value
+        for j in student:
+            for key in slot.keys():
+                if key == str(slot_preference[j]):
+                    if valid(key, slot):
+                        slot[key][0] = slot[key][0]+1
+                        break
+                    else:
+                        slot[key][0] = 1
+                        slot[key][1] = slot[key][1]+1
+                        break
+
+    for key in slot.keys():
+        if slot[key][0] < 4:
+            for j in slot.keys():
+                if key == j:
+                    continue
+                if slot[key][0]+slot[j][0] <= 8 and slot[key][0]+slot[j][0] >= 4:
+                    slot[key][0] = slot[key][0]+slot[j][0]
+                    slot[j][0] = 0
+
+    return jsonify({"data": slot})
 
 
 # LOGOUT ROUTES

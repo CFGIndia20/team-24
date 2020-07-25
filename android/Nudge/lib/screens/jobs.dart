@@ -22,14 +22,14 @@ class _JobsState extends State<Jobs> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          "Sticky Notes",
+          "Job Opportunities",
           // style: GoogleFonts.comicNeue(fontSize: 20),
         ),
         // backgroundColor: Colors.black,
       ),
       // body: StreamBuilder<QuerySnapshot> (
               
-
+        backgroundColor: Colors.black,
       
       
       body: Center(

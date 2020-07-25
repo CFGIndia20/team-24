@@ -43,7 +43,7 @@ def add_teacher():
             "dob": "1/01/01",
             "teacher_assigned_slot":[]
             })
-    
+
     return jsonify({'status': 'teacher signup successful'}), 200
 
 @app.route('/addStudent')
@@ -80,7 +80,7 @@ def addMarks(marks,batch,student_dict):
 
 
 def valid(key,slot):
-    if slot[key][0]<=15:
+    if slot[key][0]<8:
         return True
 
 
@@ -115,6 +115,11 @@ def allocatebatch():
         student_dict=row.to_dict()
         marks = student_dict['starting_score']
         addMarks(marks,batch,student_dict)
+<<<<<<< HEAD
+        addPref(slot_preference,student_dict)
+
+    return jsonify({"data":slot_preference})
+=======
         slot_preference[student_dict['name']]=student_dict['preference']
 
     for key,value in batch.items():
@@ -129,9 +134,20 @@ def allocatebatch():
                         slot[key][0] = 1
                         slot[key][1] = slot[key][1]+1
                         break
+    
+    for key in slot.keys():
+        if slot[key][0]<4:
+            for j in slot.keys():
+                if key == j:
+                    continue
+                if slot[key][0]+slot[j][0]<=8 and slot[key][0]+slot[j][0]>=4:
+                    slot[key][0]=slot[key][0]+slot[j][0]
+                    slot[j][0]=0
+                
                 
         
     return jsonify({"data":slot})
+>>>>>>> ad45d1a756b4713a13e88dfac87bb2c2c0bd039b
 
 
 
