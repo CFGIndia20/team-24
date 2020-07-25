@@ -17,9 +17,9 @@ class RegisterComponent extends Component {
       password2: "",
       errors: "",
       dob: '',
-      pref1: '',
-      pref2: '',
-      pref3: ''
+      pref1: '1',
+      pref2: '1',
+      pref3: '1'
     };
 
     this.onChange = this.onChange.bind(this);
@@ -38,11 +38,11 @@ class RegisterComponent extends Component {
     const newStudent = {
       Name: this.state.name,
       Email: this.state.email,
-      Password: this.password,
+      Password: this.state.password,
       dob: this.state.dob,
       pref1: this.state.pref1,
-      pref2: this.state.pref1,
-      pref3: this.state.pref1,
+      pref2: this.state.pref2,
+      pref3: this.state.pref3,
       student_starting_score: Math.floor(Math.random() * 100) 
     }
 
