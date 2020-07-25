@@ -5,35 +5,6 @@ import axios from "axios";
 //Action for logging user in
 export const loginUser = (userData, userType, history) => (dispatch) => {
 
-<<<<<<< HEAD
-    if (userType === "admin"){
-        axios
-          .post("http://localhost:5000/adminlogin", userData)
-          .then((res) =>{
-            dispatch({
-              type: SET_USER_DATA,
-              payload: res.data.role,
-            });
-            history.push('/adminprofile');
-          })
-          .catch((err) => {
-            console.log(err);
-          });
-    }
-    if (userType === "student") {
-        axios
-          .post("http://localhost:5000/studentlogin", userData)
-          .then((res) => {
-            dispatch({
-              type: SET_USER_DATA,
-              payload: res.data.role,
-            });
-            history.push('/schedule');
-          })
-          .catch((err) => {
-            console.log(err);
-          });
-=======
   if (userType === "admin") {
     axios
       .post("http://localhost:5000/adminlogin", userData)
@@ -62,7 +33,6 @@ export const loginUser = (userData, userType, history) => (dispatch) => {
       .catch((err) => {
         console.log(err);
       });
->>>>>>> b510158b3bfd95429ddb29830f95e7aad2fed3aa
 
   }
   if (userType === "teacher") {
