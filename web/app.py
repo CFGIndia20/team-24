@@ -287,9 +287,8 @@ def load_user(id):
 
 @app.route('/getStudentDetails')
 @cross_origin()
+@login_required
 def getStudentDetails():
-    #if current_user.role!='Admin':
-        #return jsonify({'status':"Not allowed"}), 403
 
     students_data = students_ref.get()
     student=[]
@@ -297,10 +296,25 @@ def getStudentDetails():
         student_dict=row.to_dict()
         student.append(student_dict)
     data = {"data":student}
-    return jsonify(data)
+    return jsonify(data), 200
+
+@app.route('/getTeacherDetails')
+@cross_origin()
+@login_required
+def getTeacherDetails():
+    if current_user.role=='Student':
+        return jsonify({'status':'Not Allowed'}), 403
+    teachers_data = teachers_ref.get()
+    teacher=[]
+    for row in teachers_data:
+        teachers_dict=row.to_dict()
+        teacher.append(teachers_dict)
+    data = {"data":teacher}
+    return jsonify(data), 200
 
 
 @app.route('/getJobDetails')
+@login_required
 @cross_origin()
 def getJobDetails():
     if current_user.role == "Teacher":
@@ -312,6 +326,10 @@ def getJobDetails():
         student.append(job_dict)
     data = {"data":job}
     return jsonify(data)
+
+
+
+
 
 #LOGOUT ROUTES
 @app.route('/logout')
