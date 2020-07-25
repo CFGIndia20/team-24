@@ -41,7 +41,7 @@ def student_signup():
     student=None
     for row in students_data:
         student_dict=row.to_dict()
-        if student_dict['email']==student_email:
+        if student_dict['email'] == student_email:
             student=student_dict
             break
     if student!=None:
@@ -285,6 +285,7 @@ def load_user(id):
         user = User(Name,Email,Password, None, None,None, None, None, None,"Admin")
         return user
 
+#for job portal
 @app.route('/getStudentDetails')
 @cross_origin()
 @login_required
@@ -312,7 +313,7 @@ def getTeacherDetails():
     data = {"data":teacher}
     return jsonify(data), 200
 
-
+#for job portal
 @app.route('/getJobDetails')
 @login_required
 @cross_origin()
