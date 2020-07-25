@@ -119,7 +119,7 @@ def student_login():
         if student['email']==Email:
             break
     if student==None:
-        return jsonify({'status' : 'ERROR ,Student email doesnt exist'})
+        return jsonify({'status' : 'ERROR ,Student email doesnt exist'}), 404
     hashPass=student['password']
     if check_password_hash(hashPass, Password):
         id=student.id
@@ -132,9 +132,9 @@ def student_login():
         print("All details fetched!")
         user = User(id,Name,Email,Password, phoneNo, dob,None, starting_score, student_assigned_slot, None,"Student")
         login_user(user)
-        return jsonify({'status' : 'Student Login successful'})
+        return jsonify({'status' : 'Student Login successful'}), 200
     else:
-        return jsonify({'status' : 'Student Wrong password'})
+        return jsonify({'status' : 'Student Wrong password'}), 400
 
 
 

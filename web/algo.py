@@ -25,13 +25,13 @@ slot = {
     8:[]
 }
 
+
 def isValid(i):
-    if len(slot[i]) <= 15:
+    if len(slot[i]) <= 1:
         return True
 
 
 def check_preference():
-
     for key,value in batches.items():
         student = value
         for j in student:
@@ -40,8 +40,6 @@ def check_preference():
                     slot[i].append(j)
                     break
     print(slot)
-                    
-
-
 
 check_preference()
+
