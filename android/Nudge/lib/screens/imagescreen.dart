@@ -5,8 +5,10 @@ import "package:Nudge/data/list.dart";
 import "package:url_launcher/url_launcher.dart";
 import "package:google_fonts/google_fonts.dart";
 import "package:Nudge/data/globals.dart" as global;
+import "package:cloud_firestore/cloud_firestore.dart";
 
 class ImageScreen extends StatelessWidget {
+
   final String url;
   var listc = SList.h.toList();
   ImageScreen(this.url);
