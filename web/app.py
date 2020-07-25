@@ -158,3 +158,13 @@ def load_user(id):
         #fetch only email and id from admin table where admin_id = id
         user = User(id,None,Email,Password, None, None,None, None, None, None,"Admin")
         return user
+
+#LOGOUT ROUTES
+@app.route('/logout')
+#@login_required
+def logout():
+    logout_user()
+    return redirect(url_for('hello'))
+
+if __name__ == '__main__':
+    app.run(debug=True)
