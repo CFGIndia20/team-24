@@ -10,28 +10,29 @@ import "package:cloud_firestore/cloud_firestore.dart";
 class HomePage extends StatefulWidget {
   // String emailid;
   // HomePage(this.emailid);
-  static const routename="/homepage";
+  static const routename = "/homepage";
   @override
   _HomePageState createState() => _HomePageState();
 }
 
 class _HomePageState extends State<HomePage> {
-  
-
-  void getData1() async{
-    final databaseReference =await  Firestore.instance;
-  databaseReference
-      .collection("teachers")
-      .getDocuments()
-      .then((QuerySnapshot snapshot) {
-    snapshot.documents.forEach((f) {
-      //  print('${f.data}}');
-      print(global.emailid);
-      if (f.data["email"]=="E8@gmail.com")
-      print('${f.data["email"]}}');
-      print('${f.data}}');
+  void getData1() async {
+    final databaseReference = await Firestore.instance;
+    databaseReference
+        .collection("students")
+        .getDocuments()
+        .then((QuerySnapshot snapshot) {
+      snapshot.documents.forEach((f) {
+        //  print('${f.data}}');
+        print(global.emailid);
+        if (f.data["email"] == global.emailid) {
+          // print('${f.data["email"]}}');
+          // print('${f.data}}');
+          print("done\n\n\n\n\n\n\n");
+        }
+        else print("nope");
       });
-  });
+    });
 //   databaseReference
 //     .collection("teachers")
 //     .where("address.country", isEqualTo: "USA")
@@ -42,14 +43,14 @@ class _HomePageState extends State<HomePage> {
 //   });
 // });
 // }
-}
- 
+  }
+
   @override
   Widget build(BuildContext context) {
-      // final User user = ModalRoute.of(context).settings.arguments;
-  
+    // final User user = ModalRoute.of(context).settings.arguments;
+
     return Scaffold(
-      backgroundColor: Colors.black87,
+        backgroundColor: Colors.black87,
         appBar: AppBar(
           title: Text("Nudge"),
         ),
@@ -58,7 +59,7 @@ class _HomePageState extends State<HomePage> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               CarouselSlider(
-                height: MediaQuery.of(context).size.height*0.85,
+                height: MediaQuery.of(context).size.height * 0.85,
                 items: SList.list.map((link) {
                   return Builder(builder: (BuildContext context) {
                     return Container(
@@ -71,39 +72,41 @@ class _HomePageState extends State<HomePage> {
                               borderRadius: BorderRadius.circular(20),
                               child: GestureDetector(
                                 child: Image.network(link, fit: BoxFit.cover),
-                                onTap: (){
+                                onTap: () {
                                   getData1();
                                   print(global.emailid);
-                                  Navigator.push<Widget>(context,MaterialPageRoute(
-                                    builder: (context)=>ImageScreen(link),
-                                  ),
+                                  Navigator.push<Widget>(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => ImageScreen(link),
+                                    ),
                                   );
                                 },
                               ),
                             ),
                             Expanded(
                               child: Padding(
-                                padding: EdgeInsets.symmetric(
-                                  vertical: 10,
-                                  horizontal: 20,
-                                ),
-                                child: GestureDetector(
-                                                                  child: Text(
-                                    SList.listtitle[link],
-                                    style: GoogleFonts.pacifico(
-                                      fontSize: 40,
-                                      color: Colors.white,
-                                    ),
-                                    
+                                  padding: EdgeInsets.symmetric(
+                                    vertical: 10,
+                                    horizontal: 20,
                                   ),
-                                  onTap: (){
-                                  Navigator.push<Widget>(context,MaterialPageRoute(
-                                    builder: (context)=>ImageScreen(link),
-                                  ),
-                                  );
-                                  }
-                                )
-                              ),
+                                  child: GestureDetector(
+                                      child: Text(
+                                        SList.listtitle[link],
+                                        style: GoogleFonts.pacifico(
+                                          fontSize: 40,
+                                          color: Colors.white,
+                                        ),
+                                      ),
+                                      onTap: () {
+                                        Navigator.push<Widget>(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) =>
+                                                ImageScreen(link),
+                                          ),
+                                        );
+                                      })),
                             )
                           ],
                         )
@@ -143,6 +146,9 @@ class _HomePageState extends State<HomePage> {
 // class User {
 //   final String userName;
 //   final String password;
- 
+
 //   User(this.userName, this.password);
 // }
+
+
+// com.example.Nudge

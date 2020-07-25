@@ -1,6 +1,8 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import "./index.css"
+import { logout } from "../../redux/actions/authActions"
+import { connect } from "react-redux";
 const SidebarComponent = (props) => {
     let location = useLocation()
     let path = location.pathname
@@ -13,7 +15,7 @@ const SidebarComponent = (props) => {
                 <Link to="/jobs" style={{ textDecoration: "none" }}><span className={path === "/jobs" ? "selected-nav" : ""}><i className="fa fa-briefcase" aria-hidden="true"></i>  Job Listing</span></Link>
                 <Link to="/userprofile" style={{ textDecoration: "none" }}><span className={path === "/userprofile" ? "selected-nav" : ""}><i className="fa fa fa-user-o" aria-hidden="true"></i>  Profile</span></Link>
                 <Link to="/leaderboard" style={{ textDecoration: "none" }}><span className={path === "/leaderboard" ? "selected-nav" : ""}><i className="fa fa-calendar-o" aria-hidden="true"></i>  Leaderboard</span></Link>
-                <Link to="/" style={{ textDecoration: "none" }}><span><i className="fa fa-sign-out" aria-hidden="true"></i>  Log out</span></Link>
+                <Link to="/" style={{ textDecoration: "none" }}><span onClick={e => props.logout(e)}><i className="fa fa-sign-out" aria-hidden="true"></i>  Log out</span></Link>
             </div >
         );
     }
@@ -40,4 +42,4 @@ const SidebarComponent = (props) => {
     }
 }
 
-export default SidebarComponent;
+export default connect(null, { logout })(SidebarComponent);
