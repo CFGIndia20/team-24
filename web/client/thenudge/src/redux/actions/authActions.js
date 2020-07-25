@@ -1,4 +1,4 @@
-import { GET_ERRORS, SET_USER_DATA } from "./types";
+import { SET_USER_DATA } from "./types";
 import axios from "axios";
 
 
@@ -8,8 +8,12 @@ export const loginUser = (userData,userType) => (dispatch) => {
     if (userType === "admin"){
         axios
           .post("http://localhost:5000/adminlogin", userData)
-          .then((res) => {
-          })
+          .then((res) =>
+            dispatch({
+              type: SET_USER_DATA,
+              payload: res.data.role,
+            })
+          )
           .catch((err) => {
             console.log(err);
           });
@@ -18,9 +22,10 @@ export const loginUser = (userData,userType) => (dispatch) => {
       console.log('af');
         axios
           .post("http://localhost:5000/studentlogin", userData)
-          .then((res) => {
-            console.log(res.data);
-          })
+          .then((res) => dispatch({
+            type:SET_USER_DATA,
+            payload: res.data.role
+          }))
           .catch((err) => {
             console.log(err);
           });
@@ -30,9 +35,12 @@ export const loginUser = (userData,userType) => (dispatch) => {
 
         axios
           .post("http://localhost:5000/teacherlogin", userData)
-          .then((res) => {
-            console.log(res.data);
-          })
+          .then((res) =>
+            dispatch({
+              type: SET_USER_DATA,
+              payload: res.data.role,
+            })
+          )
           .catch((err) => {
             console.log(err);
           });
