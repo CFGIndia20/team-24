@@ -10,7 +10,9 @@ app.config['CORS_HEADERS'] = 'Content-Type'
 cred = credentials.Certificate('service.json')
 default_app = initialize_app(cred)
 db = firestore.client()
-
+login_manager = LoginManager()
+login_manager.init_app(app)
+login_manager.login_view = "login"
 teachers_ref = db.collection('teachers')
 students_ref=db.collection('students')
 admins_ref=db.collection('admins')
@@ -18,6 +20,13 @@ admins_ref=db.collection('admins')
 @cross_origin()
 def hello():
     return jsonify({'status': 'Home Route'})
+
+
+
+#test Route
+@app.route('/')
+def home():
+    return jsonify({'status' : 'home'})
 
 
 #student signup route
@@ -97,9 +106,9 @@ def teacher_login():
         print("All details fetched!")
         user = User(id,Name,Email,Password, phoneNo, dob,None, None, None, teacher_assigned_slot,"Teacher")
         login_user(user)
-        return jsonify({'status' : 'Teacher Login successful'})  
+        return jsonify({'status' : 'Teacher Login successful'})
     else:
-        return jsonify({'status' : 'Teacher Wrong password'})      
+        return jsonify({'status' : 'Teacher Wrong password'})
 
 
 
@@ -217,4 +226,4 @@ def load_user(id):
         return user
 
 if __name__ == "__main__":
-    app.run()
+    app.run(debug=True)
