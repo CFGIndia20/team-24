@@ -15,10 +15,10 @@
   .sidenav a {
     padding: 6px 8px 6px 16px;
     text-decoration: none;
-    font-size: 25px;
+    font-size: 20px;
     color: white;
     display: block;
-    margin:20px 0px
+    margin:10px 0px
   }
   
   /* When you mouse over the navigation links, change their color */

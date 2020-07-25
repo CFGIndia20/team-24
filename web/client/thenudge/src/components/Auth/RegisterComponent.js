@@ -1,11 +1,15 @@
 import React, { Component } from 'react';
 import TextFieldGroup from '../Common/TextFieldGroupComponent';
+<<<<<<< HEAD
 import SelectFieldGroupComponent from '../Common/SelectFieldGroupComponent';
 import { withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { resgisterStudent } from '../../redux/actions/authActions';
 
+=======
+import HeaderComponent from "../Layout/HeaderComponent"
+>>>>>>> c1e6856bd6822ae9df0d5a1e6909bf13077f9e01
 class RegisterComponent extends Component {
   constructor(props) {
     super(props);
@@ -64,6 +68,7 @@ class RegisterComponent extends Component {
       { label: "7 - 8 P.M.", value: "13" },
     ];
     return (
+<<<<<<< HEAD
       <div className="container mt-5 mb-5">
         <h1 className="display-4 text-center">Register</h1>
         <div className="row justify-content-center">
@@ -138,9 +143,63 @@ class RegisterComponent extends Component {
                 Register
               </button>
             </form>
+=======
+      <>
+        <HeaderComponent />
+        <div className="container mt-5">
+          <h1 className="display-4 text-center">Register</h1>
+          <div className="row justify-content-center">
+            <div className="col-md-4 col-lg-4 mt-5">
+              <form className="form-container" noValidate>
+                <TextFieldGroup
+                  name="name"
+                  type="text"
+                  error={errors.name}
+                  onChange={this.onChange}
+                  placeholder="Name"
+                  value={this.state.name}
+                />
+                <TextFieldGroup
+                  name="email"
+                  type="email"
+                  error={errors.email}
+                  onChange={this.onChange}
+                  placeholder="Email"
+                  value={this.state.email}
+                />
+                <TextFieldGroup
+                  name="aadhaar"
+                  type="text"
+                  error={errors.aadhaar}
+                  onChange={this.onChange}
+                  placeholder="Aadhaar Number"
+                  value={this.state.aadhaar}
+                />
+                <TextFieldGroup
+                  name="password"
+                  type="password"
+                  error={errors.password}
+                  onChange={this.onChange}
+                  placeholder="Password"
+                  value={this.state.password}
+                />
+                <TextFieldGroup
+                  name="password2"
+                  type="password"
+                  error={errors.password2}
+                  onChange={this.onChange}
+                  placeholder="Confirm Password"
+                  value={this.state.password2}
+                />
+                <button type="submit" className="p-1 btn btn-lg btn-primary btn-block">
+                  Register
+                  </button>
+              </form>
+            </div>
+>>>>>>> c1e6856bd6822ae9df0d5a1e6909bf13077f9e01
           </div>
         </div>
-      </div>
+      </>
     );
   }
 }

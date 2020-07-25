@@ -142,18 +142,12 @@ def teacher_login():
         user = User(id,Name,Email,Password, phoneNo, dob,None, None, None, teacher_assigned_slot,"Teacher")
         login_user(user)
 <<<<<<< HEAD
-        return jsonify({'status' : 'Teacher Login successful'})
-    else:
-        return jsonify({'status' : 'Teacher Wrong password'})
-=======
-<<<<<<< HEAD
         return jsonify({'status' : 'Teacher Login successful', 'role':'teacher'})
 =======
         return jsonify({'status' : 'Teacher Login successful'}), 200
 >>>>>>> 5c0e69ad643eb6e1367c9fbed89a3122a9f03444
     else:
         return jsonify({'status' : 'Teacher Wrong password'}), 402
->>>>>>> 273e120e6b03b94c04e497717bb86014e4c0861f
 
 
 
