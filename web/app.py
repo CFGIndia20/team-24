@@ -37,21 +37,42 @@ def student_signup():
     student_name = data['Name']
     student_email = data['Email']
     #check if email exists in student database, if yes
-    #if email exists:
-    if email in student_database:
-        return jsonify({'status': 'Duplicate signup. Failed'})
-
+    students_data = students_ref.get()
+    student_=None
+    for row in students_data:
+        student_dict=row.to_dict()
+        if student_dict['email']==student_email:
+            student=student_dict
+            break
+    if student!=None:
+        return jsonify({'status': 'Duplicate signup. Failed'})   
+    #If no duplicate signup then
     student_phno = data['PhoneNo']
+    # student_phno = data['PhoneNo']
     student_password = data['Password']
     hashedPassword = generate_password_hash(student_password, method='sha256')
     student_dob = data['dob']
     student_attendance = data['attendance']
     student_starting_score = data['student_starting_score']
     assigned_slot = data['student_assigned_slot']
+    preference1 = data['pref1']
+    preference2 = data['pref2']
+    preference3 = data['pref3']
 
     #add all these values as a single record of a student in the Student database
-
-
+    try:
+        students_ref.document().set({
+            "name": student_name,
+            "password":hashedPassword ,
+            "email":student_email,
+            "phoneNo":student_phno,
+            "dob":student_dob ,
+            "student_attendance":student_attendance,
+            "starting_score":student_starting_score,
+            "student_assigned_slot":assigned_slot
+        })
+    except:
+        return jsonify({'status': 'student Unsignup successful'})
     return jsonify({'status': 'student signup successful'})
 
 
@@ -65,17 +86,32 @@ def teacher_signup():
     teacher_email = data['Email']
     #check if email exists in tea database, if yes
     #if email exists:
-    if teacher_email in teacher_database:
+    teachers_data = teachers_ref.get()
+    teacher=None
+    for row in teachers_data:
+        teacher_dict=row.to_dict()
+        if teacher_dict['email']==teacher_email:
+            teacher=teacher_dict
+            break
+    if teacher!=None:
         return jsonify({'status': 'Duplicate signup. Failed'})
-
     teacher_phno = data['PhoneNo']
     teacher_password = data['Password']
     hashedPassword = generate_password_hash(teacher_password, method='sha256')
     teacher_dob = data['dob']
     teacher_assigned_slot = data['teacher_assigned_slot']
-
     #add all these values as a single record of a teacher in the teacher database
-
+    try:
+        teachers_ref.document().set({
+        "name": teacher_name,
+        "password":hashedPassword, 
+        "email":teacher_email,
+        "phoneNo":teacher_phno,
+        "dob":teacher_dob ,
+        "teacher_assigned_slot":teacher_assigned_slot
+        })
+    except:
+        return jsonify({'status': 'teacher signup Unsuccessful'})
     return jsonify({'status': 'teacher signup successful'})
 
 
@@ -89,15 +125,16 @@ def teacher_login():
     Password = data['Password']
     teachers_data = teachers_ref.get()
     teacher=None
-    for teacher in teachers_data:
-        teacher=teacher.to_dict()
-        if teacher['email']==Email:
+    for row in teachers_data:
+        teacher_dict=row.to_dict()
+        if teacher_dict['email']==Email:
+            teacher=teacher_dict
             break
     if teacher==None:
-        return jsonify({'status' : 'ERROR , email doesnt exist'})
-    hashPass=teacher['password']
-    if check_password_hash(hashPass, Password):
-        id=teacher.id
+        return jsonify({'status' : 'ERROR ,Teacher email doesnt exist'})
+    hashPass=teacher['password']      #If the user info is present in database
+    if check_password_hash(hashPass, Password):     #Checking the password is valid or not
+        id=teacher.id 
         Email=teacher['email']
         Name=teacher['name']
         phoneNo=teacher['phoneNo']
@@ -123,14 +160,15 @@ def student_login():
     Password = data['Password']
     students_data = students_ref.get()
     student=None
-    for student in students_data:
-        student=student.to_dict()
-        if student['email']==Email:
+    for row in students_data:
+        student_dict=row.to_dict()
+        if student_dict['email']==Email:
+            student=student_dict
             break
     if student==None:
         return jsonify({'status' : 'ERROR ,Student email doesnt exist'}), 404
     hashPass=student['password']
-    if check_password_hash(hashPass, Password):
+    if check_password_hash(hashPass, Password):  #Checking the password is valid or not
         id=student.id
         Email=student['email']
         Name=student['name']
@@ -156,9 +194,10 @@ def admin_login():
     Password = data['Password']
     admins_data = admins_ref.get()
     admin=None
-    for admin in admins_data:
-        admin=admin.to_dict()
-        if admin['email']==Email:
+    for row in admins_data:
+        admin_dict=row.to_dict()
+        if admin_dict['email']==Email:
+            admin=admin_dict
             break
     if admin==None:
         return jsonify({'status' : 'ERROR ,Admin email doesnt exist'})
@@ -211,19 +250,40 @@ def is_annonymous(self):
 def load_user(id):
     #check if id is in student,  teachers or admin table.
     #whichever returns a non empty query
+    student = students_ref.document(id).get()    #Check if the id is in student database
+    if student!=None:
+        student=student.to_dict()
+        id=student.id
+        Email=student['email']
+        Name=student['name']
+        phoneNo=student['phoneNo']
+        dob=student['dob']
+        starting_score=student['starting_score']
+        student_assigned_slot=student['student_assigned_slot']
+        Password=""
+        user = User(id,Name,Email,Password, phoneNo, dob,None, starting_score, student_assigned_slot, None,"Student")
+        return user
+        
+    teacher = teachers_ref.document(id).get()  ##Check if the id is in teacher database
+    if(teacher!=None):
+        teacher=teacher.to_dict()
+        id=teacher.id 
+        Email=teacher['email']
+        Name=teacher['name']
+        phoneNo=teacher['phoneNo']
+        dob=teacher['dob']
+        teacher_assigned_slot=teacher['teacher_assigned_slot']
+        Password=""
+        user = User(id,Name,Email,Password, phoneNo, dob,None, None, None, teacher_assigned_slot,"Teacher")
+        return user
 
-    if id in Student:
-        #fetch  name, email, phone, password, dob, attendance, starting_score, student_assigned_slot from STUDENTS TABLE
-        user =User(id,name,email,password, phone, dob,attendance, starting_score, student_assigned_slot, None, "Student")
+    admin = admins_ref.document(id).get()  ##Check if the id is in admin database
+    if admin!=None:
+        admin=admin.to_dict()
+        id=admin.id
+        Name=admin['name']
+        Password=""
+        user = User(id,Name,Email,Password, None, None,None, None, None, None,"Admin")
         return user
-    if id in Teacher:
-        #fetch name, email, phone, password, dob, teacher_assigned_slot from TEACHERS TABLE
-        user =User(id,name,email,password, phone, dob,None, None, None, teacher_assigned_slot, "Teacher")
-        return user
-    if id in Admin:
-        #fetch only email and id from admin table where admin_id = id
-        user = User(id,name,Email,Password, None, None,None, None, None, None,"Admin")
-        return user
-
 if __name__ == "__main__":
     app.run(debug=True)
