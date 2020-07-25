@@ -39,12 +39,16 @@ def student_signup():
         return jsonify({'status': 'Duplicate signup. Failed'})   
     #If no duplicate signup then
     student_phno = data['PhoneNo']
+    # student_phno = data['PhoneNo']
     student_password = data['Password']
     hashedPassword = generate_password_hash(student_password, method='sha256')
     student_dob = data['dob']
     student_attendance = data['attendance']
     student_starting_score = data['student_starting_score']
     assigned_slot = data['student_assigned_slot']
+    preference1 = data['pref1']
+    preference2 = data['pref2']
+    preference3 = data['pref3']
 
     #add all these values as a single record of a student in the Student database
     try:
@@ -153,7 +157,7 @@ def student_login():
             student=student_dict
             break
     if student==None:
-        return jsonify({'status' : 'ERROR ,Student email doesnt exist'})
+        return jsonify({'status' : 'ERROR ,Student email doesnt exist'}), 404
     hashPass=student['password']
     if check_password_hash(hashPass, Password):  #Checking the password is valid or not
         id=student.id
@@ -166,9 +170,9 @@ def student_login():
         print("All details fetched!")
         user = User(id,Name,Email,Password, phoneNo, dob,None, starting_score, student_assigned_slot, None,"Student")
         login_user(user)
-        return jsonify({'status' : 'Student Login successful'})
+        return jsonify({'status' : 'Student Login successful'}), 200
     else:
-        return jsonify({'status' : 'Student Wrong password'})
+        return jsonify({'status' : 'Student Wrong password'}), 400
 
 
 
@@ -272,3 +276,5 @@ def load_user(id):
         Password=""
         user = User(id,Name,Email,Password, None, None,None, None, None, None,"Admin")
         return user
+if __name__ == "__main__":
+    app.run()
