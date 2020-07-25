@@ -4,7 +4,6 @@ import "./index.css"
 const SidebarComponent = (props) => {
     let location = useLocation()
     let path = location.pathname
-    console.log(props)
     let user = props.user ? props.user : "student"
     if (user == "student") {
         return (
@@ -22,6 +21,15 @@ const SidebarComponent = (props) => {
             <div className="sidenav">
                 <Link to="/schedule" style={{ textDecoration: "none" }}><span className={path === "/schedule" ? "selected-nav" : ""}><i className="fa fa-calendar" aria-hidden="true"></i>  Schedule</span></Link>
                 <Link to="/teacherprofile" style={{ textDecoration: "none" }}><span className={path === "/teacherprofile" ? "selected-nav" : ""}><i className="fa fa fa-user-o" aria-hidden="true"></i>  TeacherProfile</span></Link>
+                <Link to="/" style={{ textDecoration: "none" }}><span><i class="fa fa-sign-out" aria-hidden="true"></i>  Log out</span></Link>
+            </div >
+        )
+    }
+    if (user == "admin") {
+        return (
+            <div className="sidenav">
+                <Link to="/addslot" style={{ textDecoration: "none" }}><span className={path === "/addslot" ? "selected-nav" : ""}><i className="fa fa-calendar" aria-hidden="true"></i>  Schedule</span></Link>
+                <Link to="/notifications" style={{ textDecoration: "none" }}><span className={path === "/notifications" ? "selected-nav" : ""}><i className="fa fa fa-user-o" aria-hidden="true"></i>  TeacherProfile</span></Link>
                 <Link to="/" style={{ textDecoration: "none" }}><span><i class="fa fa-sign-out" aria-hidden="true"></i>  Log out</span></Link>
             </div >
         )
