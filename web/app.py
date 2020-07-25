@@ -16,6 +16,57 @@ def hello():
     return jsonify({'status': 'Home Route'})
 
 
+#student signup route
+@app.route('/studentsignup', methods=['POST'])
+@cross_origin()
+def student_signup():
+    data = request.get_json()
+    student_name = data['Name']
+    student_email = data['Email']
+    #check if email exists in student database, if yes
+    #if email exists:
+    if email in student_database:
+        return jsonify({'status': 'Duplicate signup. Failed'})
+
+    student_phno = data['PhoneNo']
+    student_password = data['Password']
+    hashedPassword = generate_password_hash(student_password, method='sha256')
+    student_dob = data['dob']
+    student_attendance = data['attendance']
+    student_starting_score = data['student_starting_score']
+    assigned_slot = data['student_assigned_slot']
+
+    #add all these values as a single record of a student in the Student database
+
+
+    return jsonify({'status': 'student signup successful'})
+
+
+
+#teacher signup route
+@app.route('/teachersignup', methods=['POST'])
+@cross_origin()
+def teacher_signup():
+    data = request.get_json()
+    teacher_name = data['Name']
+    teacher_email = data['Email']
+    #check if email exists in tea database, if yes
+    #if email exists:
+    if teacher_email in teacher_database:
+        return jsonify({'status': 'Duplicate signup. Failed'})
+
+    teacher_phno = data['PhoneNo']
+    teacher_password = data['Password']
+    hashedPassword = generate_password_hash(teacher_password, method='sha256')
+    teacher_dob = data['dob']
+    teacher_assigned_slot = data['teacher_assigned_slot']
+
+    #add all these values as a single record of a teacher in the teacher database
+
+    return jsonify({'status': 'teacher signup successful'})
+
+
+#teacher login route
 @app.route('/teacherlogin', methods=['POST'])
 @cross_origin()
 def student_login():
@@ -51,7 +102,7 @@ def student_login():
 
 
 
-
+#student login route
 @app.route('/studentlogin', methods=['POST'])
 @cross_origin()
 def teacher_login():
@@ -87,6 +138,7 @@ def teacher_login():
     return jsonify({'status' : 'Student Login unsuccessful'})
 
 
+#admin login route
 @app.route('/adminlogin', methods=['POST'])
 @cross_origin()
 def admin_login():
@@ -110,7 +162,7 @@ def admin_login():
 
 
 
-#defines  the USER class
+#defines  the USER class common to all 3 stakeholders - for simplicity
 class User(UserMixin):
 
     def __init__(self,id,name,email,password, phoneNo, dob,attendance, starting_score, student_assigned_slot, teacher_assigned_slot,role,active = True):
@@ -140,6 +192,7 @@ def is_annonymous(self):
     return False
     #return true if annon, actual user return false
 
+
 @login_manager.user_loader
 @cross_origin()
 def load_user(id):
@@ -158,13 +211,3 @@ def load_user(id):
         #fetch only email and id from admin table where admin_id = id
         user = User(id,None,Email,Password, None, None,None, None, None, None,"Admin")
         return user
-
-#LOGOUT ROUTES
-@app.route('/logout')
-#@login_required
-def logout():
-    logout_user()
-    return redirect(url_for('hello'))
-
-if __name__ == '__main__':
-    app.run(debug=True)
