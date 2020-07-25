@@ -5,6 +5,7 @@ import { withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { registerStudent } from '../../redux/actions/authActions';
+import { CSSTransition } from 'react-transition-group';
 
 class RegisterComponent extends Component {
   constructor(props) {
