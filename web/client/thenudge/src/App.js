@@ -14,7 +14,8 @@ import Profile from "./components/Student/Profile"
 import Schedule from './components/Student/schedule';
 import { Provider } from 'react-redux';
 import store from './redux/store';
-
+import UserProfile from './components/Student/UserProfile';
+import TeacherProfile from "./components/Teacher/TeacherProfile";
 
 function App() {
   return (
@@ -30,6 +31,8 @@ function App() {
           <Route path="/jobs" component={JobListing}></Route>
           <Route path="/profile" component={Profile}></Route>
           <Route path="/schedule" component={Schedule}></Route>
+          <Route path="/userprofile" component={UserProfile}></Route>
+        <Route path="/teacherprofile" component={TeacherProfile}></Route>
         </Switch>
       </Router>
     </Provider>
