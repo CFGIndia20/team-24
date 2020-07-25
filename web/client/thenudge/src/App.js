@@ -24,11 +24,10 @@ function App() {
   return (
     <Provider store={store}>
       <Router>
-        <HeaderComponent />
         <Switch>
-          <Route exact path="/" component={Landing} />
-          <Route exact path="/login" component={Login} />
-          <Route exact path="/register" component={RegisterComponent} />
+          <Route exact path="/" component={()=>{return(<><HeaderComponent/><Landing/></>)}} />
+          <Route exact path="/login" component={()=>{return(<><HeaderComponent/><Login/></>)}} />
+          <Route exact path="/register" component={()=>{return(<><HeaderComponent/><RegisterComponent/></>)}} />
           <StudentRoute exact path="/student" component={StudentDashboard} />
           <StudentRoute exact path="/leaderboard" component={LeaderBoard} />
           <StudentRoute exact path="/jobs" component={JobListing} />
