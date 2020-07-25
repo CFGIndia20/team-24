@@ -66,22 +66,22 @@ def add_student():
             return jsonify({'status': 'student Unsignup successful'}), 418
     return jsonify({'status': 'student signup successful'}), 200
 
-def addMarks(marks,batch,student_dict,pref,pref_dict):
+def addMarks(marks,batch,student_dict):
     if marks>=50 and marks<60:
         batch["50"].append(student_dict['name'])
-        pref_dict["50"].append(pref)
     elif marks>=60 and marks<70:
         batch["60"].append(student_dict['name'])
-        pref_dict["60"].append(pref)
     elif marks>=70 and marks<80:
         batch["70"].append(student_dict['name'])
-        pref_dict["70"].append(pref)
     elif marks>=80 and marks<90:
         batch["80"].append(student_dict['name'])
-        pref_dict["80"].append(pref)
     else:
         batch["90"].append(student_dict['name'])
-        pref_dict["90"].append(pref)
+
+
+def valid(key,slot):
+    if slot[key][0]<=15:
+        return True
 
 
 @app.route('/allocateBatch')
@@ -94,24 +94,19 @@ def allocatebatch():
         "90":[]
     }
 
-    pref_dict = {
-        "50":[],
-        "60":[],
-        "70":[],
-        "80":[],
-        "90":[]
+    slot_preference={
+        "N"+str(i):0 for i in range(1,76)
     }
 
-    
     slot ={
-        "q1":{0:0},
-        "q2":{0:0},
-        "q3":{0:0},
-        "q4":{0:0},
-        "q5":{0:0},
-        "q6":{0:0},
-        "q7":{0:0},
-        "q8":{0:0},
+        "1":[0,0],
+        "2":[0,0],
+        "3":[0,0],
+        "4":[0,0],
+        "5":[0,0],
+        "6":[0,0],
+        "7":[0,0],
+        "8":[0,0]
     }
 
 
@@ -119,13 +114,24 @@ def allocatebatch():
     for row in students_data:
         student_dict=row.to_dict()
         marks = student_dict['starting_score']
-        pref = student_dict['preference']
-        addMarks(marks,batch,student_dict,pref,pref_dict)
+        addMarks(marks,batch,student_dict)
+        slot_preference[student_dict['name']]=student_dict['preference']
 
-    
+    for key,value in batch.items():
+        student = value
+        for j in student:
+            for key in slot.keys():
+                if key==str(slot_preference[j]):
+                    if valid(key,slot):
+                        slot[key][0] = slot[key][0]+1
+                        break
+                    else:
+                        slot[key][0] = 1
+                        slot[key][1] = slot[key][1]+1
+                        break
                 
         
-    return jsonify({"data":batch,"data1":pref_dict})
+    return jsonify({"data":slot})
 
 
 
