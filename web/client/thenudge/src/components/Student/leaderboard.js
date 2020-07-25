@@ -23,12 +23,12 @@ class Leaderboard extends Component {
                     <div className="container main-content">
                         <div id="container">
                             <div className="row-leaderboard">
-                                <div className="name" style={{ fontWeight: "bold" }}>Name</div><div className="score"
+                                <div className="name" style={{ fontWeight: "bold" }}> Name</div><div className="score"
                                     style={{ fontWeight: "bold" }}>Score</div>
                             </div>
                             {this.state.users.map(user => (
                                 <div className="row-leaderboard">
-                                    <div className="name">{user.name}</div><div className="score">{user.score}</div>
+                                    <div className="name"><i className="fa fa-user-o" aria-hidden="true"></i> {user.name}</div><div className="score">{user.score}</div>
                                 </div>
                             ))}
                         </div>

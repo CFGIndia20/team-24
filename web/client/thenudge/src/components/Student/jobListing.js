@@ -2,7 +2,12 @@ import React, { Component } from 'react';
 import SidebarComponent from "../Layout/SidebarComponent"
 import CardComponent from "../Common/CardComponent"
 import Badge from "../Common/Badge"
+import { connect } from "react-redux"
+import { getJobDetails } from "../../redux/actions/jobAction"
 class JobListing extends Component {
+    componentDidMount() {
+        this.props.getJobDetails()
+    }
     state = {
         jobs: [
             { company: "JP morgan", role: "Analyst", posted: "Today", description: "Hey there" },
@@ -13,6 +18,7 @@ class JobListing extends Component {
         ]
     }
     render() {
+        let jobs = this.props.jobs.data.data
         return (<>
             <SidebarComponent user="student" />
             <div className="main">
@@ -23,8 +29,8 @@ class JobListing extends Component {
                         <Badge title="All" />
                     </div>
                     <div className="row no-gutters justify-content-between card-responsive" >
-                        {this.state.jobs.map(job => (
-                            <div className="hover-magnify">
+                        {jobs.map((job, index) => (
+                            <div className="hover-magnify" key={index}>
                                 <CardComponent
                                     info={job} />
                             </div>
@@ -36,4 +42,7 @@ class JobListing extends Component {
     }
 }
 
-export default JobListing;
+const mapStatetoProps = (state) => ({
+    jobs: state.students.jobs
+})
+export default connect(mapStatetoProps, { getJobDetails })(JobListing);

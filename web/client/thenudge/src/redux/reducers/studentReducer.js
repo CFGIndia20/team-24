@@ -9,6 +9,15 @@ export default function (state = initialState, action) {
         ...state,
         students: action.payload
       };
+    case "ADD_JOB":
+      return {
+        ...state
+      }
+    case "JOB_DETAILS":
+      return {
+        ...state,
+        jobs: action.payload
+      }
     default:
       return state;
   }

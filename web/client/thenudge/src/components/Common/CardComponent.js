@@ -16,9 +16,9 @@ class CardComponent extends Component {
                     <div className="card" style={{ width: 'auto', maxWidth: "400px", minWidth: "200px" }}>
                         <img className="card-img-top" src="https://images.indianexpress.com/2015/04/students-l1.jpg" />
                         <div className="card-body">
-                            <h4 className="card-title">{this.props.info.company}</h4>
-                            <p>{this.props.info.role}</p>
-                            <p className="card-text">{this.props.info.description}</p>
+                            <h4 className="card-title">{this.props.info.title}</h4>
+                            <p>{this.props.info.company}</p>
+                            <p className="card-text">{this.props.info.skills}</p>
                             <a className="btn" style={{ backgroundColor: "#022c5e", color: "white" }}>Apply</a>
                         </div>
                     </div>

@@ -12,6 +12,7 @@ export const loginUser = (userData, userType, history) => (dispatch) => {
         dispatch({
           type: SET_USER_DATA,
           payload: res.data.role,
+          data: res.data
         });
         history.push('/admin-dashboard');
       })
@@ -27,6 +28,7 @@ export const loginUser = (userData, userType, history) => (dispatch) => {
         dispatch({
           type: SET_USER_DATA,
           payload: res.data.role,
+          data: res.data
         });
         history.push('/schedule');
       })
