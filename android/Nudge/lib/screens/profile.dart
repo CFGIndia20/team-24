@@ -29,18 +29,18 @@ class UserProfilePage extends StatelessWidget {
   // final String _scores = global.;
 
   Widget _buildCoverImage(Size screenSize) {
-    return Scaffold(
-      appBar: AppBar(title: Text("Profile"),),
+    // return Scaffold(
+    //   appBar: AppBar(title: Text("Profile"),),
           body: Container(
         height: screenSize.height / 2.6,
         decoration: BoxDecoration(
           image: DecorationImage(
-            image: AssetImage('assets/images/cover.jpeg'),
+            image: AssetImage('assets/google_logo.png'),
             fit: BoxFit.cover,
           ),
         ),
-      ),
-    );
+      );
+    // );
   }
 
   Widget _buildProfileImage() {
