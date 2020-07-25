@@ -286,5 +286,18 @@ def load_user(id):
         Password=""
         user = User(id,Name,Email,Password, None, None,None, None, None, None,"Admin")
         return user
+
+@app.route('/getStudentDetails')
+@cross_origin()
+def getStudentDetails():
+    students_data = students_ref.get()
+    student=[]
+    for row in students_data:
+        student_dict=row.to_dict()
+        student.append(student_dict)
+    data = {"data":student}
+    return jsonify(data)
+        
+
 if __name__ == "__main__":
     app.run(debug=True)
