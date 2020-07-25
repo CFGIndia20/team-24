@@ -5,6 +5,7 @@ import "package:Nudge/data/list.dart";
 import "package:Nudge/screens/imagescreen.dart";
 import "package:Nudge/data/list.dart";
 import "package:Nudge/data/globals.dart" as global;
+import "package:cloud_firestore/cloud_firestore.dart";
 
 class HomePage extends StatefulWidget {
   // String emailid;
@@ -15,6 +16,33 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  
+
+  void getData1() async{
+    final databaseReference =await  Firestore.instance;
+  databaseReference
+      .collection("teachers")
+      .getDocuments()
+      .then((QuerySnapshot snapshot) {
+    snapshot.documents.forEach((f) {
+      //  print('${f.data}}');
+      print(global.emailid);
+      if (f.data["email"]=="E8@gmail.com")
+      print('${f.data["email"]}}');
+      print('${f.data}}');
+      });
+  });
+//   databaseReference
+//     .collection("teachers")
+//     .where("address.country", isEqualTo: "USA")
+//     .getDocuments()
+//     .then((value) {
+//   value.documents.forEach((result) {
+//     print(result.data);
+//   });
+// });
+// }
+}
  
   @override
   Widget build(BuildContext context) {
@@ -44,6 +72,7 @@ class _HomePageState extends State<HomePage> {
                               child: GestureDetector(
                                 child: Image.network(link, fit: BoxFit.cover),
                                 onTap: (){
+                                  getData1();
                                   print(global.emailid);
                                   Navigator.push<Widget>(context,MaterialPageRoute(
                                     builder: (context)=>ImageScreen(link),

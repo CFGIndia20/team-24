@@ -41,7 +41,7 @@ def student_signup():
     student=None
     for row in students_data:
         student_dict=row.to_dict()
-        if student_dict['email']==student_email:
+        if student_dict['email'] == student_email:
             student=student_dict
             break
     if student!=None:
@@ -146,7 +146,7 @@ def teacher_login():
         user = User(Name,Email,Password, phoneNo, dob,None, None, None, teacher_assigned_slot,"Teacher")
         login_user(user)
 
-        return jsonify({'status' : 'Teacher Login successful', 'role':'teacher'}), 200
+        return jsonify({'data' : teacher, 'role':'teacher'}), 200
 
     else:
         return jsonify({'status' : 'Teacher Wrong password'}), 418
@@ -183,7 +183,7 @@ def student_login():
         print("All details fetched!")
         user = User(Name,Email,Password, phoneNo, dob,None, starting_score, student_assigned_slot, None,"Student")
         login_user(user)
-        return jsonify({'status' : 'Student Login successful', 'role':'student'}), 200
+        return jsonify({'data' : student, 'role':'student'}), 200
     else:
         return jsonify({'status' : 'Student Wrong password'}), 418
 
@@ -285,6 +285,7 @@ def load_user(id):
         user = User(Name,Email,Password, None, None,None, None, None, None,"Admin")
         return user
 
+#for job portal
 @app.route('/getStudentDetails')
 @cross_origin()
 def getStudentDetails():
@@ -311,7 +312,7 @@ def getTeacherDetails():
     data = {"data":teacher}
     return jsonify(data), 200
 
-
+#for job portal
 @app.route('/getJobDetails')
 @login_required
 @cross_origin()
@@ -322,9 +323,31 @@ def getJobDetails():
     job=[]
     for row in jobs_data:
         job_dict=row.to_dict()
-        student.append(job_dict)
+        job.append(job_dict)
     data = {"data":job}
     return jsonify(data)
+
+
+
+
+#job addition route
+@app.route('/addjob', methods=['POST'])
+@cross_origin()
+def addjob():
+    data = request.get_json()
+    title = data['title']
+    company=data['company']
+    skills = data['skills']
+    #add all these values as a single record of a job in the Jobs database
+    try:
+        jobs_ref.document().set({
+            "title": title,
+            "company":company ,
+            "skills":skills
+        })
+    except:
+        return jsonify({'status': 'job is not added'}), 418
+    return jsonify({'status': 'job is added successful'}), 200
 
 
 

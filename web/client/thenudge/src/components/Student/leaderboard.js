@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import SidebarComponent from "../Layout/SidebarComponent"
-import JobListing from './jobListing';
+
 class Leaderboard extends Component {
     state = {
         users: [
