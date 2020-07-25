@@ -98,11 +98,11 @@ def teacher_signup():
             break
     if teacher!=None:
         return jsonify({'status': 'Duplicate signup. Failed'}), 418
-    teacher_phno = data['PhoneNo']
+    teacher_phno = "9876543210"
     teacher_password = data['Password']
     hashedPassword = generate_password_hash(teacher_password, method='sha256')
     teacher_dob = data['dob']
-    teacher_assigned_slot = data['teacher_assigned_slot']
+    teacher_assigned_slot = []
     #add all these values as a single record of a teacher in the teacher database
     try:
         teachers_ref.document().set({
