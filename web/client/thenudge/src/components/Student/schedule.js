@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import SidebarComponent from "../Layout/SidebarComponent"
 import "./index.css"
+import { connect } from "react-redux"
 class Schedule extends Component {
     state = {}
     render() {
@@ -75,5 +76,7 @@ class Schedule extends Component {
         );
     }
 }
-
-export default Schedule;
+const mapStatetoProps = (state) => ({
+    auth: state.auth
+})
+export default connect(mapStatetoProps, null)(Schedule);

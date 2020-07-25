@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import SidebarComponent from "../Layout/SidebarComponent"
-import JobListing from './jobListing';
+
 class Leaderboard extends Component {
     state = {
         users: [
@@ -18,7 +18,7 @@ class Leaderboard extends Component {
     render() {
         return (
             <>
-                <SidebarComponent />
+                <SidebarComponent user="student" />
                 <div className="main">
                     <div className="container main-content">
                         <div id="container">

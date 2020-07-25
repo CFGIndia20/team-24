@@ -8,17 +8,18 @@
 import React from "react";
 import { Chart, Dataset } from "react-rainbow-components";
 
-export default function ({labels, datasets}) {
+export default function ({labels, dataset}) {
 
     const containerStyles = {
         maxWidth: 600,
     };
 
-    const datasets = datasets.map((dataset) => (
+    const datasets = dataset.map((dataset) => (
       <Dataset
         title={dataset.title}
         values={dataset.values}
         backgroundColor={dataset.color}
+        borderColor={dataset.color}
       />
     ));
     return (

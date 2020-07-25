@@ -1,21 +1,21 @@
 {
   "project_info": {
-    "project_number": "1050949038847",
-    "firebase_url": "https://gurukul-24.firebaseio.com",
-    "project_id": "gurukul-24",
-    "storage_bucket": "gurukul-24.appspot.com"
+    "project_number": "750833765482",
+    "firebase_url": "https://allotify.firebaseio.com",
+    "project_id": "allotify",
+    "storage_bucket": "allotify.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:1050949038847:android:ed8a4fdc6358c2c70992ca",
+        "mobilesdk_app_id": "1:750833765482:android:ba02828f97caeaa8afce13",
         "android_client_info": {
           "package_name": "com.example.Nudge"
         }
       },
       "oauth_client": [
         {
-          "client_id": "1050949038847-f1bkt5dmfr32282gj64b1ifmcabujm6n.apps.googleusercontent.com",
+          "client_id": "750833765482-m4sf0va1etgdkfjvocu5h83hjdqontjk.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.example.Nudge",
@@ -23,20 +23,20 @@
           }
         },
         {
-          "client_id": "1050949038847-alvv0l1ekio8ulv97e5b5ecg33opuoro.apps.googleusercontent.com",
+          "client_id": "750833765482-8j7jjqrtruq9gr8dj7vji820kt1j52tr.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyAdTBOIGJH_cQGju5QZSMjq9Cto4vhJdZQ"
+          "current_key": "AIzaSyBKzjR1tRZSvbI_Gb46peMujV4NDrWbWQE"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "1050949038847-alvv0l1ekio8ulv97e5b5ecg33opuoro.apps.googleusercontent.com",
+              "client_id": "750833765482-8j7jjqrtruq9gr8dj7vji820kt1j52tr.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

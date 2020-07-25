@@ -13,13 +13,14 @@ import JobListing from './components/Student/jobListing';
 import Profile from "./components/Student/Profile"
 import Schedule from './components/Student/schedule';
 import { Provider } from 'react-redux';
-import store from './redux/store';
+import { store, persistor } from './redux/store';
 import UserProfile from './components/Student/UserProfile';
 import TeacherProfile from "./components/Teacher/TeacherProfile";
 import StudentRoute from './components/Common/StudentRoute';
 import AdminRoute from "./components/Common/AdminRoute";
 import TeacherRoute from "./components/Common/TeacherRoute";
 import AddJob from './components/Admin/addjob';
+<<<<<<< HEAD
 import TeacherSchedule from './schedule';
 function App() {
   return (
@@ -78,6 +79,34 @@ function App() {
         </Switch>
         <Route exact path="/teacherdash" component={TeacherSchedule} />
       </Router>
+=======
+import { PersistGate } from 'redux-persist/lib/integration/react';
+import AdminDashboard from './components/Admin/Dashboard';
+import Notify from "./components/Admin/notify"
+
+function App() {
+  return (
+    <Provider store={store}>
+      <PersistGate persistor={persistor} loading={null}>
+        <Router>
+          <Switch>
+            <Route exact path="/" component={() => { return (<><HeaderComponent /><Landing /></>) }} />
+            <Route exact path="/login" component={() => { return (<><HeaderComponent /><Login /></>) }} />
+            <Route exact path="/register" component={() => { return (<><HeaderComponent /><RegisterComponent /></>) }} />
+            <StudentRoute exact path="/student" component={StudentDashboard} />
+            <StudentRoute exact path="/leaderboard" component={LeaderBoard} />
+            <StudentRoute exact path="/jobs" component={JobListing} />
+            <StudentRoute exact path="/schedule" component={Schedule} />
+            <StudentRoute exact path="/userprofile" component={UserProfile} />
+            <TeacherRoute exact path="/teacherprofile" component={TeacherProfile} />
+            <AdminRoute exact path="/adminprofile" component={AddJob} />
+            <AdminRoute exact path="/admin-dashboard" component={AdminDashboard} />
+            <AdminRoute exact path="/addjob" component={AddJob} />
+            <AdminRoute path="/notifications" component={Notify} />
+          </Switch>
+        </Router>
+      </PersistGate>
+>>>>>>> 4d37bd15ddf57b29f55d576ff52a39272d9cb037
     </Provider>
   );
 }

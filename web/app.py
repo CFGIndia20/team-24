@@ -19,6 +19,7 @@ teachers_ref = db.collection('teachers')
 students_ref=db.collection('students')
 admins_ref=db.collection('admins')
 jobs_ref = db.collection('jobs')
+complaints_ref=db.collection('complaints')
 
 
 
@@ -41,7 +42,7 @@ def student_signup():
     student=None
     for row in students_data:
         student_dict=row.to_dict()
-        if student_dict['email']==student_email:
+        if student_dict['email'] == student_email:
             student=student_dict
             break
     if student!=None:
@@ -146,7 +147,7 @@ def teacher_login():
         user = User(Name,Email,Password, phoneNo, dob,None, None, None, teacher_assigned_slot,"Teacher")
         login_user(user)
 
-        return jsonify({'status' : 'Teacher Login successful', 'role':'teacher'}), 200
+        return jsonify({'data' : teacher, 'role':'teacher'}), 200
 
     else:
         return jsonify({'status' : 'Teacher Wrong password'}), 418
@@ -183,7 +184,7 @@ def student_login():
         print("All details fetched!")
         user = User(Name,Email,Password, phoneNo, dob,None, starting_score, student_assigned_slot, None,"Student")
         login_user(user)
-        return jsonify({'status' : 'Student Login successful', 'role':'student'}), 200
+        return jsonify({'data' : student, 'role':'student'}), 200
     else:
         return jsonify({'status' : 'Student Wrong password'}), 418
 
@@ -210,7 +211,7 @@ def admin_login():
     if hashPass == Password:
         user = User(None,Email,Password, None, None,None, None, None, None,"Admin")
         login_user(user)
-        return jsonify({'status' : 'Admin Login successful'}), 200
+        return jsonify({'role' : 'admin'}), 200
     else:
         return jsonify({'status' : 'Admin Wrong password'}), 418
 
@@ -285,9 +286,9 @@ def load_user(id):
         user = User(Name,Email,Password, None, None,None, None, None, None,"Admin")
         return user
 
+#for job portal
 @app.route('/getStudentDetails')
 @cross_origin()
-@login_required
 def getStudentDetails():
 
     students_data = students_ref.get()
@@ -312,7 +313,7 @@ def getTeacherDetails():
     data = {"data":teacher}
     return jsonify(data), 200
 
-
+#for job portal
 @app.route('/getJobDetails')
 @login_required
 @cross_origin()
@@ -323,12 +324,85 @@ def getJobDetails():
     job=[]
     for row in jobs_data:
         job_dict=row.to_dict()
-        student.append(job_dict)
+        job.append(job_dict)
     data = {"data":job}
     return jsonify(data)
 
 
 
+
+#leader_board
+@app.route('/leaderboard',methods=['POST'])
+@cross_origin()
+def get_leader_board():
+    data = request.get_json()
+    batch= data['Batch'] 
+    students_data = students_ref.get()
+    student_leaderboard={}
+    for row in students_data:
+        student_dict=row.to_dict()
+        if student_dict['student_assigned_slot']==batch:   #Finding the students in that batch
+            email=student_dict['email']
+            if email not in student_leaderboard.keys():   #storing email as key in the dictionary
+                student_leaderboard[email]=[student_dict['name'],(student_dict['attendance']+student_dict['starting_score'])/2]
+    return jsonify(student_leaderboard)
+
+    
+#job addition route
+@app.route('/addjob', methods=['POST'])
+@cross_origin()
+def addjob():
+    data = request.get_json()
+    title = data['title']
+    company=data['company']
+    skills = data['skills']
+    #add all these values as a single record of a job in the Jobs database
+    try:
+        jobs_ref.document().set({
+            "title": title,
+            "company":company ,
+            "skills":skills
+        })
+    except:
+        return jsonify({'status': 'job is not added'}), 418
+    return jsonify({'status': 'job is added successful'}), 200
+
+
+#complaint route
+@app.route('/complaint',methods=['POST'])
+@cross_origin()
+def issue_complaint():
+    if current_user.role != "Teacher":
+        return jsonify({'status':"Not allowed"}), 403
+    data = request.get_json()
+    complaint= data['complaint'] 
+    teacher_email=data['email']
+    try:
+        complaints_ref.document().set({
+            "email":teacher_email,
+            "complaint": complaint,
+            "solved": False
+        })
+    except:
+        return jsonify({'status': 'Complaint is not added'}), 418
+    return jsonify({'status': 'Complaint is added'}), 200
+
+    
+    
+#Get complaints list
+@app.route('/getcomplaints')
+@cross_origin()
+def get_complaint():
+    if current_user.role != "Admin":
+        return jsonify({'status':"Not allowed"}), 403
+    complaints_data = complaints_ref.get()
+    unresolved_complaints=[]
+    for row in complaints_data:
+        complaint_dict=row.to_dict()
+        if complaint_dict['solved']==False:   #Finding the only the unresolved complaints
+            unresolved_complaints.append([complaint_dict['email'],complaint_dict['complaint']])
+            
+    return jsonify(unresolved_complaints)
 
 
 #LOGOUT ROUTES

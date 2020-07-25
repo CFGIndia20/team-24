@@ -1,12 +1,12 @@
 import React, { Component } from "react";
-// import SidebarComponent from "component/Layout/SidebarComponent";
+import SidebarComponent from "component/Layout/SidebarComponent";
 import "./components/Teacher/index.css";
 class Schedule extends Component {
   state = {};
   render() {
     return (
       <>
-        {/* <SidebarComponent /> */}
+        <SidebarComponent /> 
         <div className="main">
           <div className="container main-content">
             <div class="card flex-row flex-wrap dash-cont bg-light">
@@ -21,7 +21,6 @@ class Schedule extends Component {
                 </a>
               </div>
               <div class="w-100"></div>
-              {/* <div class="card-footer w-100 text-muted">FOOTER</div> */}
             </div>
 
             <div class="card flex-row flex-wrap dash-cont bg-light">
@@ -36,7 +35,6 @@ class Schedule extends Component {
                 </a>
               </div>
               <div class="w-100"></div>
-              {/* <div class="card-footer w-100 text-muted">FOOTER</div> */}
             </div>
 
             <div class="card flex-row flex-wrap dash-cont bg-light">
@@ -51,7 +49,6 @@ class Schedule extends Component {
                 </a>
               </div>
               <div class="w-100"></div>
-              {/* <div class="card-footer w-100 text-muted">FOOTER</div> */}
             </div>
 
             <div class="card flex-row flex-wrap dash-cont bg-light">
@@ -66,7 +63,6 @@ class Schedule extends Component {
                 </a>
               </div>
               <div class="w-100"></div>
-              {/* <div class="card-footer w-100 text-muted">FOOTER</div> */}
             </div>
           </div>
         </div>
