@@ -3,13 +3,17 @@ from flask import Flask, render_template, request, jsonify, flash, redirect, url
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_cors import CORS, cross_origin
 import requests
-
+from firebase_admin import credentials, firestore, initialize_app
 app = Flask(__name__)
 cors = CORS(app)
 app.config['CORS_HEADERS'] = 'Content-Type'
+cred = credentials.Certificate('service.json')
+default_app = initialize_app(cred)
+db = firestore.client()
 
-
-
+teachers_ref = db.collection('teachers')
+students_ref=db.collection('students')
+admins_ref=db.collection('admins')
 @app.route('/')
 @cross_origin()
 def hello():
@@ -18,73 +22,69 @@ def hello():
 
 @app.route('/teacherlogin', methods=['POST'])
 @cross_origin()
-def student_login():
+def teacher_login():
 
     data = request.get_json()
     Email = data['Email']
     Password = data['Password']
-    with sqlite3.connect('users.db') as con:
-        cur=con.cursor()
-        cur.execute('SELECT userEmail FROM EnrolledUsers where userEmail=?', (Email,))
-        rows=cur.fetchall()
-        if rows==[]: #failed case
-            return jsonify({'status' : 'ERROR , email doesnt exist'})
-        else:
-            cur.execute('SELECT userPassword FROM EnrolledUsers where userEmail=?', (Email,))
-            hashPass = cur.fetchall()[0][0]
-            if check_password_hash(hashPass, Password):
-                #time to instantiate the User object
-                cur.execute('SELECT id FROM EnrolledUsers where userEmail=?', (Email,))
-                id = cur.fetchall()[0][0]
-                cur.execute('SELECT userName FROM EnrolledUsers where userEmail=?', (Email,))
-                Name = cur.fetchall()[0][0]
-                cur.execute('SELECT userDescription FROM EnrolledUsers where userEmail=?', (Email,))
-                Desc = cur.fetchall()[0][0]
-                print("All details fetched!")
-                user = User(id,Name,Email,Password, phoneNo, dob,None, None, None, teacher_assigned_slot,"Teacher")
-                login_user(user)
-                return jsonify({'status' : 'Teacher Login successful'})
-            else:
-                return jsonify({'status' : 'Teacher Wrong password'})
+    teachers_data = teachers_ref.get()
+    teacher=None
+    for teacher in teachers_data:
+        teacher=teacher.to_dict()
+        if teacher['email']==Email:
+            break
+    if teacher==None:
+        return jsonify({'status' : 'ERROR , email doesnt exist'})
+    hashPass=teacher['password']
+    if check_password_hash(hashPass, Password):
+        id=teacher.id
+        Email=teacher['email']
+        Name=teacher['name']
+        phoneNo=teacher['phoneNo']
+        dob=teacher['dob']
+        teacher_assigned_slot=teacher['teacher_assigned_slot']
+        print("All details fetched!")
+        user = User(id,Name,Email,Password, phoneNo, dob,None, None, None, teacher_assigned_slot,"Teacher")
+        login_user(user)
+        return jsonify({'status' : 'Teacher Login successful'})  
+    else:
+        return jsonify({'status' : 'Teacher Wrong password'})      
 
-    return jsonify({'status' : 'Teacher Login unsuccessful'})
 
 
 
 
 @app.route('/studentlogin', methods=['POST'])
 @cross_origin()
-def teacher_login():
+def student_login():
 
     data = request.get_json()
     Email = data['Email']
     Password = data['Password']
-    with sqlite3.connect('users.db') as con:
-        cur=con.cursor()
-        cur.execute('SELECT userEmail FROM EnrolledUsers where userEmail=?', (Email,))
-        rows=cur.fetchall()
-        if rows==[]: #failed case
-            return jsonify({'status' : 'ERROR , email doesnt exist'})
-        else:
-            cur.execute('SELECT userPassword FROM EnrolledUsers where userEmail=?', (Email,))
-            hashPass = cur.fetchall()[0][0]
-            if check_password_hash(hashPass, Password):
-                #time to instantiate the User object
-                cur.execute('SELECT id FROM EnrolledUsers where userEmail=?', (Email,))
-                id = cur.fetchall()[0][0]
-                cur.execute('SELECT userName FROM EnrolledUsers where userEmail=?', (Email,))
-                Name = cur.fetchall()[0][0]
-                cur.execute('SELECT userDescription FROM EnrolledUsers where userEmail=?', (Email,))
-                Desc = cur.fetchall()[0][0]
+    students_data = students_ref.get()
+    student=None
+    for student in students_data:
+        student=student.to_dict()
+        if student['email']==Email:
+            break
+    if student==None:
+        return jsonify({'status' : 'ERROR ,Student email doesnt exist'})
+    hashPass=student['password']
+    if check_password_hash(hashPass, Password):
+        id=student.id
+        Email=student['email']
+        Name=student['name']
+        phoneNo=student['phoneNo']
+        dob=student['dob']
+        starting_score=student['starting_score']
+        student_assigned_slot=student['student_assigned_slot']
+        print("All details fetched!")
+        user = User(id,Name,Email,Password, phoneNo, dob,None, starting_score, student_assigned_slot, None,"Student")
+        login_user(user)
+        return jsonify({'status' : 'Student Login successful'})
+    else:
+        return jsonify({'status' : 'Student Wrong password'})
 
-
-                user = User(id,Name,Email,Password, phoneNo, dob,attendance, starting_score, student_assigned_slot, None,"Student")
-                login_user(user)
-                return jsonify({'status' : 'Student Login successful'})
-            else:
-                return jsonify({'status' : 'Student Wrong password'})
-
-    return jsonify({'status' : 'Student Login unsuccessful'})
 
 
 @app.route('/adminlogin', methods=['POST'])
@@ -93,19 +93,24 @@ def admin_login():
     data = request.get_json()
     Email = data['Email']
     Password = data['Password']
-
-    #fetch email from Admin database where admin_email = Email
-    if response is []:
-        return jsonify({'status':'Admin Email doesnt exist'})
+    admins_data = admins_ref.get()
+    admin=None
+    for admin in admins_data:
+        admin=admin.to_dict()
+        if admin['email']==Email:
+            break
+    if admin==None:
+        return jsonify({'status' : 'ERROR ,Admin email doesnt exist'})
+    hashPass=admin['password']
+    if check_password_hash(hashPass, Password):
+        id=admin.id
+        Name=admin['name']
+        user = User(id,Name,Email,Password, None, None,None, None, None, None,"Admin")
+        login_user(user)
+        return jsonify({'status' : 'Admin Login successful'})
     else:
-        #fetch password from Admin database (which will be in a hash form) where admin_email = Email
-        #store the above result in variable hashPass
+        return jsonify({'status' : 'Admin Wrong password'})
 
-        if check_password_hash(hashPass, Password):
-            #fetch the unique id of our admin where admin_email = Email and store it in id
-            user = User(id,None,Email,Password, None, None,None, None, None, None,"Admin")
-            login_user(user)
-            return jsonify({'status' : 'Admin Login successful'})
 
 
 
@@ -114,7 +119,6 @@ def admin_login():
 class User(UserMixin):
 
     def __init__(self,id,name,email,password, phoneNo, dob,attendance, starting_score, student_assigned_slot, teacher_assigned_slot,role,active = True):
-
         self.id = id
         self.name = name
         self.email = email
@@ -156,7 +160,7 @@ def load_user(id):
         return user
     if id in Admin:
         #fetch only email and id from admin table where admin_id = id
-        user = User(id,None,Email,Password, None, None,None, None, None, None,"Admin")
+        user = User(id,name,Email,Password, None, None,None, None, None, None,"Admin")
         return user
 
 #LOGOUT ROUTES
