@@ -48,13 +48,42 @@ def add_student():
                 "student_attendance": random.randint(60, 100),
                 "starting_score": random.randint(50, 100),
                 "student_assigned_slot":None,
-                "preference1":(i%13)+1,
-                "preference2":((i+1)%13)+1,
-                "preference3":((i+2)%13) + 1
+                "preference":[(i%13)+1,((i+1)%13)+1, ((i+2)%13) + 1 ]
             })
         except:
             return jsonify({'status': 'student Unsignup successful'}), 418
     return jsonify({'status': 'student signup successful'}), 200
+
+def addMarks(marks,batch,student_dict):
+    if marks>=50 and marks<60:
+        batch["50"].append(student_dict['name'])
+    elif marks>=60 and marks<70:
+        batch["60"].append(student_dict['name'])
+    elif marks>=70 and marks<80:
+        batch["70"].append(student_dict['name'])
+    elif marks>=80 and marks<90:
+        batch["80"].append(student_dict['name'])
+    else:
+        batch["90"].append(student_dict['name'])
+
+
+@app.route('/allocateBatch')
+def allocatebatch():
+    batch = {
+        "50":[],
+        "60":[],
+        "70":[],
+        "80":[],
+        "90":[]
+    }
+
+    students_data = students_ref.get()
+    student=[]
+    for row in students_data:
+        student_dict=row.to_dict()
+        marks = student_dict['starting_score']
+        addMarks(marks,batch,student_dict)
+    return jsonify({"data":batch})
 
 if __name__ == "__main__":
     app.run(debug=True)
