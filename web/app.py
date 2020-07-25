@@ -332,19 +332,16 @@ def getJobDetails():
 
 
 #leader_board
-@app.route('/leaderboard',methods=['POST'])
+@app.route('/leaderboard')
 @cross_origin()
 def get_leader_board():
-    data = request.get_json()
-    batch= data['Batch'] 
     students_data = students_ref.get()
     student_leaderboard={}
     for row in students_data:
         student_dict=row.to_dict()
-        if student_dict['student_assigned_slot']==batch:   #Finding the students in that batch
-            email=student_dict['email']
-            if email not in student_leaderboard.keys():   #storing email as key in the dictionary
-                student_leaderboard[email]=[student_dict['name'],(student_dict['attendance']+student_dict['starting_score'])/2]
+        email=student_dict['email']
+        if email not in student_leaderboard.keys():   #storing email as key in the dictionary
+            student_leaderboard[email]=[student_dict['name'],(student_dict['attendance']+student_dict['starting_score'])/2]
     return jsonify(student_leaderboard)
 
     
