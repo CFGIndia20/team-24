@@ -2,7 +2,7 @@ import { GET_ERRORS, SET_USER_DATA } from "./types";
 import axios from "axios";
 
 
-// Action for logging user in
+//Action for logging user in
 export const loginUser = (userData,userType) => (dispatch) => {
     if (userType == "admin"){
         axios
@@ -41,7 +41,7 @@ export const loginUser = (userData,userType) => (dispatch) => {
 }
 
 // Action for registering user
-export const registerStudent = (studentData,history) => {
+export const registerStudent = (studentData,history) => (dispatch) => {
 
   axios.post('http://localhost:5000/studentsignup',studentData)
   .then(res => {
