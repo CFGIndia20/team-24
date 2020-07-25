@@ -23,34 +23,28 @@ import AddJob from './components/Admin/addjob';
 import { PersistGate } from 'redux-persist/lib/integration/react';
 import AdminDashboard from './components/Admin/Dashboard';
 import Notify from "./components/Admin/notify";
-import { TransitionGroup, CSSTransition } from 'react-transition-group';
 
-function App({ location }) {
+function App() {
+
   return (
     <Provider store={store}>
       <PersistGate persistor={persistor} loading={null}>
         <Router>
-          <TransitionGroup>
-            <CSSTransition
-              classNames="slide"
-              timeout={1000}>
-              <Switch>
-                <Route exact path="/" component={() => { return (<><HeaderComponent /><Landing /></>) }} />
-                <Route exact path="/login" component={() => { return (<><HeaderComponent /><Login /></>) }} />
-                <Route exact path="/register" component={() => { return (<><HeaderComponent /><RegisterComponent /></>) }} />
-                <StudentRoute exact path="/student" component={StudentDashboard} />
-                <StudentRoute exact path="/leaderboard" component={LeaderBoard} />
-                <StudentRoute exact path="/jobs" component={JobListing} />
-                <StudentRoute exact path="/schedule" component={Schedule} />
-                <StudentRoute exact path="/userprofile" component={UserProfile} />
-                <TeacherRoute exact path="/teacherprofile" component={TeacherProfile} />
-                <AdminRoute exact path="/adminprofile" component={AddJob} />
-                <AdminRoute exact path="/admin-dashboard" component={AdminDashboard} />
-                <AdminRoute exact path="/addjob" component={AddJob} />
-                <AdminRoute path="/notifications" component={Notify} />
-              </Switch>
-            </CSSTransition>
-          </TransitionGroup>
+          <Switch>
+            <Route exact path="/" component={() => { return (<><HeaderComponent /><Landing /></>) }} />
+            <Route exact path="/login" component={() => { return (<><HeaderComponent /><Login /></>) }} />
+            <Route exact path="/register" component={() => { return (<><HeaderComponent /><RegisterComponent /></>) }} />
+            <StudentRoute exact path="/student" component={StudentDashboard} />
+            <StudentRoute exact path="/leaderboard" component={LeaderBoard} />
+            <StudentRoute exact path="/jobs" component={JobListing} />
+            <StudentRoute exact path="/schedule" component={Schedule} />
+            <StudentRoute exact path="/userprofile" component={UserProfile} />
+            <TeacherRoute exact path="/teacherprofile" component={TeacherProfile} />
+            <AdminRoute exact path="/adminprofile" component={AddJob} />
+            <AdminRoute exact path="/admin-dashboard" component={AdminDashboard} />
+            <AdminRoute exact path="/addjob" component={AddJob} />
+            <AdminRoute path="/notifications" component={Notify} />
+          </Switch>
         </Router>
       </PersistGate>
     </Provider>
