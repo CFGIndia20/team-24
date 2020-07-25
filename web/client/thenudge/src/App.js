@@ -16,23 +16,25 @@ import { Provider } from 'react-redux';
 import store from './redux/store';
 import UserProfile from './components/Student/UserProfile';
 import TeacherProfile from "./components/Teacher/TeacherProfile";
+import StudentRoute from './components/Common/StudentRoute';
+import AdminRoute from "./components/Common/AdminRoute";
+import TeacherRoute from "./components/Common/TeacherRoute";
 
 function App() {
   return (
-    <Provider store={ store }>
+    <Provider store={store}>
       <Router>
-        <HeaderComponent/>
+        <HeaderComponent />
         <Switch>
           <Route exact path="/" component={Landing} />
           <Route exact path="/login" component={Login} />
           <Route exact path="/register" component={RegisterComponent} />
-          <Route path="/student" component={StudentDashboard}></Route>
-          <Route path="/leaderboard" component={LeaderBoard}></Route>
-          <Route path="/jobs" component={JobListing}></Route>
-          <Route path="/profile" component={Profile}></Route>
-          <Route path="/schedule" component={Schedule}></Route>
-          <Route path="/userprofile" component={UserProfile}></Route>
-        <Route path="/teacherprofile" component={TeacherProfile}></Route>
+          <StudentRoute exact path="/student" component={StudentDashboard} />
+          <StudentRoute exact path="/leaderboard" component={LeaderBoard} />
+          <StudentRoute exact path="/jobs" component={JobListing} />
+          <StudentRoute exact path="/schedule" component={Schedule} />
+          <StudentRoute exact path="/userprofile" component={UserProfile }/>
+          <TeacherRoute exact path="/teacherprofile" component={TeacherProfile} />
         </Switch>
       </Router>
     </Provider>
