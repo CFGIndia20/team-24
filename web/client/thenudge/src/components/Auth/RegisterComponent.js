@@ -59,9 +59,9 @@ class RegisterComponent extends Component {
     ];
     return (
       <div className="container mt-5 mb-5">
-        <h1 className="display-4 text-center">Register</h1>
         <div className="row justify-content-center">
-          <div className="col-md-4 col-lg-4 mt-3">
+          <div className="col-md-6 col-lg-4 mt-3 pb-4 bg-light rounded-border box-shadow-around-black">
+            <h1 className="display-4 text-center">Register</h1>
             <form className="form-container" onSubmit={this.onSubmit}>
               <TextFieldGroup
                 name="name"

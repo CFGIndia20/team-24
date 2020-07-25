@@ -52,11 +52,10 @@ class Login extends Component {
         ];
 
         return (
-
-          <div className="container mt-5">
-            <h1 className="display-4 mt-5 text-center">Login</h1>
+          <div className="container mt-5 mb-5">
             <div className="row justify-content-center">
-              <div className="col-md-4 col-lg-4 mt-3">
+              <div className="col-md-6 col-lg-4 mt-3 pb-4 bg-light box-shadow-around-black rounded-border">
+                <h1 className="display-4 text-center">Login</h1>
                 <form
                   className="form-container"
                   onSubmit={this.onSubmit}
@@ -89,14 +88,14 @@ class Login extends Component {
                   />
                   <button
                     type="submit"
-                    className="btn-primary  p-1 btn btn-lg btn-block mb-5"
+                    className="btn-primary  p-1 btn btn-lg btn-block"
                   >
                     Login
                   </button>
-                            </form>
-                        </div>
-                    </div>
-                </div>
+                </form>
+              </div>
+            </div>
+          </div>
         );
     }
 }

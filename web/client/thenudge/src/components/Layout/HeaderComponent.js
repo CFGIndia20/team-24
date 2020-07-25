@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 class NavbarComponent extends Component {
     render() {
         return (
-          <div className="navbar navbar-expand-md navbar-light bg-light">
+          <div className="navbar navbar-expand-md navbar-light bg-light box-shadow-down-black">
             <div className="container">
               <Link to="#" className="navbar-brand">
                 Allotify
