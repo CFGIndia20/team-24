@@ -19,6 +19,7 @@ teachers_ref = db.collection('teachers')
 students_ref=db.collection('students')
 admins_ref=db.collection('admins')
 jobs_ref = db.collection('jobs')
+complaints_ref=db.collection('complaints')
 
 
 
@@ -333,7 +334,7 @@ def getJobDetails():
 #leader_board
 @app.route('/leaderboard',methods=['POST'])
 @cross_origin()
-def get_leader_board(batch):
+def get_leader_board():
     data = request.get_json()
     batch= data['Batch'] 
     students_data = students_ref.get()
@@ -366,6 +367,42 @@ def addjob():
         return jsonify({'status': 'job is not added'}), 418
     return jsonify({'status': 'job is added successful'}), 200
 
+
+#complaint route
+@app.route('/complaint',methods=['POST'])
+@cross_origin()
+def issue_complaint():
+    if current_user.role != "Teacher":
+        return jsonify({'status':"Not allowed"}), 403
+    data = request.get_json()
+    complaint= data['complaint'] 
+    teacher_email=data['email']
+    try:
+        complaints_ref.document().set({
+            "email":teacher_email,
+            "complaint": complaint,
+            "solved": False
+        })
+    except:
+        return jsonify({'status': 'Complaint is not added'}), 418
+    return jsonify({'status': 'Complaint is added'}), 200
+
+    
+    
+#Get complaints list
+@app.route('/getcomplaints')
+@cross_origin()
+def get_complaint():
+    if current_user.role != "Admin":
+        return jsonify({'status':"Not allowed"}), 403
+    complaints_data = complaints_ref.get()
+    unresolved_complaints=[]
+    for row in complaints_data:
+        complaint_dict=row.to_dict()
+        if complaint_dict['solved']==False:   #Finding the only the unresolved complaints
+            unresolved_complaints.append([complaint_dict['email'],complaint_dict['complaint']])
+            
+    return jsonify(unresolved_complaints)
 
 
 #LOGOUT ROUTES
