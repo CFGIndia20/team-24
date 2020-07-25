@@ -8,7 +8,8 @@ import RegisterComponent from './components/Auth/RegisterComponent';
 import Landing from './components/Layout/Landing';
 import SidebarComponent from './components/Layout/SidebarComponent';
 import StudentDashboard from './components/Student/dashboard';
-
+import UserProfile from './components/Student/UserProfile';
+import TeacherProfile from "./components/Teacher/TeacherProfile";
 
 function App() {
   return (
@@ -18,6 +19,8 @@ function App() {
         <Route exact path="/login" component={Login} />
         <Route exact path="/register" component={RegisterComponent} />
         <Route path="/student" component={StudentDashboard}></Route>
+        <Route path="/userprofile" component={UserProfile}></Route>
+        <Route path="/teacherprofile" component={TeacherProfile}></Route>
       </Switch>
     </Router>
   );
