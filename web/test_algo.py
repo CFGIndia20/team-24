@@ -48,7 +48,7 @@ def add_teacher():
 
 @app.route('/addStudent')
 def add_student():
-    for i in range(1, 61):
+    for i in range(1, 76):
 
         try:
             students_ref.document().set({
@@ -94,7 +94,7 @@ def allocatebatch():
     }
 
     slot_preference={
-        "N"+str(i):[] for i in range(1,841)
+        "N"+str(i):[] for i in range(1,76)
     }
 
     slot ={
@@ -120,8 +120,16 @@ def allocatebatch():
         marks = student_dict['starting_score']
         addMarks(marks,batch,student_dict)
         addPref(slot_preference,student_dict)
+
+    for key,value in batch.items():
+        student = value
+        for j in student:
+            for i in slot_preference[j]:
+                slot[i].append(j)
+                break
+                
         
-    return jsonify({"data":slot_preference})
+    return jsonify({"data":slot})
 
 
 
