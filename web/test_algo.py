@@ -43,7 +43,7 @@ def add_teacher():
             "dob": "1/01/01",
             "teacher_assigned_slot":[]
             })
-    
+
     return jsonify({'status': 'teacher signup successful'}), 200
 
 @app.route('/addStudent')
@@ -120,7 +120,7 @@ def allocatebatch():
         marks = student_dict['starting_score']
         addMarks(marks,batch,student_dict)
         addPref(slot_preference,student_dict)
-        
+
     return jsonify({"data":slot_preference})
 
 

@@ -47,17 +47,15 @@ def student_signup():
     if student!=None:
         return jsonify({'status': 'Duplicate signup. Failed'}), 418
     #If no duplicate signup then
-    # student_phno = data['PhoneNo']
-    student_phno = "9876543210"
+    student_phno = data['PhoneNo']
     student_password = data['Password']
     hashedPassword = generate_password_hash(student_password, method='sha256')
     student_dob = data['dob']
     student_attendance = 100
     student_starting_score = data['student_starting_score']
     assigned_slot = 0
-    preference1 = data['pref1']
-    preference2 = data['pref2']
-    preference3 = data['pref3']
+    preference = data['preference']
+
 
     #add all these values as a single record of a student in the Student database
     try:
