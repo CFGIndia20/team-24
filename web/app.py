@@ -215,3 +215,6 @@ def load_user(id):
         #fetch only email and id from admin table where admin_id = id
         user = User(id,name,Email,Password, None, None,None, None, None, None,"Admin")
         return user
+
+if __name__ == "__main__":
+    app.run()

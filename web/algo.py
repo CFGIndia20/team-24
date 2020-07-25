@@ -41,5 +41,25 @@ def check_preference():
                     break
     print(slot)
 
-check_preference()
+trainer = {
+    'xyz':{'count':0, 'time':0, 'slot':[]},
+    'abc':{'count':0, 'time':0, 'slot':[]},
+    'cde':{'count':0, 'time':0, 'slot':[]}
+    }
 
+def assign_trainer():
+    for i in slot:
+        for j in trainer:
+            if len([slot[i]]) == 0:
+                continue
+            if trainer[j]['count'] == 0:
+                trainer[j]['count']+=1
+                trainer[j]['slot'].append(i)
+
+
+    
+
+
+check_preference()
+assign_trainer()
+print(trainer)
