@@ -1,16 +1,18 @@
-import { GET_STUDENTS_DATA,SET_STUDENTS_LOADING } from "./types";
+import { GET_STUDENTS_DATA, SET_STUDENTS_LOADING } from "./types";
 import axios from "axios";
 
 // Action for getting list of all students
 export const getStudents = () => (dispatch) => {
 
     dispatch(setStudentLoading());
- 
+
     axios.get('http://localhost:5000/getStudentDetails')
-    .then(res => {dispatch({
-        type:GET_STUDENTS_DATA,
-        payload: res.data.data
-    })})
+        .then(res => {
+            dispatch({
+                type: GET_STUDENTS_DATA,
+                payload: res.data.data
+            })
+        })
 
 };
 
@@ -18,3 +20,15 @@ export const getStudents = () => (dispatch) => {
 export const setStudentLoading = () => ({
     type: SET_STUDENTS_LOADING
 })
+
+export const getLeader = () => dispatch => [
+    axios.get('http://localhost:5000/leaderboard')
+        .then(res => {
+            console.log(res)
+            dispatch({
+                type: "GET_LEADERBOARD",
+                payload: res.data
+            })
+        })
+
+]

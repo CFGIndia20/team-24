@@ -28,6 +28,12 @@ export default function (state = initialState, action) {
         isLoading: true,
         students: null
       }
+    case "GET_LEADERBOARD":
+      console.log("IN lEader")
+      return {
+        ...state,
+        leader: action.payload
+      }
     default:
       return state;
   }
