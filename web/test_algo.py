@@ -43,7 +43,7 @@ def add_teacher():
             "dob": "1/01/01",
             "teacher_assigned_slot":[]
             })
-    
+
     return jsonify({'status': 'teacher signup successful'}), 200
 
 @app.route('/addStudent')
@@ -188,9 +188,6 @@ def allocatebatch():
                 
         
     return jsonify({"data":teachers})
-
-
-
 
 if __name__ == "__main__":
     app.run(debug=True,port=5002)
