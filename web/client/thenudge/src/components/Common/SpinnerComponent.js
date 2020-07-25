@@ -1,3 +1,8 @@
+// Spinner Component
+//
+// Simple Loading Spinner Component
+//
+
 import React from 'react';
 import spinner from '../../img/spinner.gif';
 

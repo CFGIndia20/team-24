@@ -1,3 +1,10 @@
+// TextFieldComponent
+//
+// A simple reusabele functional text field component for forms
+// which takes name, placeholder, value... as props and renders
+// a text input.
+//
+
 import React from 'react';
 import classnames from 'classnames';
 import PropTypes from 'prop-types';
