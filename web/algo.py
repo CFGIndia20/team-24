@@ -55,6 +55,16 @@ def assign_trainer():
             if trainer[j]['count'] == 0:
                 trainer[j]['count']+=1
                 trainer[j]['slot'].append(i)
+                trainer[j]['time']=1
+                break
+            else:
+                cur_slot = trainer[j]['slot'][-1]
+                if (i-cur_slot) == 1 or (i-trainer[j]['time'][0])>8:
+                    continue
+                else:
+                    trainer[j]['slot'].append(i)
+                    break
+
 
 
     
