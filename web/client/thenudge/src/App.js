@@ -23,17 +23,16 @@ import AddJob from './components/Admin/addjob';
 import { PersistGate } from 'redux-persist/lib/integration/react';
 import AdminDashboard from './components/Admin/Dashboard';
 import Notify from "./components/Admin/notify";
-import { TransitionGroup,CSSTransition } from 'react-transition-group';
+import { TransitionGroup, CSSTransition } from 'react-transition-group';
 
-function App({location}) {
+function App({ location }) {
   return (
     <Provider store={store}>
       <PersistGate persistor={persistor} loading={null}>
         <Router>
           <TransitionGroup>
             <CSSTransition
-              key={location.key} 
-              classNames="slide" 
+              classNames="slide"
               timeout={1000}>
               <Switch>
                 <Route exact path="/" component={() => { return (<><HeaderComponent /><Landing /></>) }} />

@@ -26,6 +26,8 @@ class Leaderboard extends Component {
                 <SidebarComponent user="student" />
                 <div className="main">
                     <div className="container main-content">
+                        <h2 className="display-4">Leaderboard</h2>
+                        <br />
                         <div id="container">
                             <div className="row-leaderboard">
                                 <div className="name" style={{ fontWeight: "bold" }}> Name</div><div className="score"

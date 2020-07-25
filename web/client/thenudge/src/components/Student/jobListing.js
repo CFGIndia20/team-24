@@ -24,7 +24,7 @@ class JobListing extends Component {
             <div className="main">
                 <div className="container main-content">
                     <h2 className="display-4">Job Lists</h2>
-                    <hr />
+                    <br />
                     <div className="row no-gutters justify-content-between card-responsive ">
                         <Badge title="All" />
                     </div>
