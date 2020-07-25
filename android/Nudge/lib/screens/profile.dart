@@ -1,5 +1,6 @@
 import "package:flutter/material.dart";
 import "package:Nudge/screens/homepage.dart";
+import "package:Nudge/data/globals.dart" as global;
 
 
 // "06/08/1999"
@@ -19,13 +20,13 @@ import "package:Nudge/screens/homepage.dart";
 // "90"
 
 class UserProfilePage extends StatelessWidget {
-  final String _fullName = "Nick Frost";
-  final String _emailid = "nick@gmail.com";
+  final String _fullName = global.name;
+  final String _emailid = global.emailid;
   final String _bio =
       "This is your profile";
-  final String _startingscore = "173";
-  final String _attendance = "24";
-  final String _scores = "450";
+  final String _startingscore = global.score;
+  final String _attendance = global.attendance;
+  // final String _scores = global.;
 
   Widget _buildCoverImage(Size screenSize) {
     return Scaffold(
@@ -134,9 +135,9 @@ class UserProfilePage extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: <Widget>[
-          _buildStatItem("Starting Score", _startingscore),
+          _buildStatItem("Score", _startingscore),
           _buildStatItem("Attendance", _attendance),
-          _buildStatItem("Scores", _scores),
+          // _buildStatItem("Scores", _scores),
         ],
       ),
     );

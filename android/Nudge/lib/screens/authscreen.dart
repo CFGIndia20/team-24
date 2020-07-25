@@ -104,8 +104,10 @@ class _AuthCardState extends State<AuthCard>
     'email': '',
     'password': '',
   };
+  
   var _isLoading = false;
   final _passwordController = TextEditingController();
+  final _emailController=TextEditingController();
   AnimationController _controller;
   Animation<Size> _heightAnimation;
   Animation<double> _opacityAnimation;
@@ -255,13 +257,15 @@ class _AuthCardState extends State<AuthCard>
                   TextFormField(
                     decoration: InputDecoration(labelText: 'E-Mail'),
                     keyboardType: TextInputType.emailAddress,
-                    // validator: (value) {
-                    //   if (value.isEmpty || !value.contains('@')) {
-                    //     return 'Invalid email!';
-                    //   }
-                    // },
+                    controller: _emailController,
+                    validator: (value) {
+                      if (value.isEmpty ) {
+                        return 'Invalid email!';
+                      }
+                    },
                     onSaved: (value) {
-                      _authData['email'] = value;
+                      print("email");
+                      _authData['email'] = _emailController.text;
                       global.emailid=value;
                     },
                   ),
@@ -275,7 +279,8 @@ class _AuthCardState extends State<AuthCard>
                     //   }
                     // },
                     onSaved: (value) {
-                      _authData['password'] = value;
+                      print("padd");
+                      _authData['password'] = _passwordController.text;
                     },
                   ),
                   // if (_authMode == AuthMode.Signup)
@@ -316,7 +321,10 @@ class _AuthCardState extends State<AuthCard>
                       child: Text(
                            'LOGIN' ),
                       onPressed: (){
-                          global.emailid=_authData["email"];
+                        print(_emailController.text);
+                        print(_passwordController.text);
+                          global.emailid=_emailController.text;
+                          
                           print(_authData["email"]);
                           print(global.emailid);
                           print("hjf");

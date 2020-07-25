@@ -323,9 +323,31 @@ def getJobDetails():
     job=[]
     for row in jobs_data:
         job_dict=row.to_dict()
-        student.append(job_dict)
+        job.append(job_dict)
     data = {"data":job}
     return jsonify(data)
+
+
+
+
+#job addition route
+@app.route('/addjob', methods=['POST'])
+@cross_origin()
+def addjob():
+    data = request.get_json()
+    title = data['title']
+    company=data['company']
+    skills = data['skills']
+    #add all these values as a single record of a job in the Jobs database
+    try:
+        jobs_ref.document().set({
+            "title": title,
+            "company":company ,
+            "skills":skills
+        })
+    except:
+        return jsonify({'status': 'job is not added'}), 418
+    return jsonify({'status': 'job is added successful'}), 200
 
 
 
