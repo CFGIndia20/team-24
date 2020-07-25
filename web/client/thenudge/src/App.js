@@ -1,14 +1,14 @@
 import React from 'react';
 import './App.css';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import NavbarComponent from './components/Layout/HeaderComponent';
-import { Route, BrowserRouter } from 'react-router-dom'
-
+import Login from "./components/Auth/Login.js"
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom"
 function App() {
   return (
-    <BrowserRouter>
-      <NavbarComponent/>
-    </BrowserRouter>
+    <Router>
+      <Switch>
+        <Route path="/login" component={Login}></Route>
+      </Switch>
+    </Router>
   );
 }
 
