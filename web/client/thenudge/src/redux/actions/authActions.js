@@ -1,41 +1,54 @@
-import { GET_ERRORS, SET_USER_DATA } from "./types";
+import { SET_USER_DATA } from "./types";
 import axios from "axios";
 
 
 //Action for logging user in
-export const loginUser = (userData,userType) => (dispatch) => {
-    if (userType == "admin"){
-        axios
-          .post("http://localhost:5000/adminlogin", {
-            Email: userData.email,
-            Password: userData.password,
-          })
-          .then((res) => {})
-          .catch((err) => {
+export const loginUser = (userData,userType,history) => (dispatch) => {
 
+    if (userType === "admin"){
+        axios
+          .post("http://localhost:5000/adminlogin", userData)
+          .then((res) =>{
+            dispatch({
+              type: SET_USER_DATA,
+              payload: res.data.role,
+            });
+            history.push('/adminprofile');
+          })
+          .catch((err) => {
+            console.log(err);
           });
     }
-    if (userData.type == "student") {
+    if (userType === "student") {
+      console.log('af');
         axios
-          .post("http://localhost:5000/studentlogin", {
-            Email: userData.email,
-            Password: userData.password,
+          .post("http://localhost:5000/studentlogin", userData)
+          .then((res) => {
+            dispatch({
+              type: SET_USER_DATA,
+              payload: res.data.role,
+            });
+            history.push('/schedule');
           })
-          .then((res) => {})
           .catch((err) => {
-
+            console.log(err);
           });
 
     }
-    if (userData.type == "teacher") {
+    if (userType === "teacher") {
 
         axios
-          .post("http://localhost:5000/teacherlogin", {
-            Email: userData.email,
-            Password: userData.password,
+          .post("http://localhost:5000/teacherlogin", userData)
+          .then((res) =>{
+            dispatch({
+              type: SET_USER_DATA,
+              payload: res.data.role,
+            });
+            history.push('/teacherprofile');
           })
-          .then((res) => {})
-          .catch((err) => {});
+          .catch((err) => {
+            console.log(err);
+          });
 
     }
 }

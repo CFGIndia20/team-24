@@ -13,13 +13,13 @@ class CardComponent extends Component {
         if (this.props.info) {
             return (
                 <div style={{ margin: "20px 0px" }}>
-                    <div className="card" style={{ width: 400 }}>
+                    <div className="card" style={{ width: 'auto', maxWidth: "400px", minWidth: "200px" }}>
                         <img className="card-img-top" src="https://images.indianexpress.com/2015/04/students-l1.jpg" alt="Card image" />
                         <div className="card-body">
                             <h4 className="card-title">{this.props.info.company}</h4>
                             <p>{this.props.info.role}</p>
                             <p className="card-text">{this.props.info.description}</p>
-                            <a href="#" className="btn">Apply</a>
+                            <a href="#" className="btn" style={{ backgroundColor: "#022c5e", color: "white" }}>Apply</a>
                         </div>
                     </div>
                 </div>

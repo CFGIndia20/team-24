@@ -3,7 +3,7 @@ import isEmpty from "../../utils/is-empty";
 
 const initialState = {
   isAuthenticated: false,
-  user: {},
+  role: null,
 };
 
 export default function (state = initialState, action) {
@@ -12,7 +12,7 @@ export default function (state = initialState, action) {
       return {
         ...state,
         isAuthenticated: !isEmpty(action.payload),
-        user: action.payload,
+        role: action.payload,
       };
     default:
       return state;
