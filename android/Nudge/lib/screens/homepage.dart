@@ -32,7 +32,8 @@ class _HomePageState extends State<HomePage> {
           global.dob=f.data["dob"];
           global.attendance=f.data["student_attendance"].toString();
           global.phonenumber=f.data["phoneNo"];
-          global.slot=f.data["student_assigned_slot"];
+          global.id=f.data["student_assigned_slot"].toString();
+          global.slot=global.ab[global.id];
           global.score=f.data["starting_score"].toString();
           print(f.data["name"]);
           print("done\n\n\n\n\n\n\n");
