@@ -3,17 +3,18 @@ import axios from "axios";
 
 
 //Action for logging user in
-export const loginUser = (userData,userType) => (dispatch) => {
+export const loginUser = (userData,userType,history) => (dispatch) => {
 
     if (userType === "admin"){
         axios
           .post("http://localhost:5000/adminlogin", userData)
-          .then((res) =>
+          .then((res) =>{
             dispatch({
               type: SET_USER_DATA,
               payload: res.data.role,
-            })
-          )
+            });
+            history.push('/adminprofile');
+          })
           .catch((err) => {
             console.log(err);
           });
@@ -22,10 +23,13 @@ export const loginUser = (userData,userType) => (dispatch) => {
       console.log('af');
         axios
           .post("http://localhost:5000/studentlogin", userData)
-          .then((res) => dispatch({
-            type:SET_USER_DATA,
-            payload: res.data.role
-          }))
+          .then((res) => {
+            dispatch({
+              type: SET_USER_DATA,
+              payload: res.data.role,
+            });
+            history.push('/schedule');
+          })
           .catch((err) => {
             console.log(err);
           });
@@ -35,12 +39,13 @@ export const loginUser = (userData,userType) => (dispatch) => {
 
         axios
           .post("http://localhost:5000/teacherlogin", userData)
-          .then((res) =>
+          .then((res) =>{
             dispatch({
               type: SET_USER_DATA,
               payload: res.data.role,
-            })
-          )
+            });
+            history.push('/teacherprofile');
+          })
           .catch((err) => {
             console.log(err);
           });

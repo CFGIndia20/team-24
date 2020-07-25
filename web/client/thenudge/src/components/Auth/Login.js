@@ -3,7 +3,8 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { loginUser } from '../../redux/actions/authActions';
 import TextFieldGroup from '../Common/TextFieldGroupComponent';
-import SelectFieldGroup from "../Common/SelectFieldGroupComponent"
+import SelectFieldGroup from "../Common/SelectFieldGroupComponent";
+import { withRouter } from 'react-router-dom';
 
 class Login extends Component {
 
@@ -33,7 +34,7 @@ class Login extends Component {
             Password: this.state.password
         }
 
-        this.props.loginUser(user,this.state.designation);
+        this.props.loginUser(user,this.state.designation,this.props.history);
     } 
 
     render() {
@@ -104,4 +105,4 @@ Login.propTypes = {
     loginUser: PropTypes.func.isRequired
 }
 
-export default connect(null,{loginUser})((Login));
+export default connect(null,{loginUser})((withRouter(Login)));
