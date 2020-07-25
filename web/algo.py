@@ -66,6 +66,23 @@ def assign_trainer():
                     break
 
 
+def assign_substitute(slot_available, teacher_leave):
+    for j in trainer:
+        if j == teacher_leave:
+            continue
+        if trainer[j]['count']==0:
+            trainer[j]['count']+=1
+            trainer[j]['slot'].append(i)
+            trainer[j]['time']=1
+            break
+        else:
+            cur_slot = trainer[j]['slot'][-1]
+            if (slot_available-cur_slot) == 1 or (slot_available-trainer[j]['time'][0])>8:
+                continue
+            else:
+                trainer[j]['slot'].append(i)
+                break
+
 
     
 
