@@ -4,7 +4,7 @@ class Profile extends Component {
     state = {}
     render() {
         return (<>
-            <SidebarComponent />
+            <SidebarComponent user="student" />
             <div className="main">
                 <div className="container main-content">
                     hello

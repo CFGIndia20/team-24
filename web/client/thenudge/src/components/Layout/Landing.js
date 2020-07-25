@@ -4,8 +4,7 @@ import { Link } from 'react-router-dom';
 function Landing() {
     return (
       <div className="container mt-5 pt-5">
-
-        <div className="jumbotron pb-3">
+        <div className="jumbotron jumbotron-fluid">
           <h1 className="display-4">Welcome to Allotify!</h1>
           <p className="lead">
             Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do

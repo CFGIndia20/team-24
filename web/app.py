@@ -19,6 +19,7 @@ teachers_ref = db.collection('teachers')
 students_ref=db.collection('students')
 admins_ref=db.collection('admins')
 jobs_ref = db.collection('jobs')
+complaints_ref=db.collection('complaints')
 
 
 
@@ -208,7 +209,7 @@ def admin_login():
     if hashPass == Password:
         user = User(None,Email,Password, None, None,None, None, None, None,"Admin")
         login_user(user)
-        return jsonify({'status' : 'Admin Login successful'}), 200
+        return jsonify({'role' : 'admin'}), 200
     else:
         return jsonify({'status' : 'Admin Wrong password'}), 418
 
@@ -286,7 +287,6 @@ def load_user(id):
 #for job portal
 @app.route('/getStudentDetails')
 @cross_origin()
-@login_required
 def getStudentDetails():
 
     students_data = students_ref.get()
@@ -329,6 +329,20 @@ def getJobDetails():
 
 
 
+#leader_board
+@app.route('/leaderboard')
+@cross_origin()
+def get_leader_board():
+    students_data = students_ref.get()
+    student_leaderboard={}
+    for row in students_data:
+        student_dict=row.to_dict()
+        email=student_dict['email']
+        if email not in student_leaderboard.keys():   #storing email as key in the dictionary
+            student_leaderboard[email]=[student_dict['name'],(student_dict['attendance']+student_dict['starting_score'])/2]
+    return jsonify(student_leaderboard)
+
+    
 #job addition route
 @app.route('/addjob', methods=['POST'])
 @cross_origin()
@@ -349,7 +363,119 @@ def addjob():
     return jsonify({'status': 'job is added successful'}), 200
 
 
+#complaint route
+@app.route('/complaint',methods=['POST'])
+@cross_origin()
+def issue_complaint():
+    if current_user.role != "Teacher":
+        return jsonify({'status':"Not allowed"}), 403
+    data = request.get_json()
+    complaint= data['complaint'] 
+    teacher_email=data['email']
+    try:
+        complaints_ref.document().set({
+            "email":teacher_email,
+            "complaint": complaint,
+            "solved": False
+        })
+    except:
+        return jsonify({'status': 'Complaint is not added'}), 418
+    return jsonify({'status': 'Complaint is added'}), 200
 
+    
+    
+#Get complaints list
+@app.route('/getcomplaints')
+@cross_origin()
+def get_complaint():
+    if current_user.role != "Admin":
+        return jsonify({'status':"Not allowed"}), 403
+    complaints_data = complaints_ref.get()
+    unresolved_complaints=[]
+    for row in complaints_data:
+        complaint_dict=row.to_dict()
+        if complaint_dict['solved']==False:   #Finding the only the unresolved complaints
+            unresolved_complaints.append([complaint_dict['email'],complaint_dict['complaint']])
+            
+    return jsonify(unresolved_complaints)
+
+
+def addMarks(marks,batch,student_dict):
+    if marks>=50 and marks<60:
+        batch["50"].append(student_dict['name'])
+    elif marks>=60 and marks<70:
+        batch["60"].append(student_dict['name'])
+    elif marks>=70 and marks<80:
+        batch["70"].append(student_dict['name'])
+    elif marks>=80 and marks<90:
+        batch["80"].append(student_dict['name'])
+    else:
+        batch["90"].append(student_dict['name'])
+
+
+def valid(key,slot):
+    if slot[key][0]<8:
+        return True
+
+
+@app.route('/allocateBatch')
+def allocatebatch():
+    batch = {
+        "50":[],
+        "60":[],
+        "70":[],
+        "80":[],
+        "90":[]
+    }
+
+    slot_preference={
+        "N"+str(i):0 for i in range(1,76)
+    }
+
+    slot ={
+        "1":[0,0],
+        "2":[0,0],
+        "3":[0,0],
+        "4":[0,0],
+        "5":[0,0],
+        "6":[0,0],
+        "7":[0,0],
+        "8":[0,0]
+    }
+
+
+    students_data = students_ref.get()
+    for row in students_data:
+        student_dict=row.to_dict()
+        marks = student_dict['starting_score']
+        addMarks(marks,batch,student_dict)
+        slot_preference[student_dict['name']]=student_dict['preference']
+
+    for key,value in batch.items():
+        student = value
+        for j in student:
+            for key in slot.keys():
+                if key==str(slot_preference[j]):
+                    if valid(key,slot):
+                        slot[key][0] = slot[key][0]+1
+                        break
+                    else:
+                        slot[key][0] = 1
+                        slot[key][1] = slot[key][1]+1
+                        break
+    
+    for key in slot.keys():
+        if slot[key][0]<4:
+            for j in slot.keys():
+                if key == j:
+                    continue
+                if slot[key][0]+slot[j][0]<=8 and slot[key][0]+slot[j][0]>=4:
+                    slot[key][0]=slot[key][0]+slot[j][0]
+                    slot[j][0]=0
+                
+                
+        
+    return jsonify({"data":slot})
 
 
 #LOGOUT ROUTES
