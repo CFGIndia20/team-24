@@ -13,7 +13,7 @@ export const loginUser = (userData, userType, history) => (dispatch) => {
           type: SET_USER_DATA,
           payload: res.data.role,
         });
-        history.push('/adminprofile');
+        history.push('/admin-dashboard');
       })
       .catch((err) => {
         console.log(err);

@@ -22,7 +22,7 @@ import TeacherRoute from "./components/Common/TeacherRoute";
 import AddJob from './components/Admin/addjob';
 import { PersistGate } from 'redux-persist/lib/integration/react';
 import AdminDashboard from './components/Admin/Dashboard';
-
+import Notify from "./components/Admin/notify"
 
 function App() {
   return (
@@ -40,7 +40,9 @@ function App() {
             <StudentRoute exact path="/userprofile" component={UserProfile} />
             <TeacherRoute exact path="/teacherprofile" component={TeacherProfile} />
             <AdminRoute exact path="/adminprofile" component={AddJob} />
-            <Route exact path="/admin-dashboard" component={AdminDashboard}/>
+            <AdminRoute exact path="/admin-dashboard" component={AdminDashboard} />
+            <AdminRoute exact path="/addjob" component={AddJob} />
+            <AdminRoute path="/notifications" component={Notify} />
           </Switch>
         </Router>
       </PersistGate>

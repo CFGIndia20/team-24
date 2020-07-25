@@ -33,9 +33,9 @@ const SidebarComponent = (props) => {
         return (
             <div className="sidenav">
                 <p className="sidenav-logo"><i className="fa fa-book" aria-hidden="true"></i>  Allotify</p>
-                <Link to="/addslot" style={{ textDecoration: "none" }}><span className={path === "/addslot" ? "selected-nav" : ""}><i className="fa fa-calendar" aria-hidden="true"></i>  Add Slot</span></Link>
+                <Link to="/admin-dashboard" style={{ textDecoration: "none" }}><span className={path === "/admin-dashboard" ? "selected-nav" : ""}><i className="fa fa-hashtag" aria-hidden="true"></i>  Dashboard</span></Link>
                 <Link to="/addjob" style={{ textDecoration: "none" }}><span className={path === "/addjob" ? "selected-nav" : ""}><i className="fa fa-calendar" aria-hidden="true"></i>  Add Job</span></Link>
-                <Link to="/notifications" style={{ textDecoration: "none" }}><span className={path === "/notifications" ? "selected-nav" : ""}><i className="fa fa fa-user-o" aria-hidden="true"></i>  TeacherProfile</span></Link>
+                <Link to="/notifications" style={{ textDecoration: "none" }}><span className={path === "/notifications" ? "selected-nav" : ""}><i className="fa fa fa-user-o" aria-hidden="true"></i>  Notifications</span></Link>
                 <Link to="/" style={{ textDecoration: "none" }}><span><i className="fa fa-sign-out" aria-hidden="true"></i>  Log out</span></Link>
             </div >
         )
