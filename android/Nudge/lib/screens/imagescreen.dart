@@ -1,8 +1,10 @@
 import 'package:Nudge/screens/profile.dart';
+import 'package:Nudge/screens/timetable.dart';
 import "package:flutter/material.dart";
 import "package:Nudge/data/list.dart";
 import "package:url_launcher/url_launcher.dart";
 import "package:google_fonts/google_fonts.dart";
+import "package:Nudge/data/globals.dart" as global;
 
 class ImageScreen extends StatelessWidget {
   final String url;
@@ -90,6 +92,8 @@ class ImageScreen extends StatelessWidget {
       );
       else if(url=="https://cdn2.vectorstock.com/i/1000x1000/20/76/man-avatar-profile-vector-21372076.jpg")
       return UserProfilePage();
+      else if (url=="https://i.pinimg.com/originals/f4/26/90/f4269058bffae58474f816f8613b7a60.png")
+      return Box(global.title);
     
     }
   
