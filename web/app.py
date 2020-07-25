@@ -17,10 +17,7 @@ login_manager.login_view = "login"
 teachers_ref = db.collection('teachers')
 students_ref=db.collection('students')
 admins_ref=db.collection('admins')
-@app.route('/')
-@cross_origin()
-def hello():
-    return jsonify({'status': 'Home Route'})
+
 
 
 
@@ -144,7 +141,7 @@ def teacher_login():
         print("All details fetched!")
         user = User(id,Name,Email,Password, phoneNo, dob,None, None, None, teacher_assigned_slot,"Teacher")
         login_user(user)
-        return jsonify({'status' : 'Teacher Login successful'})
+        return jsonify({'status' : 'Teacher Login successful', 'role':'teacher'})
     else:
         return jsonify({'status' : 'Teacher Wrong password'})
 
@@ -180,7 +177,7 @@ def student_login():
         print("All details fetched!")
         user = User(id,Name,Email,Password, phoneNo, dob,None, starting_score, student_assigned_slot, None,"Student")
         login_user(user)
-        return jsonify({'status' : 'Student Login successful'}), 200
+        return jsonify({'status' : 'Student Login successful', 'role':'student'}), 200
     else:
         return jsonify({'status' : 'Student Wrong password'}), 400
 
@@ -286,5 +283,13 @@ def load_user(id):
         Password=""
         user = User(id,Name,Email,Password, None, None,None, None, None, None,"Admin")
         return user
+
+#LOGOUT ROUTES
+@app.route('/logout')
+#@login_required
+def logout():
+    logout_user()
+    return redirect(url_for('home'))
+
 if __name__ == "__main__":
     app.run(debug=True)
