@@ -32,13 +32,16 @@ def student_signup():
     if email in student_database:
         return jsonify({'status': 'Duplicate signup. Failed'})
 
-    student_phno = data['PhoneNo']
+    # student_phno = data['PhoneNo']
     student_password = data['Password']
     hashedPassword = generate_password_hash(student_password, method='sha256')
     student_dob = data['dob']
-    student_attendance = data['attendance']
+    # student_attendance = data['attendance']
     student_starting_score = data['student_starting_score']
     assigned_slot = data['student_assigned_slot']
+    preference1 = data['pref1']
+    preference2 = data['pref2']
+    preference3 = data['pref3']
 
     #add all these values as a single record of a student in the Student database
 
