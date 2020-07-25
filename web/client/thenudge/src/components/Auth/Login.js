@@ -5,7 +5,7 @@ class Login extends Component {
     render() {
         return (
             <h1>
-                Login
+                hello
             </h1>
         );
     }
