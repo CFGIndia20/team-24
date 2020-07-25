@@ -8,18 +8,31 @@ import RegisterComponent from './components/Auth/RegisterComponent';
 import Landing from './components/Layout/Landing';
 import SidebarComponent from './components/Layout/SidebarComponent';
 import StudentDashboard from './components/Student/dashboard';
+import LeaderBoard from "./components/Student/leaderboard"
+import JobListing from './components/Student/jobListing';
+import Profile from "./components/Student/Profile"
+import Schedule from './components/Student/schedule';
+import { Provider } from 'react-redux';
+import store from './redux/store';
 
 
 function App() {
   return (
-    <Router>
-      <Switch>
-        <Route exact path="/" component={Landing} />
-        <Route exact path="/login" component={Login} />
-        <Route exact path="/register" component={RegisterComponent} />
-        <Route path="/student" component={StudentDashboard}></Route>
-      </Switch>
-    </Router>
+    <Provider store={ store }>
+      <Router>
+        <HeaderComponent/>
+        <Switch>
+          <Route exact path="/" component={Landing} />
+          <Route exact path="/login" component={Login} />
+          <Route exact path="/register" component={RegisterComponent} />
+          <Route path="/student" component={StudentDashboard}></Route>
+          <Route path="/leaderboard" component={LeaderBoard}></Route>
+          <Route path="/jobs" component={JobListing}></Route>
+          <Route path="/profile" component={Profile}></Route>
+          <Route path="/schedule" component={Schedule}></Route>
+        </Switch>
+      </Router>
+    </Provider>
   );
 }
 

@@ -5,9 +5,11 @@ class SidebarComponent extends Component {
     render() {
         return (
             <div className="sidenav">
-                <a href="#"><i class="fa fa fa-user-o" aria-hidden="true"></i>  Profile</a>
-                <a href="#"><i class="fa fa-calendar" aria-hidden="true"></i>  My Slots</a>
-                <a href="#"><i class="fa fa-briefcase" aria-hidden="true"></i>  Job Listing</a>
+                <Link to="/schedule"><a><i className="fa fa-calendar" aria-hidden="true"></i>  Schedule</a></Link>
+                <Link to="/jobs"><a><i className="fa fa-briefcase" aria-hidden="true"></i>  Job Listing</a></Link>
+                <Link to="/profile"><a><i className="fa fa fa-user-o" aria-hidden="true"></i>  Profile</a></Link>
+                <Link to="/leaderboard"><a><i className="fa fa-calendar-o" aria-hidden="true"></i>  Leaderboard</a></Link>
+                <Link to="/"><a><i class="fa fa-sign-out" aria-hidden="true"></i>  Log out</a></Link>
             </div>
         );
     }
