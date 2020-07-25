@@ -1,3 +1,4 @@
+import 'package:Nudge/screens/profile.dart';
 import "package:flutter/material.dart";
 import "package:Nudge/data/list.dart";
 import "package:url_launcher/url_launcher.dart";
@@ -10,7 +11,7 @@ class ImageScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    
+    if(url=="https://www.npg.org.uk/assets/images/Slideshows/Jobs/568_Staff.jpg")
       return Scaffold(
         backgroundColor: Colors.black87,
         appBar: AppBar(
@@ -87,6 +88,8 @@ class ImageScreen extends StatelessWidget {
           ),
         ),
       );
+      else if(url=="https://cdn2.vectorstock.com/i/1000x1000/20/76/man-avatar-profile-vector-21372076.jpg")
+      return UserProfilePage();
     
     }
   
