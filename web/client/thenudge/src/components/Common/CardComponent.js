@@ -14,12 +14,12 @@ class CardComponent extends Component {
             return (
                 <div style={{ margin: "20px 0px" }}>
                     <div className="card" style={{ width: 'auto', maxWidth: "400px", minWidth: "200px" }}>
-                        <img className="card-img-top" src="https://images.indianexpress.com/2015/04/students-l1.jpg" alt="Card image" />
+                        <img className="card-img-top" src="https://images.indianexpress.com/2015/04/students-l1.jpg" />
                         <div className="card-body">
                             <h4 className="card-title">{this.props.info.company}</h4>
                             <p>{this.props.info.role}</p>
                             <p className="card-text">{this.props.info.description}</p>
-                            <a href="#" className="btn" style={{ backgroundColor: "#022c5e", color: "white" }}>Apply</a>
+                            <a className="btn" style={{ backgroundColor: "#022c5e", color: "white" }}>Apply</a>
                         </div>
                     </div>
                 </div>
@@ -27,12 +27,12 @@ class CardComponent extends Component {
         }
         return (
             <div className="card" style={{ width: 400 }}>
-                <img className="card-img-top" src="https://images.indianexpress.com/2015/04/students-l1.jpg" alt="Card image" />
+                <img className="card-img-top" src="https://images.indianexpress.com/2015/04/students-l1.jpg" />
                 <div className="card-body">
                     <h4 className="card-title">{this.state.title}</h4>
                     <p>{this.state.teacher}</p>
                     <p className="card-text">{this.state.description}</p>
-                    <a href="#" className="btn btn-primary">book slot</a>
+                    <a className="btn btn-primary">book slot</a>
                 </div>
             </div>
         );

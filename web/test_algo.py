@@ -66,6 +66,10 @@ def addMarks(marks,batch,student_dict):
     else:
         batch["90"].append(student_dict['name'])
 
+def addPref(slot_preference,student_dict):
+        for i in range(3):
+            slot_preference[student_dict['name']].append(student_dict['preference'][i])
+
 
 @app.route('/allocateBatch')
 def allocatebatch():
@@ -77,13 +81,22 @@ def allocatebatch():
         "90":[]
     }
 
+    slot_preference={
+        "N"+str(i):[] for i in range(1,841)
+    }
+
+
     students_data = students_ref.get()
-    student=[]
     for row in students_data:
         student_dict=row.to_dict()
         marks = student_dict['starting_score']
         addMarks(marks,batch,student_dict)
-    return jsonify({"data":batch})
+        addPref(slot_preference,student_dict)
+        
+    return jsonify({"data":slot_preference})
+
+
+
 
 if __name__ == "__main__":
     app.run(debug=True)
