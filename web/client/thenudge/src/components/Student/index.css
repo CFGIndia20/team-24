@@ -9,7 +9,17 @@
   .main-content{
       padding:60px 0px
   }
-
+  .card-responsive{
+    padding: 0px 100px;
+  }
+  @media screen and (max-width:600px){
+    .card-responsive{
+      padding: 0px !important
+    }
+    .hover-magnify:hover{
+      transform: none !important;
+      }
+  }
   .settings {
   display: inline-flex;
   flex-direction: column;

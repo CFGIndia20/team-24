@@ -17,10 +17,10 @@ class JobListing extends Component {
             <SidebarComponent />
             <div className="main">
                 <div className="container main-content">
-                    <div className="row no-gutters justify-content-between " style={{ padding: "0px 100px" }}>
+                    <div className="row no-gutters justify-content-between card-responsive ">
                         <Badge title="All" />
                     </div>
-                    <div className="row no-gutters justify-content-between" style={{ padding: "0px 100px" }}>
+                    <div className="row no-gutters justify-content-between card-responsive" >
                         {this.state.jobs.map(job => (
                             <div className="hover-magnify">
                                 <CardComponent
