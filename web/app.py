@@ -146,7 +146,7 @@ def teacher_login():
         user = User(Name,Email,Password, phoneNo, dob,None, None, None, teacher_assigned_slot,"Teacher")
         login_user(user)
 
-        return jsonify({'status' : 'Teacher Login successful', 'role':'teacher'}), 200
+        return jsonify({'data' : teacher, 'role':'teacher'}), 200
 
     else:
         return jsonify({'status' : 'Teacher Wrong password'}), 418
@@ -183,7 +183,7 @@ def student_login():
         print("All details fetched!")
         user = User(Name,Email,Password, phoneNo, dob,None, starting_score, student_assigned_slot, None,"Student")
         login_user(user)
-        return jsonify({'status' : 'Student Login successful', 'role':'student'}), 200
+        return jsonify({'data' : student, 'role':'student'}), 200
     else:
         return jsonify({'status' : 'Student Wrong password'}), 418
 
