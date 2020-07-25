@@ -7,6 +7,7 @@ from firebase_admin import credentials, firestore, initialize_app
 app = Flask(__name__)
 cors = CORS(app)
 app.config['CORS_HEADERS'] = 'Content-Type'
+app.secret_key = 'secret-key'
 cred = credentials.Certificate('service.json')
 default_app = initialize_app(cred)
 db = firestore.client()
@@ -38,14 +39,14 @@ def student_signup():
     student_email = data['Email']
     #check if email exists in student database, if yes
     students_data = students_ref.get()
-    student_=None
+    student=None
     for row in students_data:
         student_dict=row.to_dict()
         if student_dict['email']==student_email:
             student=student_dict
             break
     if student!=None:
-        return jsonify({'status': 'Duplicate signup. Failed'})   
+        return jsonify({'status': 'Duplicate signup. Failed'})
     #If no duplicate signup then
     student_phno = data['PhoneNo']
     # student_phno = data['PhoneNo']
@@ -104,7 +105,7 @@ def teacher_signup():
     try:
         teachers_ref.document().set({
         "name": teacher_name,
-        "password":hashedPassword, 
+        "password":hashedPassword,
         "email":teacher_email,
         "phoneNo":teacher_phno,
         "dob":teacher_dob ,
@@ -134,7 +135,7 @@ def teacher_login():
         return jsonify({'status' : 'ERROR ,Teacher email doesnt exist'})
     hashPass=teacher['password']      #If the user info is present in database
     if check_password_hash(hashPass, Password):     #Checking the password is valid or not
-        id=teacher.id 
+        id=teacher.id
         Email=teacher['email']
         Name=teacher['name']
         phoneNo=teacher['phoneNo']
@@ -169,7 +170,7 @@ def student_login():
         return jsonify({'status' : 'ERROR ,Student email doesnt exist'}), 404
     hashPass=student['password']
     if check_password_hash(hashPass, Password):  #Checking the password is valid or not
-        id=student.id
+        id=1
         Email=student['email']
         Name=student['name']
         phoneNo=student['phoneNo']
@@ -263,11 +264,11 @@ def load_user(id):
         Password=""
         user = User(id,Name,Email,Password, phoneNo, dob,None, starting_score, student_assigned_slot, None,"Student")
         return user
-        
+
     teacher = teachers_ref.document(id).get()  ##Check if the id is in teacher database
     if(teacher!=None):
         teacher=teacher.to_dict()
-        id=teacher.id 
+        id=teacher.id
         Email=teacher['email']
         Name=teacher['name']
         phoneNo=teacher['phoneNo']
