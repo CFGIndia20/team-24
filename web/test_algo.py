@@ -189,5 +189,18 @@ def allocatebatch():
         
     return jsonify({"data":teachers})
 
+def sub(slot):
+    for j in teachers:
+        if len(teachers[j])==0:
+                teachers[j].append(slot)
+                return
+    for j in teachers:
+        cur_slot = teachers[j][-1]
+        if len(teachers[j])>=3:
+            continue
+        if abs(int(cur_slot)-int(slot))>1:
+            teachers[j].append(slot)
+            break
+
 if __name__ == "__main__":
     app.run(debug=True,port=5002)

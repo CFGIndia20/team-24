@@ -62,7 +62,20 @@ def assign():
                     if abs(int(cur_slot)-int(key))>1:
                         teachers[j].append(key)
                         break
-                
+
+def sub(slot):
+    for j in teachers:
+        if len(teachers[j])==0:
+                teachers[j].append(slot)
+                return
+    for j in teachers:
+        cur_slot = teachers[j][-1]
+        if len(teachers[j])>=3:
+            continue
+        if abs(int(cur_slot)-int(slot))>1:
+            teachers[j].append(slot)
+            break
+
                 
 count = 0
 assign()
