@@ -97,9 +97,9 @@ def teacher_login():
         print("All details fetched!")
         user = User(id,Name,Email,Password, phoneNo, dob,None, None, None, teacher_assigned_slot,"Teacher")
         login_user(user)
-        return jsonify({'status' : 'Teacher Login successful'})  
+        return jsonify({'status' : 'Teacher Login successful'})
     else:
-        return jsonify({'status' : 'Teacher Wrong password'})      
+        return jsonify({'status' : 'Teacher Wrong password'})
 
 
 
@@ -197,7 +197,7 @@ def is_annonymous(self):
     #return true if annon, actual user return false
 
 
-@login_manager.user_loader
+#@login_manager.user_loader
 @cross_origin()
 def load_user(id):
     #check if id is in student,  teachers or admin table.
