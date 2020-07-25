@@ -28,9 +28,16 @@ class _HomePageState extends State<HomePage> {
         if (f.data["email"] == global.emailid) {
           // print('${f.data["email"]}}');
           // print('${f.data}}');
+          global.name=f.data['name'];
+          global.dob=f.data["dob"];
+          global.attendance=f.data["student_attendance"].toString();
+          global.phonenumber=f.data["phoneNo"];
+          global.slot=f.data["student_assigned_slot"];
+          global.score=f.data["starting_score"].toString();
+          print(f.data["name"]);
           print("done\n\n\n\n\n\n\n");
         }
-        else print("nope");
+        // else print("nope");
       });
     });
 //   databaseReference
@@ -72,8 +79,8 @@ class _HomePageState extends State<HomePage> {
                               borderRadius: BorderRadius.circular(20),
                               child: GestureDetector(
                                 child: Image.network(link, fit: BoxFit.cover),
-                                onTap: () {
-                                  getData1();
+                                onTap: () async{
+                                 await getData1();
                                   print(global.emailid);
                                   Navigator.push<Widget>(
                                     context,
