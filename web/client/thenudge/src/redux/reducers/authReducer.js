@@ -14,6 +14,14 @@ export default function (state = initialState, action) {
         isAuthenticated: !isEmpty(action.payload),
         role: action.payload,
       };
+    case "LOGOUT": {
+      return {
+        ...state,
+        isAuthenticated: false,
+        role: null
+      }
+    }
+
     default:
       return state;
   }
