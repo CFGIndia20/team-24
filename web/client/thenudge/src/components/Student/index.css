@@ -102,4 +102,6 @@
     background: #cd7f32;
   }
 
-
+.hover-magnify:hover{
+transform: scale(1.1);
+}

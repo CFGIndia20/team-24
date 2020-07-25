@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import SidebarComponent from "../Layout/SidebarComponent"
 import CardComponent from "../Common/CardComponent"
+import Badge from "../Common/Badge"
 class JobListing extends Component {
     state = {
         jobs: [
@@ -17,16 +18,14 @@ class JobListing extends Component {
             <div className="main">
                 <div className="container main-content">
                     <div className="row no-gutters justify-content-between " style={{ padding: "0px 100px" }}>
-                        <span style={{
-                            width: "100px", height: "30px", fontSize: "18px",
-                            backgroundColor: "#96c7e8", cursor: "pointer"
-                        }}
-                            className="badge " onClick={e => this.handleEvent(e, "All")}>All</span>
+                        <Badge title="All" />
                     </div>
                     <div className="row no-gutters justify-content-between" style={{ padding: "0px 100px" }}>
                         {this.state.jobs.map(job => (
-                            <CardComponent
-                                info={job} />
+                            <div className="hover-magnify">
+                                <CardComponent
+                                    info={job} />
+                            </div>
                         ))}
                     </div>
                 </div>
