@@ -12,6 +12,7 @@ db = firestore.client()
 
 teachers_ref = db.collection('teachers')
 students_ref=db.collection('students')
+jobs_ref = db.collection('jobs')
 
 
 #test Route
@@ -19,9 +20,20 @@ students_ref=db.collection('students')
 def home():
     return jsonify({'status' : 'home'})
 
+@app.route('/addJobs')
+def add_jobs():
+    for i in range(5):
+        jobs_ref.document().set({
+            "title": "Title" + str(i),
+            "Company": "Company" +str(i),
+            "skills":["SQl","DS","English","Algorithms"]
+            })
+
+    return jsonify({'status': 'teacher signup successful'}), 200
+
 @app.route('/addTeacher')
 def add_teacher():
-    for i in range(1,15):
+    for i in range(5,6):
 
             teachers_ref.document().set({
             "name": "Name" + str(i),
@@ -36,7 +48,7 @@ def add_teacher():
 
 @app.route('/addStudent')
 def add_student():
-    for i in range(1, 841):
+    for i in range(1, 61):
 
         try:
             students_ref.document().set({
@@ -83,6 +95,22 @@ def allocatebatch():
 
     slot_preference={
         "N"+str(i):[] for i in range(1,841)
+    }
+
+    slot ={
+        1:[],
+        2:[],
+        3:[],
+        4:[],
+        5:[],
+        6:[],
+        7:[],
+        8:[],
+        9:[],
+        10:[],
+        11:[],
+        12:[],
+        13:[]
     }
 
 

@@ -6,3 +6,6 @@
 1 slot 7 parallel session
 
 either 14 teachers or 56 teachers
+
+
+ASSUMPTION:-
