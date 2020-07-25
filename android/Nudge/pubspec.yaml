@@ -38,6 +38,7 @@ dependencies:
   flutter_signin_button: ^1.0.0
   google_sign_in: ^4.4.4
   provider: ^3.0.0+1
+  ez_flutter: ^0.2.0
   
 
 dev_dependencies:

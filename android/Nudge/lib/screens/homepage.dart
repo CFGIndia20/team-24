@@ -3,10 +3,12 @@ import "package:carousel_slider/carousel_slider.dart";
 import "package:google_fonts/google_fonts.dart";
 import "package:Nudge/data/list.dart";
 import "package:Nudge/screens/imagescreen.dart";
-
-
+import "package:Nudge/data/list.dart";
+import "package:Nudge/data/globals.dart" as global;
 
 class HomePage extends StatefulWidget {
+  // String emailid;
+  // HomePage(this.emailid);
   static const routename="/homepage";
   @override
   _HomePageState createState() => _HomePageState();
@@ -16,10 +18,12 @@ class _HomePageState extends State<HomePage> {
  
   @override
   Widget build(BuildContext context) {
+      // final User user = ModalRoute.of(context).settings.arguments;
+  
     return Scaffold(
       backgroundColor: Colors.black87,
         appBar: AppBar(
-          title: Text("OneStop"),
+          title: Text("Nudge"),
         ),
         body: Center(
           child: Column(
@@ -40,6 +44,7 @@ class _HomePageState extends State<HomePage> {
                               child: GestureDetector(
                                 child: Image.network(link, fit: BoxFit.cover),
                                 onTap: (){
+                                  print(global.emailid);
                                   Navigator.push<Widget>(context,MaterialPageRoute(
                                     builder: (context)=>ImageScreen(link),
                                   ),
@@ -105,3 +110,10 @@ class _HomePageState extends State<HomePage> {
         ));
   }
 }
+
+// class User {
+//   final String userName;
+//   final String password;
+ 
+//   User(this.userName, this.password);
+// }

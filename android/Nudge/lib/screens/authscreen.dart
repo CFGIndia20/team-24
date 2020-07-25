@@ -3,6 +3,8 @@ import 'dart:math';
 import 'package:Nudge/screens/homepage.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import "package:Nudge/data/list.dart";
+import "package:Nudge/data/globals.dart" as global;
 
 
 
@@ -175,10 +177,10 @@ class _AuthCardState extends State<AuthCard>
   //   try {
   //     if (_authMode == AuthMode.Login) {
   //       // Log user in
-  //       await Provider.of<Auth>(context, listen: false).login(
-  //         _authData['email'],
-  //         _authData['password'],
-  //       );
+       
+  //        global.emailid= _authData['email'];
+          
+        
   //     // }
   //     } 
   //     // else {
@@ -253,24 +255,25 @@ class _AuthCardState extends State<AuthCard>
                   TextFormField(
                     decoration: InputDecoration(labelText: 'E-Mail'),
                     keyboardType: TextInputType.emailAddress,
-                    validator: (value) {
-                      if (value.isEmpty || !value.contains('@')) {
-                        return 'Invalid email!';
-                      }
-                    },
+                    // validator: (value) {
+                    //   if (value.isEmpty || !value.contains('@')) {
+                    //     return 'Invalid email!';
+                    //   }
+                    // },
                     onSaved: (value) {
                       _authData['email'] = value;
+                      global.emailid=value;
                     },
                   ),
                   TextFormField(
                     decoration: InputDecoration(labelText: 'Password'),
                     obscureText: true,
                     controller: _passwordController,
-                    validator: (value) {
-                      if (value.isEmpty || value.length < 5) {
-                        return 'Password is too short!';
-                      }
-                    },
+                    // validator: (value) {
+                    //   if (value.isEmpty || value.length < 5) {
+                    //     return 'Password is too short!';
+                    //   }
+                    // },
                     onSaved: (value) {
                       _authData['password'] = value;
                     },
@@ -311,9 +314,19 @@ class _AuthCardState extends State<AuthCard>
                   else
                     RaisedButton(
                       child: Text(
-                          _authMode == AuthMode.Login ? 'LOGIN' : 'SIGN UP'),
+                           'LOGIN' ),
                       onPressed: (){
-                        Navigator.of(context).pushReplacementNamed(HomePage.routename);
+                          global.emailid=_authData["email"];
+                          print(_authData["email"]);
+                          print(global.emailid);
+                          print("hjf");
+                          print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
+                          // _submit();
+                        Navigator.of(context).pushNamed(HomePage.routename);
+                      // Navigator.of(context).pushNamed(
+                      //    HomePage.routename,arguments:User(
+                      //      _authData["email"]
+                      //     ));
                       },
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(30),
