@@ -137,14 +137,13 @@ def teacher_login():
         return jsonify({'status' : 'ERROR ,Teacher email doesnt exist'}), 418
     hashPass=teacher['password']      #If the user info is present in database
     if check_password_hash(hashPass, Password):     #Checking the password is valid or not
-        id=teacher.id
         Email=teacher['email']
         Name=teacher['name']
         phoneNo=teacher['phoneNo']
         dob=teacher['dob']
         teacher_assigned_slot=teacher['teacher_assigned_slot']
         print("All details fetched!")
-        user = User(id,Name,Email,Password, phoneNo, dob,None, None, None, teacher_assigned_slot,"Teacher")
+        user = User(Name,Email,Password, phoneNo, dob,None, None, None, teacher_assigned_slot,"Teacher")
         login_user(user)
 
         return jsonify({'status' : 'Teacher Login successful', 'role':'teacher'}), 200
@@ -174,7 +173,7 @@ def student_login():
         return jsonify({'status' : 'ERROR ,Student email doesnt exist'}), 418
     hashPass=student['password']
     if check_password_hash(hashPass, Password):  #Checking the password is valid or not
-        id=1
+
         Email=student['email']
         Name=student['name']
         phoneNo=student['phoneNo']
@@ -182,7 +181,7 @@ def student_login():
         starting_score=student['starting_score']
         student_assigned_slot=student['student_assigned_slot']
         print("All details fetched!")
-        user = User(id,Name,Email,Password, phoneNo, dob,None, starting_score, student_assigned_slot, None,"Student")
+        user = User(Name,Email,Password, phoneNo, dob,None, starting_score, student_assigned_slot, None,"Student")
         login_user(user)
         return jsonify({'status' : 'Student Login successful', 'role':'student'}), 200
     else:
@@ -207,10 +206,10 @@ def admin_login():
     if admin==None:
         return jsonify({'status' : 'ERROR ,Admin email doesnt exist'}), 418
     hashPass=admin['password']
-    if check_password_hash(hashPass, Password):
-        id=admin.id
+    #if check_password_hash(hashPass, Password):
+    if hashPass == Password:
         Name=admin['name']
-        user = User(id,Name,Email,Password, None, None,None, None, None, None,"Admin")
+        user = User(Name,Email,Password, None, None,None, None, None, None,"Admin")
         login_user(user)
         return jsonify({'status' : 'Admin Login successful'}), 200
     else:
@@ -225,7 +224,7 @@ class User(UserMixin):
 
     def __init__(self,name,email,password, phoneNo, dob,attendance, starting_score, student_assigned_slot, teacher_assigned_slot,role,active = True):
         self.name = name
-        self.email = email
+        self.id = email
         self.password = password
         self.phoneNo = phoneNo
         self.dob = dob
@@ -282,7 +281,6 @@ def load_user(id):
     admin = admins_ref.document(id).get()  ##Check if the id is in admin database
     if admin!=None:
         admin=admin.to_dict()
-        id=admin.id
         Name=admin['name']
         Password=""
         user = User(Name,Email,Password, None, None,None, None, None, None,"Admin")
@@ -291,6 +289,9 @@ def load_user(id):
 @app.route('/getStudentDetails')
 @cross_origin()
 def getStudentDetails():
+    if current_user.role!='Admin':
+        return jsonify({'status':"Not allowed"}), 403
+
     students_data = students_ref.get()
     student=[]
     for row in students_data:
@@ -299,9 +300,12 @@ def getStudentDetails():
     data = {"data":student}
     return jsonify(data)
 
+
 @app.route('/getJobDetails')
 @cross_origin()
 def getJobDetails():
+    if current_user.role == "Teacher":
+        return jsonify({'status':"Not allowed"}), 403
     jobs_data = jobs_ref.get()
     job=[]
     for row in jobs_data:
