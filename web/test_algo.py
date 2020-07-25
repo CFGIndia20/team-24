@@ -80,7 +80,7 @@ def addMarks(marks,batch,student_dict):
 
 
 def valid(key,slot):
-    if slot[key][0]<=15:
+    if slot[key][0]<8:
         return True
 
 
@@ -129,6 +129,16 @@ def allocatebatch():
                         slot[key][0] = 1
                         slot[key][1] = slot[key][1]+1
                         break
+    
+    for key in slot.keys():
+        if slot[key][0]<4:
+            for j in slot.keys():
+                if key == j:
+                    continue
+                if slot[key][0]+slot[j][0]<=8 and slot[key][0]+slot[j][0]>=4:
+                    slot[key][0]=slot[key][0]+slot[j][0]
+                    slot[j][0]=0
+                
                 
         
     return jsonify({"data":slot})

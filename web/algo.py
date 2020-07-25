@@ -14,6 +14,7 @@ slot_preference = {
     'h':6
 }
 
+# 0th: no of students in the current batch, 1st: Total Number of batches
 slot = {
    "1":[0,0],
     "2":[0,0],
@@ -43,10 +44,12 @@ def check():
                         slot[key][0] = 1
                         slot[key][1] = slot[key][1]+1
                         break
-          
+    
+
+        
 
 check()
-print(slot)
+print(slot["1"][0]+1)
 
 """
 def isValid(i):
