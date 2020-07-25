@@ -18,7 +18,7 @@ class Leaderboard extends Component {
     render() {
         return (
             <>
-                <SidebarComponent />
+                <SidebarComponent user="student" />
                 <div className="main">
                     <div className="container main-content">
                         <div id="container">

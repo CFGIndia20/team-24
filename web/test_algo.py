@@ -48,7 +48,7 @@ def add_teacher():
 
 @app.route('/addStudent')
 def add_student():
-    for i in range(1, 61):
+    for i in range(1, 76):
 
         try:
             students_ref.document().set({
@@ -60,7 +60,7 @@ def add_student():
                 "student_attendance": random.randint(60, 100),
                 "starting_score": random.randint(50, 100),
                 "student_assigned_slot":None,
-                "preference":[(i%13)+1,((i+1)%13)+1, ((i+2)%13) + 1 ]
+                "preference":random.randint(1,8)
             })
         except:
             return jsonify({'status': 'student Unsignup successful'}), 418
@@ -78,9 +78,10 @@ def addMarks(marks,batch,student_dict):
     else:
         batch["90"].append(student_dict['name'])
 
-def addPref(slot_preference,student_dict):
-        for i in range(3):
-            slot_preference[student_dict['name']].append(student_dict['preference'][i])
+
+def valid(key,slot):
+    if slot[key][0]<=15:
+        return True
 
 
 @app.route('/allocateBatch')
@@ -94,23 +95,18 @@ def allocatebatch():
     }
 
     slot_preference={
-        "N"+str(i):[] for i in range(1,841)
+        "N"+str(i):0 for i in range(1,76)
     }
 
     slot ={
-        1:[],
-        2:[],
-        3:[],
-        4:[],
-        5:[],
-        6:[],
-        7:[],
-        8:[],
-        9:[],
-        10:[],
-        11:[],
-        12:[],
-        13:[]
+        "1":[0,0],
+        "2":[0,0],
+        "3":[0,0],
+        "4":[0,0],
+        "5":[0,0],
+        "6":[0,0],
+        "7":[0,0],
+        "8":[0,0]
     }
 
 
@@ -119,9 +115,23 @@ def allocatebatch():
         student_dict=row.to_dict()
         marks = student_dict['starting_score']
         addMarks(marks,batch,student_dict)
-        addPref(slot_preference,student_dict)
+        slot_preference[student_dict['name']]=student_dict['preference']
+
+    for key,value in batch.items():
+        student = value
+        for j in student:
+            for key in slot.keys():
+                if key==str(slot_preference[j]):
+                    if valid(key,slot):
+                        slot[key][0] = slot[key][0]+1
+                        break
+                    else:
+                        slot[key][0] = 1
+                        slot[key][1] = slot[key][1]+1
+                        break
+                
         
-    return jsonify({"data":slot_preference})
+    return jsonify({"data":slot})
 
 
 
