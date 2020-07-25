@@ -1,3 +1,10 @@
+//  SelectFieldGroup
+//
+//  A component for rendering select inputs for forms
+//  taking name, placeholder ... and a special 
+//  options prop as array of {label:'',value:''} object
+//  for options
+
 import React from 'react';
 import classnames from 'classnames';
 import PropTypes from 'prop-types';

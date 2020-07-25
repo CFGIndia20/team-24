@@ -1,3 +1,10 @@
+// PrivateRoute
+//
+// Wrapper Component for Route Component to only allow 
+// authorised users to access a particular route
+// 
+
+
 import React from 'react';
 import { Route,Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
