@@ -1,24 +1,23 @@
 import "package:flutter/material.dart";
 import "package:Nudge/screens/homepage.dart";
 import "package:Nudge/data/globals.dart" as global;
-
-
-
+import "package:google_fonts/google_fonts.dart";
 
 class UserProfilePage extends StatelessWidget {
   final String _fullName = global.name;
   final String _emailid = global.emailid;
-  final String _bio =
-      "This is your profile";
+  final String _bio = "PhoneNo:"+global.phonenumber;
   final String _startingscore = global.score;
   final String _attendance = global.attendance;
   // final String _scores = global.;
 
   Widget _buildCoverImage(Size screenSize) {
     return Scaffold(
-      appBar: AppBar(title: Text("Profile"),),
-      // backgroundColor: Colors.black,
-          body: Container(
+      appBar: AppBar(
+        title: Text("Profile"),
+      ),
+      backgroundColor: Colors.black,
+      body: Container(
         height: screenSize.height / 2.6,
         decoration: BoxDecoration(
           image: DecorationImage(
@@ -65,21 +64,9 @@ class UserProfilePage extends StatelessWidget {
   }
 
   Widget _buildStatus(BuildContext context) {
-    return Container(
-      padding: EdgeInsets.symmetric(vertical: 4.0, horizontal: 6.0),
-      decoration: BoxDecoration(
-        color: Theme.of(context).scaffoldBackgroundColor,
-        borderRadius: BorderRadius.circular(4.0),
-      ),
-      child: Text(
-        _emailid,
-        style: TextStyle(
-          fontFamily: 'Spectral',
-          color: Colors.black,
-          fontSize: 20.0,
-          fontWeight: FontWeight.bold,
-        ),
-      ),
+    return Text(
+      _emailid,
+      style: GoogleFonts.comicNeue(fontSize: 30, color: Colors.white),
     );
   }
 
@@ -133,7 +120,7 @@ class UserProfilePage extends StatelessWidget {
   Widget _buildBio(BuildContext context) {
     TextStyle bioTextStyle = TextStyle(
       fontFamily: 'Spectral',
-      fontWeight: FontWeight.bold,//try changing weight to w500 if not thin
+      fontWeight: FontWeight.bold, //try changing weight to w500 if not thin
       fontStyle: FontStyle.italic,
       color: Colors.black,
       fontSize: 16.0,
@@ -154,44 +141,63 @@ class UserProfilePage extends StatelessWidget {
     return Container(
       width: screenSize.width / 1.6,
       height: 2.0,
-      color: Colors.black54,
+      color: Colors.white54,
       margin: EdgeInsets.only(top: 4.0),
     );
   }
 
-  
   @override
   Widget build(BuildContext context) {
     Size screenSize = MediaQuery.of(context).size;
-    return  Stack(
-        children: <Widget>[
-          _buildCoverImage(screenSize),
-          SafeArea(
-            child: SingleChildScrollView(
-              child: Column(
-                children: <Widget>[
-                  SizedBox(height: screenSize.height / 6.4),
-                  _buildProfileImage(),
-                  Padding(padding: EdgeInsets.all(10),),
-                  _buildFullName(),
-                  Padding(padding: EdgeInsets.all(20),),
-                  _buildStatus(context),
-                  Padding(padding: EdgeInsets.all(20),),
-                  _buildStatContainer(),
-                  _buildBio(context),
-                  _buildSeparator(screenSize),
-                  SizedBox(height: 10.0),
-                  // _buildGetInTouch(context),
-                  SizedBox(height: 8.0),
-                  FlatButton( color: Colors.blue[100], child: Text("Back to DashBoard",style: TextStyle(fontSize: 15),),onPressed: (){
+    return Stack(
+      children: <Widget>[
+        _buildCoverImage(screenSize),
+        SafeArea(
+          child: SingleChildScrollView(
+            child: Column(
+              children: <Widget>[
+                SizedBox(height: screenSize.height / 6.4),
+                _buildProfileImage(),
+                Padding(
+                  padding: EdgeInsets.all(10),
+                ),
+                _buildFullName(),
+                Padding(
+                  padding: EdgeInsets.all(15),
+                ),
+                _buildStatus(context),
+                Padding(
+                  padding: EdgeInsets.all(10),
+                ),
+                _buildStatContainer(),
+                Padding(
+                  padding: EdgeInsets.all(20),
+                ),
+
+                _buildBio(context),
+                Padding(
+                  padding: EdgeInsets.all(5),
+                ),
+                _buildSeparator(screenSize),
+                SizedBox(height: 10.0),
+                
+                SizedBox(height: 8.0),
+                FlatButton(
+                  color: Colors.blue[100],
+                  child: Text(
+                    "Back to DashBoard",
+                    style: TextStyle(fontSize: 15),
+                  ),
+                  onPressed: () {
                     Navigator.of(context).popAndPushNamed(HomePage.routename);
-                  },)
-                  // _buildButtons(),
-                ],
-              ),
+                  },
+                )
+                
+              ],
             ),
           ),
-        ],
+        ),
+      ],
       // ),
     );
   }
