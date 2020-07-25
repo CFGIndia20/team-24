@@ -19,7 +19,7 @@ students_ref=db.collection('students')
 def home():
     return jsonify({'status' : 'home'})
 
-'''@app.route('/addTeacher')
+@app.route('/addTeacher')
 def add_teacher():
     for i in range(1,15):
 
@@ -33,7 +33,7 @@ def add_teacher():
             })
 
     return jsonify({'status': 'teacher signup successful'}), 200
-'''
+
 @app.route('/addStudent')
 def add_student():
     for i in range(1, 841):
