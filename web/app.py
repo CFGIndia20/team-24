@@ -210,7 +210,7 @@ def admin_login():
     if hashPass == Password:
         user = User(None,Email,Password, None, None,None, None, None, None,"Admin")
         login_user(user)
-        return jsonify({'status' : 'Admin Login successful'}), 200
+        return jsonify({'role' : 'admin'}), 200
     else:
         return jsonify({'status' : 'Admin Wrong password'}), 418
 
@@ -287,7 +287,6 @@ def load_user(id):
 
 @app.route('/getStudentDetails')
 @cross_origin()
-@login_required
 def getStudentDetails():
 
     students_data = students_ref.get()

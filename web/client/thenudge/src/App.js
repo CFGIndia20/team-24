@@ -19,6 +19,7 @@ import TeacherProfile from "./components/Teacher/TeacherProfile";
 import StudentRoute from './components/Common/StudentRoute';
 import AdminRoute from "./components/Common/AdminRoute";
 import TeacherRoute from "./components/Common/TeacherRoute";
+import AdminDashboard from './components/Admin/Dashboard';
 
 function App() {
   return (
@@ -34,6 +35,7 @@ function App() {
           <StudentRoute exact path="/schedule" component={Schedule} />
           <StudentRoute exact path="/userprofile" component={UserProfile }/>
           <TeacherRoute exact path="/teacherprofile" component={TeacherProfile} />
+          <Route exact path="/admin-dashboard" component={AdminDashboard}/>
         </Switch>
       </Router>
     </Provider>
