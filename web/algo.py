@@ -4,28 +4,51 @@ batches = {
 }
 
 slot_preference = {
-    'a':[1,2,3],
-    'b':[4,5,6],
-    'c':[1,2,3],
-    'd':[2,4,5],
-    'e':[2,7,8],
-    'f':[3,8,7],
-    'g':[2,6,3],
-    'h':[1,5,6]
+    'a':1,
+    'b':1,
+    'c':2,
+    'd':4,
+    'e':5,
+    'f':1,
+    'g':3,
+    'h':6
 }
 
 slot = {
-    1:[],
-    2:[],
-    3:[],
-    4:[],
-    5:[],
-    6:[],
-    7:[],
-    8:[]
+   "1":[0,0],
+    "2":[0,0],
+    "3":[0,0],
+    "4":[0,0],
+    "5":[0,0],
+    "6":[0,0],
+    "7":[0,0],
+    "8":[0,0]
 }
 
+def valid(key):
+    if slot[key][0]<2:
+        return True
 
+
+def check():
+    for key,value in batches.items():
+        student = value
+        for j in student:
+            for key in slot.keys():
+                if key==str(slot_preference[j]):
+                    if valid(key):
+                        slot[key][0] = slot[key][0]+1
+                        break
+                    else:
+                        slot[key][0] = 1
+                        slot[key][1] = slot[key][1]+1
+                        break
+          
+
+check()
+print(slot)
+
+"""
 def isValid(i):
     if len(slot[i]) <= 1:
         return True
@@ -90,3 +113,4 @@ def assign_substitute(slot_available, teacher_leave):
 check_preference()
 assign_trainer()
 print(trainer)
+"""
