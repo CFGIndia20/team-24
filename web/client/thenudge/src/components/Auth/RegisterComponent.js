@@ -17,9 +17,7 @@ class RegisterComponent extends Component {
       password2: "",
       errors: "",
       dob: '',
-      pref1: '1',
-      pref2: '1',
-      pref3: '1'
+      preference: '1',
     };
 
     this.onChange = this.onChange.bind(this);
@@ -40,9 +38,7 @@ class RegisterComponent extends Component {
       Email: this.state.email,
       Password: this.state.password,
       dob: this.state.dob,
-      pref1: this.state.pref1,
-      pref2: this.state.pref2,
-      pref3: this.state.pref3,
+      preference: this.state.pref1,
       student_starting_score: Math.floor(Math.random() * 100) 
     }
 
@@ -52,19 +48,14 @@ class RegisterComponent extends Component {
   render() {
     let errors = this.state.errors;
     const options = [
-      { label: "7 - 8 A.M.", value: "1" },
-      { label: "8 - 9 A.M.", value: "2" },
-      { label: "9 - 10 A.M.", value: "3" },
-      { label: "10 - 11 A.M.", value: "4" },
-      { label: "11 - 12 Noon", value: "5" },
-      { label: "12 - 1 P.M.", value: "6" },
-      { label: "1 - 2 P.M.", value: "7" },
-      { label: "2 - 3 P.M.", value: "8" },
-      { label: "3 - 4 P.M.", value: "9" },
-      { label: "4 - 5 P.M.", value: "10" },
-      { label: "5 - 6 P.M.", value: "11" },
-      { label: "6 - 7 P.M.", value: "12" },
-      { label: "7 - 8 P.M.", value: "13" },
+      { label: "9 - 10 A.M.", value: "1" },
+      { label: "10 - 11 A.M.", value: "2" },
+      { label: "11 - 12 Noon", value: "3" },
+      { label: "12 - 1 P.M.", value: "4" },
+      { label: "2 - 3 P.M.", value: "5" },
+      { label: "3 - 4 P.M.", value: "6" },
+      { label: "5 - 6 P.M.", value: "7" },
+      { label: "6 - 7 P.M.", value: "8" },
     ];
     return (
       <div className="container mt-5 mb-5">
@@ -115,23 +106,9 @@ class RegisterComponent extends Component {
               />
               <SelectFieldGroupComponent
                 name="pref1"
-                value={this.state.pref1}
+                value={this.state.preference}
                 onChange={this.onChange}
-                info="Enter Your First Preference for Time Slot"
-                options={options}
-              />
-              <SelectFieldGroupComponent
-                name="pref2"
-                value={this.state.pref2}
-                onChange={this.onChange}
-                info="Enter Your Second Preference for Time Slot"
-                options={options}
-              />
-              <SelectFieldGroupComponent
-                name="pref3"
-                value={this.state.pref3}
-                onChange={this.onChange}
-                info="Enter Your Third Preference for Time Slot"
+                info="Enter Your Preference for Time Slot"
                 options={options}
               />
               <button

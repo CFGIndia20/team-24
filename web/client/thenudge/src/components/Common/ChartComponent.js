@@ -14,8 +14,9 @@ export default function ({labels, dataset}) {
         maxWidth: 600,
     };
 
-    const datasets = dataset.map((dataset) => (
+    const datasets = dataset.map((dataset,index) => (
       <Dataset
+        key={index}
         title={dataset.title}
         values={dataset.values}
         backgroundColor={dataset.color}

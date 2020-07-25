@@ -3,21 +3,7 @@ import "package:Nudge/screens/homepage.dart";
 import "package:Nudge/data/globals.dart" as global;
 
 
-// "06/08/1999"
-// email
-// "agrimnautiyal1999@gmail.com"
-// name
-// "Agrim Nautiyal"
-// password
-// "sha256$R8w0pkss$bcb479803efa33382c5c0a422af0876c64fb82e638d270537da19305b10f3af5"
-// phoneNo
-// "9159289775"
-// starting_score
-// "100"
-// student_assigned_slot
-// "s2"
-// student_attendance
-// "90"
+
 
 class UserProfilePage extends StatelessWidget {
   final String _fullName = global.name;
@@ -31,11 +17,12 @@ class UserProfilePage extends StatelessWidget {
   Widget _buildCoverImage(Size screenSize) {
     return Scaffold(
       appBar: AppBar(title: Text("Profile"),),
+      // backgroundColor: Colors.black,
           body: Container(
         height: screenSize.height / 2.6,
         decoration: BoxDecoration(
           image: DecorationImage(
-            image: AssetImage('assets/images/cover.jpeg'),
+            image: AssetImage('assets/img2.jpg'),
             fit: BoxFit.cover,
           ),
         ),
@@ -50,7 +37,7 @@ class UserProfilePage extends StatelessWidget {
         height: 140.0,
         decoration: BoxDecoration(
           image: DecorationImage(
-            image: AssetImage('assets/google_logo.png'),
+            image: AssetImage('assets/img1.png'),
             fit: BoxFit.cover,
           ),
           borderRadius: BorderRadius.circular(80.0),
@@ -66,7 +53,7 @@ class UserProfilePage extends StatelessWidget {
   Widget _buildFullName() {
     TextStyle _nameTextStyle = TextStyle(
       fontFamily: 'Roboto',
-      color: Colors.black,
+      color: Colors.white,
       fontSize: 28.0,
       fontWeight: FontWeight.w700,
     );
@@ -90,7 +77,7 @@ class UserProfilePage extends StatelessWidget {
           fontFamily: 'Spectral',
           color: Colors.black,
           fontSize: 20.0,
-          fontWeight: FontWeight.w300,
+          fontWeight: FontWeight.bold,
         ),
       ),
     );
@@ -101,7 +88,7 @@ class UserProfilePage extends StatelessWidget {
       fontFamily: 'Roboto',
       color: Colors.black,
       fontSize: 16.0,
-      fontWeight: FontWeight.w200,
+      fontWeight: FontWeight.bold,
     );
 
     TextStyle _statCountTextStyle = TextStyle(
@@ -130,7 +117,7 @@ class UserProfilePage extends StatelessWidget {
       height: 60.0,
       margin: EdgeInsets.only(top: 8.0),
       decoration: BoxDecoration(
-        color: Color(0xFFEFF4F7),
+        color: Color(0xFAEFF1A7),
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -146,9 +133,9 @@ class UserProfilePage extends StatelessWidget {
   Widget _buildBio(BuildContext context) {
     TextStyle bioTextStyle = TextStyle(
       fontFamily: 'Spectral',
-      fontWeight: FontWeight.w400,//try changing weight to w500 if not thin
+      fontWeight: FontWeight.bold,//try changing weight to w500 if not thin
       fontStyle: FontStyle.italic,
-      color: Color(0xFF799497),
+      color: Colors.black,
       fontSize: 16.0,
     );
 
@@ -176,8 +163,7 @@ class UserProfilePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Size screenSize = MediaQuery.of(context).size;
-    return Scaffold(
-      body: Stack(
+    return  Stack(
         children: <Widget>[
           _buildCoverImage(screenSize),
           SafeArea(
@@ -186,15 +172,18 @@ class UserProfilePage extends StatelessWidget {
                 children: <Widget>[
                   SizedBox(height: screenSize.height / 6.4),
                   _buildProfileImage(),
+                  Padding(padding: EdgeInsets.all(10),),
                   _buildFullName(),
+                  Padding(padding: EdgeInsets.all(20),),
                   _buildStatus(context),
+                  Padding(padding: EdgeInsets.all(20),),
                   _buildStatContainer(),
                   _buildBio(context),
                   _buildSeparator(screenSize),
                   SizedBox(height: 10.0),
                   // _buildGetInTouch(context),
                   SizedBox(height: 8.0),
-                  FlatButton(color: Colors.purple, child: Text("Back to DashBoard"),onPressed: (){
+                  FlatButton( color: Colors.blue[100], child: Text("Back to DashBoard",style: TextStyle(fontSize: 15),),onPressed: (){
                     Navigator.of(context).popAndPushNamed(HomePage.routename);
                   },)
                   // _buildButtons(),
@@ -203,7 +192,7 @@ class UserProfilePage extends StatelessWidget {
             ),
           ),
         ],
-      ),
+      // ),
     );
   }
 }
