@@ -4,8 +4,6 @@ import PropTypes from 'prop-types';
 import { loginUser } from '../../redux/actions/authActions';
 import TextFieldGroup from '../Common/TextFieldGroupComponent';
 import SelectFieldGroup from "../Common/SelectFieldGroupComponent"
-import CardComponent from "../Common/CardComponent"
-import "./login.css"
 
 class Login extends Component {
 
@@ -16,12 +14,7 @@ class Login extends Component {
             email: '',
             password: '',
             errors: {},
-            designation: "",
-            options: [{ label: "Student", value: "student" }, {
-                label: "Teacher", value: "teacher"
-            }, {
-                label: "Admin", value: "admin"
-            }]
+            designation: "student"
         }
         this.onChange = this.onChange.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
@@ -35,15 +28,31 @@ class Login extends Component {
     onSubmit(event) {
         event.preventDefault();
 
-        console.log(this.state)
+        const user = {
+            Email: this.state.email,
+            Password: this.state.password
+        }
+
+        this.props.loginUser(user,this.state.designation);
     } 
 
     render() {
         const { errors } = this.state;
+        const options = [
+          { label: "Student", value: "student" },
+          {
+            label: "Teacher",
+            value: "teacher",
+          },
+          {
+            label: "Admin",
+            value: "admin",
+          },
+        ];
 
         return (
 
-          <div className="container mt-5 text-cream bg-main">
+          <div className="container mt-5">
             <h1 className="display-4 mt-5 text-center">Login</h1>
             <div className="row justify-content-center">
               <div className="col-md-4 col-lg-4 mt-3">
@@ -75,7 +84,7 @@ class Login extends Component {
                     onChange={this.onChange}
                     placeholder="Designation"
                     value={this.state.designation}
-                    options={[{label:"Student",value:"student"}, {label:"Admin",value:"admin"}, {label:"Teacher",value:"teacher"}]}
+                    options={options}
                   />
                   <button
                     type="submit"
@@ -92,18 +101,7 @@ class Login extends Component {
 }
 
 Login.propTypes = {
-    loginUser: PropTypes.func.isRequired,
-    auth: PropTypes.object.isRequired,
-    errors: PropTypes.object.isRequired,
-    setTitle: PropTypes.object.isRequired
+    loginUser: PropTypes.func.isRequired
 }
 
-const mapStateToProps = (state) => ({
-    auth: state.auth,
-    errors: state.errors
-})
-
-
-//export default connect(mapStateToProps,{loginUser,setTitle})((Login));
-
-export default Login;
+export default connect(null,{loginUser})((Login));

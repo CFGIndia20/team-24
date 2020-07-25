@@ -208,8 +208,7 @@ def admin_login():
     hashPass=admin['password']
     #if check_password_hash(hashPass, Password):
     if hashPass == Password:
-        Name=admin['name']
-        user = User(Name,Email,Password, None, None,None, None, None, None,"Admin")
+        user = User(None,Email,Password, None, None,None, None, None, None,"Admin")
         login_user(user)
         return jsonify({'status' : 'Admin Login successful'}), 200
     else:
@@ -289,8 +288,8 @@ def load_user(id):
 @app.route('/getStudentDetails')
 @cross_origin()
 def getStudentDetails():
-    if current_user.role!='Admin':
-        return jsonify({'status':"Not allowed"}), 403
+    #if current_user.role!='Admin':
+        #return jsonify({'status':"Not allowed"}), 403
 
     students_data = students_ref.get()
     student=[]

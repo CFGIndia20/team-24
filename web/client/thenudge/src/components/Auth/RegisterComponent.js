@@ -150,7 +150,7 @@ class RegisterComponent extends Component {
 
 // Proptype confirmation
 RegisterComponent.propTypes = {
-  resgisterStudent: PropTypes.func.isRequired
+  registerStudent: PropTypes.func.isRequired
 }
 
 // Connecting with redux and router history for redirect from actions
