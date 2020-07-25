@@ -31,7 +31,7 @@ def add_teacher():
             "dob": "1/01/01",
             "teacher_assigned_slot":[]
             })
-
+    
     return jsonify({'status': 'teacher signup successful'}), 200
 
 @app.route('/addStudent')
