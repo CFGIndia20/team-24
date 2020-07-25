@@ -14,7 +14,7 @@ class ImageScreen extends StatelessWidget {
       return Scaffold(
         backgroundColor: Colors.black87,
         appBar: AppBar(
-          title: Text("Clothes"),
+          title: Text("Nudge"),
         ),
         body: Container(
           padding: EdgeInsets.all(20),
