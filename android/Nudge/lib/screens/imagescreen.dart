@@ -147,11 +147,11 @@ class ImageScreen extends StatelessWidget {
       
       else if (url=="https://i.pinimg.com/originals/f4/26/90/f4269058bffae58474f816f8613b7a60.png")
       // resturn Box(global.title);
-       return Scaffold(
-        backgroundColor: Colors.black87,
-        appBar: AppBar(
-          title: Text("Nudge"),
-        ),
+      //  return Scaffold(
+      //   backgroundColor: Colors.black87,
+      //   appBar: AppBar(
+      //     title: Text("Nudge"),
+      //   ),
         // body: Container(
         //   padding: EdgeInsets.all(20),
         //   child: GridView.builder(
@@ -223,9 +223,8 @@ class ImageScreen extends StatelessWidget {
         //     },
         //     itemCount: SList.h.length,
         //   ),
-        // ),
-        body:Box(global.title),
-      );
+        return Box(global.title);
+      
     
     }
   
