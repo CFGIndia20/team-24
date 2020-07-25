@@ -197,7 +197,7 @@ def is_annonymous(self):
     #return true if annon, actual user return false
 
 
-#@login_manager.user_loader
+@login_manager.user_loader
 @cross_origin()
 def load_user(id):
     #check if id is in student,  teachers or admin table.
