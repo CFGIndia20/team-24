@@ -59,7 +59,7 @@ class RegisterComponent extends Component {
                 placeholder="Confirm Password"
                 value={this.state.password2}
               />
-              <button type="submit" className="p-1 btn btn-lg btn-block">
+              <button type="submit" className="p-1 btn btn-lg btn-primary btn-block">
                 Register
                   </button>
             </form>

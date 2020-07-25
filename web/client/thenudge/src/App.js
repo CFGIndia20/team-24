@@ -5,13 +5,17 @@ import "bootstrap/dist/css/bootstrap.css"
 import HeaderComponent from "./components/Layout/HeaderComponent"
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom"
 import RegisterComponent from './components/Auth/RegisterComponent';
+import Landing from './components/Layout/Landing';
+
+
 function App() {
   return (
     <Router>
       <HeaderComponent />
       <Switch>
-        <Route path="/login" component={Login}></Route>
-        <Route path="/register" component={RegisterComponent}></Route>
+        <Route exact path="/" component={Landing}/>
+        <Route exact path="/login" component={Login}/>
+        <Route exact path="/register" component={RegisterComponent}/>
       </Switch>
     </Router>
   );

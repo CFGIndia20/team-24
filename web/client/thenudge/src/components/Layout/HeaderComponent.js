@@ -9,9 +9,18 @@ class NavbarComponent extends Component {
               <Link to="#" className="navbar-brand">
                 Allotify
               </Link>
+              <button
+                class="navbar-toggler"
+                type="button"
+                data-toggle="collapse"
+                data-target="#navbarSupportedContent"
+              >
+                <span class="navbar-toggler-icon"></span>
+              </button>
               <div
                 className="collapse navbar-collapse"
-                id="navbarSupportedContent">
+                id="navbarSupportedContent"
+              >
                 <ul className="navbar-nav ml-auto">
                   <li className="nav-item active">
                     <Link className="nav-link" to="/register">
