@@ -21,7 +21,7 @@ const SelectFieldGroup = (props) => {
     } = props;
 
     const selectOptions = options.map(option => (
-        <option className="select-option" key={option.label} value={option.value}>
+        <option key={option.label} value={option.value}>
             {option.label}
         </option>
     ))
@@ -30,7 +30,7 @@ const SelectFieldGroup = (props) => {
         <div className="form-group">
             <select
                 className={classnames(
-                    "form-input-text form-control form-control-lg",
+                    "form-control form-control-lg",
                     {
                         "is-invalid": error,
                     }
@@ -43,7 +43,7 @@ const SelectFieldGroup = (props) => {
             </select>
             
             {error && <div className="invalid-feedback">{error}</div>}
-            {info && <div className="text-field-info">{info}</div>}
+            {info && <div>{info}</div>}
         </div>
     );
 }
