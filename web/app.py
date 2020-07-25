@@ -146,11 +146,9 @@ def teacher_login():
         print("All details fetched!")
         user = User(id,Name,Email,Password, phoneNo, dob,None, None, None, teacher_assigned_slot,"Teacher")
         login_user(user)
-<<<<<<< HEAD
+
         return jsonify({'status' : 'Teacher Login successful', 'role':'teacher'}), 200
-=======
-        return jsonify({'status' : 'Teacher Login successful'}), 200
->>>>>>> 77c2efd62f6aef0b3eab7886ced3dc3902df1ab7
+
     else:
         return jsonify({'status' : 'Teacher Wrong password'}), 418
 
@@ -310,8 +308,8 @@ def getJobDetails():
         job_dict=row.to_dict()
         student.append(job_dict)
     data = {"data":job}
-    return jsonify(data) 
-        
+    return jsonify(data)
+
 #LOGOUT ROUTES
 @app.route('/logout')
 #@login_required
