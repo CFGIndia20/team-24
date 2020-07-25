@@ -1,4 +1,5 @@
 import "package:flutter/material.dart";
+import "package:global_configuration/global_configuration.dart";
 
 class SList{
   static final List<String> list=[
@@ -15,47 +16,54 @@ class SList{
 
 
 static final List h=[
-  {"title":"Myntra",
+  {"title":"Job1",
   "url":"https://www.myntra.com/",
-  "image":"https://is3-ssl.mzstatic.com/image/thumb/Purple123/v4/3d/8b/57/3d8b576e-9598-bb86-b74d-cddbc2c78c01/AppIcon-0-0-1x_U007emarketing-0-0-0-6-0-0-sRGB-0-0-0-GLES2_U002c0-512MB-85-220-0-0.png/246x0w.png"},
+  "image":"https://www.npg.org.uk/assets/images/Slideshows/Jobs/568_Staff.jpg"},
   
   
-  {"title":"Flipkart",
+  {"title":"Job2",
   "url":"https://www.flipkart.com/",
-  "image":"https://www.underconsideration.com/brandnew/archives/flipkart_logo_detail_icon.jpg"
+  "image":"https://www.npg.org.uk/assets/images/Slideshows/Jobs/568_Staff.jpg"
   },
-  {"title":"Amazon",
+  {"title":"Job3",
   "url":"https://www.amazon.in/",
-  "image":"https://i.pinimg.com/originals/08/5f/d8/085fd8f7819dee3b716da73d3b2de61c.jpg"
+  "image":"https://www.npg.org.uk/assets/images/Slideshows/Jobs/568_Staff.jpg"
   },
-  {"title":"Snapdeal",
+  {"title":"Job4",
   "url":"https://www.snapdeal.com/",
-  "image":"https://images-na.ssl-images-amazon.com/images/I/71JOvr3syqL._SY355_.png"
+  "image":"https://www.npg.org.uk/assets/images/Slideshows/Jobs/568_Staff.jpg"
   },
-  {"title":"Shopclues",
+  {"title":"job5",
   "url":"https://www.shopclues.com/",
-  "image":"https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRmzQBlaEpfYlcyON6YJFlV_Xrg18n7QR4awQ&usqp=CAU"
+  "image":"https://www.npg.org.uk/assets/images/Slideshows/Jobs/568_Staff.jpg"
   },
   
-  {"title":"AliExpress",
+  {"title":"job6",
   "url":"https://www.aliexpress.com/",
-  "image":"https://cdn.iconscout.com/icon/free/png-512/aliexpress-569572.png"
+  "image":"https://www.npg.org.uk/assets/images/Slideshows/Jobs/568_Staff.jpg"
   },
-  {"title":"SeasonsWay",
+  {"title":"job7",
   "url":"https://www.seasonsway.com/household-items.html",
-  "image":"https://a.wattpad.com/useravatar/seasonsway.256.536741.jpg"
+  "image":"https://www.npg.org.uk/assets/images/Slideshows/Jobs/568_Staff.jpg"
   },
-   {"title":"BigBasket",
+   {"title":"job8",
   "url":"https://www.bigbasket.com/cl/cleaning-household/",
-  "image":"https://images.yourstory.com/cs/images/companies/logosC021575978360413png"
+  "image":"https://www.npg.org.uk/assets/images/Slideshows/Jobs/568_Staff.jpg"
   },
-   {"title":"TheDecorKart",
+   {"title":"job9",
   "url":"https://thedecorkart.com/",
-  "image":"https://i.pinimg.com/736x/1d/80/b8/1d80b8e7176d4855404149c460189406.jpg"
+  "image":"https://www.npg.org.uk/assets/images/Slideshows/Jobs/568_Staff.jpg"
   },
 
 ];
 
+ 
+
 
 
 }   
+class User {
+  final String email;
+  // final String message;
+  User(this.email);
+}

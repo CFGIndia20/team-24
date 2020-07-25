@@ -3,7 +3,7 @@ import axios from "axios";
 
 
 // Action for logging user in
-export const loginUser = (userData,userType) => (dispath) => {
+export const loginUser = (userData,userType) => (dispatch) => {
     if (userType == "admin"){
         axios
           .post("http://localhost:5000/adminlogin", {
@@ -38,4 +38,17 @@ export const loginUser = (userData,userType) => (dispath) => {
           .catch((err) => {});
 
     }
+}
+
+// Action for registering user
+export const registerStudent = (studentData,history) => {
+
+  axios.post('http://localhost:5000/studentsignup',studentData)
+  .then(res => {
+    history.push('/login');
+  })
+  .catch(err => {
+    console.log(err);
+  })
+
 }

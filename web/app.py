@@ -7,17 +7,24 @@ from firebase_admin import credentials, firestore, initialize_app
 app = Flask(__name__)
 cors = CORS(app)
 app.config['CORS_HEADERS'] = 'Content-Type'
+app.secret_key = 'secret-key'
 cred = credentials.Certificate('service.json')
 default_app = initialize_app(cred)
 db = firestore.client()
-
+login_manager = LoginManager()
+login_manager.init_app(app)
+login_manager.login_view = "login"
 teachers_ref = db.collection('teachers')
 students_ref=db.collection('students')
 admins_ref=db.collection('admins')
+
+
+
+
+#test Route
 @app.route('/')
-@cross_origin()
-def hello():
-    return jsonify({'status': 'Home Route'})
+def home():
+    return jsonify({'status' : 'home'})
 
 
 #student signup route
@@ -28,22 +35,46 @@ def student_signup():
     student_name = data['Name']
     student_email = data['Email']
     #check if email exists in student database, if yes
-    #if email exists:
-    if email in student_database:
-        return jsonify({'status': 'Duplicate signup. Failed'})
-
-    student_phno = data['PhoneNo']
+    students_data = students_ref.get()
+    student=None
+    for row in students_data:
+        student_dict=row.to_dict()
+        if student_dict['email']==student_email:
+            student=student_dict
+            break
+    if student!=None:
+        return jsonify({'status': 'Duplicate signup. Failed'}), 402
+    #If no duplicate signup then
+    # student_phno = data['PhoneNo']
+    student_phno = "9876543210"
     student_password = data['Password']
     hashedPassword = generate_password_hash(student_password, method='sha256')
     student_dob = data['dob']
-    student_attendance = data['attendance']
+    student_attendance = 100
     student_starting_score = data['student_starting_score']
-    assigned_slot = data['student_assigned_slot']
+    assigned_slot = 0
+    preference1 = data['pref1']
+    preference2 = data['pref2']
+    preference3 = data['pref3']
 
     #add all these values as a single record of a student in the Student database
-
-
-    return jsonify({'status': 'student signup successful'})
+    try:
+        students_ref.document().set({
+            "name": student_name,
+            "password":hashedPassword ,
+            "email":student_email,
+            "phoneNo":student_phno,
+            "dob":student_dob ,
+            "student_attendance":student_attendance,
+            "starting_score":student_starting_score,
+            "student_assigned_slot":assigned_slot,
+            "preference1":preference1,
+            "preference2":preference2,
+            "preference3":preference3
+        })
+    except:
+        return jsonify({'status': 'student Unsignup successful'}), 402
+    return jsonify({'status': 'student signup successful'}), 200
 
 
 
@@ -56,18 +87,33 @@ def teacher_signup():
     teacher_email = data['Email']
     #check if email exists in tea database, if yes
     #if email exists:
-    if teacher_email in teacher_database:
-        return jsonify({'status': 'Duplicate signup. Failed'})
-
+    teachers_data = teachers_ref.get()
+    teacher=None
+    for row in teachers_data:
+        teacher_dict=row.to_dict()
+        if teacher_dict['email']==teacher_email:
+            teacher=teacher_dict
+            break
+    if teacher!=None:
+        return jsonify({'status': 'Duplicate signup. Failed'}), 402
     teacher_phno = data['PhoneNo']
     teacher_password = data['Password']
     hashedPassword = generate_password_hash(teacher_password, method='sha256')
     teacher_dob = data['dob']
     teacher_assigned_slot = data['teacher_assigned_slot']
-
     #add all these values as a single record of a teacher in the teacher database
-
-    return jsonify({'status': 'teacher signup successful'})
+    try:
+        teachers_ref.document().set({
+        "name": teacher_name,
+        "password":hashedPassword,
+        "email":teacher_email,
+        "phoneNo":teacher_phno,
+        "dob":teacher_dob ,
+        "teacher_assigned_slot":teacher_assigned_slot
+        })
+    except:
+        return jsonify({'status': 'teacher signup Unsuccessful'}), 402
+    return jsonify({'status': 'teacher signup successful'}), 200
 
 
 #teacher login route
@@ -80,14 +126,15 @@ def teacher_login():
     Password = data['Password']
     teachers_data = teachers_ref.get()
     teacher=None
-    for teacher in teachers_data:
-        teacher=teacher.to_dict()
-        if teacher['email']==Email:
+    for row in teachers_data:
+        teacher_dict=row.to_dict()
+        if teacher_dict['email']==Email:
+            teacher=teacher_dict
             break
     if teacher==None:
-        return jsonify({'status' : 'ERROR , email doesnt exist'})
-    hashPass=teacher['password']
-    if check_password_hash(hashPass, Password):
+        return jsonify({'status' : 'ERROR ,Teacher email doesnt exist'}), 402
+    hashPass=teacher['password']      #If the user info is present in database
+    if check_password_hash(hashPass, Password):     #Checking the password is valid or not
         id=teacher.id
         Email=teacher['email']
         Name=teacher['name']
@@ -97,9 +144,9 @@ def teacher_login():
         print("All details fetched!")
         user = User(id,Name,Email,Password, phoneNo, dob,None, None, None, teacher_assigned_slot,"Teacher")
         login_user(user)
-        return jsonify({'status' : 'Teacher Login successful'})  
+        return jsonify({'status' : 'Teacher Login successful'}), 200
     else:
-        return jsonify({'status' : 'Teacher Wrong password'})      
+        return jsonify({'status' : 'Teacher Wrong password'}), 402
 
 
 
@@ -114,15 +161,16 @@ def student_login():
     Password = data['Password']
     students_data = students_ref.get()
     student=None
-    for student in students_data:
-        student=student.to_dict()
-        if student['email']==Email:
+    for row in students_data:
+        student_dict=row.to_dict()
+        if student_dict['email']==Email:
+            student=student_dict
             break
     if student==None:
-        return jsonify({'status' : 'ERROR ,Student email doesnt exist'}), 404
+        return jsonify({'status' : 'ERROR ,Student email doesnt exist'}), 402
     hashPass=student['password']
-    if check_password_hash(hashPass, Password):
-        id=student.id
+    if check_password_hash(hashPass, Password):  #Checking the password is valid or not
+        id=1
         Email=student['email']
         Name=student['name']
         phoneNo=student['phoneNo']
@@ -132,9 +180,9 @@ def student_login():
         print("All details fetched!")
         user = User(id,Name,Email,Password, phoneNo, dob,None, starting_score, student_assigned_slot, None,"Student")
         login_user(user)
-        return jsonify({'status' : 'Student Login successful'}), 200
+        return jsonify({'status' : 'Student Login successful', 'role':'student'}), 200
     else:
-        return jsonify({'status' : 'Student Wrong password'}), 400
+        return jsonify({'status' : 'Student Wrong password'}), 402
 
 
 
@@ -147,21 +195,22 @@ def admin_login():
     Password = data['Password']
     admins_data = admins_ref.get()
     admin=None
-    for admin in admins_data:
-        admin=admin.to_dict()
-        if admin['email']==Email:
+    for row in admins_data:
+        admin_dict=row.to_dict()
+        if admin_dict['email']==Email:
+            admin=admin_dict
             break
     if admin==None:
-        return jsonify({'status' : 'ERROR ,Admin email doesnt exist'})
+        return jsonify({'status' : 'ERROR ,Admin email doesnt exist'}), 402
     hashPass=admin['password']
     if check_password_hash(hashPass, Password):
         id=admin.id
         Name=admin['name']
         user = User(id,Name,Email,Password, None, None,None, None, None, None,"Admin")
         login_user(user)
-        return jsonify({'status' : 'Admin Login successful'})
+        return jsonify({'status' : 'Admin Login successful'}), 200
     else:
-        return jsonify({'status' : 'Admin Wrong password'})
+        return jsonify({'status' : 'Admin Wrong password'}), 402
 
 
 
@@ -202,16 +251,59 @@ def is_annonymous(self):
 def load_user(id):
     #check if id is in student,  teachers or admin table.
     #whichever returns a non empty query
+    student = students_ref.document(id).get()    #Check if the id is in student database
+    if student!=None:
+        student=student.to_dict()
+        id=student.id
+        Email=student['email']
+        Name=student['name']
+        phoneNo=student['phoneNo']
+        dob=student['dob']
+        starting_score=student['starting_score']
+        student_assigned_slot=student['student_assigned_slot']
+        Password=""
+        user = User(id,Name,Email,Password, phoneNo, dob,None, starting_score, student_assigned_slot, None,"Student")
+        return user
 
-    if id in Student:
-        #fetch  name, email, phone, password, dob, attendance, starting_score, student_assigned_slot from STUDENTS TABLE
-        user =User(id,name,email,password, phone, dob,attendance, starting_score, student_assigned_slot, None, "Student")
+    teacher = teachers_ref.document(id).get()  ##Check if the id is in teacher database
+    if(teacher!=None):
+        teacher=teacher.to_dict()
+        id=teacher.id
+        Email=teacher['email']
+        Name=teacher['name']
+        phoneNo=teacher['phoneNo']
+        dob=teacher['dob']
+        teacher_assigned_slot=teacher['teacher_assigned_slot']
+        Password=""
+        user = User(id,Name,Email,Password, phoneNo, dob,None, None, None, teacher_assigned_slot,"Teacher")
         return user
-    if id in Teacher:
-        #fetch name, email, phone, password, dob, teacher_assigned_slot from TEACHERS TABLE
-        user =User(id,name,email,password, phone, dob,None, None, None, teacher_assigned_slot, "Teacher")
+
+    admin = admins_ref.document(id).get()  ##Check if the id is in admin database
+    if admin!=None:
+        admin=admin.to_dict()
+        id=admin.id
+        Name=admin['name']
+        Password=""
+        user = User(id,Name,Email,Password, None, None,None, None, None, None,"Admin")
         return user
-    if id in Admin:
-        #fetch only email and id from admin table where admin_id = id
-        user = User(id,name,Email,Password, None, None,None, None, None, None,"Admin")
-        return user
+
+@app.route('/getStudentDetails')
+@cross_origin()
+def getStudentDetails():
+    students_data = students_ref.get()
+    student=[]
+    for row in students_data:
+        student_dict=row.to_dict()
+        student.append(student_dict)
+    data = {"data":student}
+    return jsonify(data)
+        
+#LOGOUT ROUTES
+@app.route('/logout')
+#@login_required
+def logout():
+    logout_user()
+    return redirect(url_for('home'))
+
+if __name__ == "__main__":
+    app.run(debug=True)

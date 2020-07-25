@@ -43,7 +43,7 @@ const SelectFieldGroup = (props) => {
             </select>
             
             {error && <div className="invalid-feedback">{error}</div>}
-            {info && <div>{info}</div>}
+            {info && <div className="font-small pl-1">{info}</div>}
         </div>
     );
 }
