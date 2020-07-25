@@ -43,7 +43,7 @@ def student_signup():
             student=student_dict
             break
     if student!=None:
-        return jsonify({'status': 'Duplicate signup. Failed'})
+        return jsonify({'status': 'Duplicate signup. Failed'}), 402
     #If no duplicate signup then
     student_phno = data['PhoneNo']
     # student_phno = data['PhoneNo']
@@ -70,8 +70,8 @@ def student_signup():
             "student_assigned_slot":assigned_slot
         })
     except:
-        return jsonify({'status': 'student Unsignup successful'})
-    return jsonify({'status': 'student signup successful'})
+        return jsonify({'status': 'student Unsignup successful'}), 402
+    return jsonify({'status': 'student signup successful'}), 200
 
 
 
@@ -92,7 +92,7 @@ def teacher_signup():
             teacher=teacher_dict
             break
     if teacher!=None:
-        return jsonify({'status': 'Duplicate signup. Failed'})
+        return jsonify({'status': 'Duplicate signup. Failed'}), 402
     teacher_phno = data['PhoneNo']
     teacher_password = data['Password']
     hashedPassword = generate_password_hash(teacher_password, method='sha256')
@@ -109,8 +109,8 @@ def teacher_signup():
         "teacher_assigned_slot":teacher_assigned_slot
         })
     except:
-        return jsonify({'status': 'teacher signup Unsuccessful'})
-    return jsonify({'status': 'teacher signup successful'})
+        return jsonify({'status': 'teacher signup Unsuccessful'}), 402
+    return jsonify({'status': 'teacher signup successful'}), 200
 
 
 #teacher login route
@@ -129,7 +129,7 @@ def teacher_login():
             teacher=teacher_dict
             break
     if teacher==None:
-        return jsonify({'status' : 'ERROR ,Teacher email doesnt exist'})
+        return jsonify({'status' : 'ERROR ,Teacher email doesnt exist'}), 402
     hashPass=teacher['password']      #If the user info is present in database
     if check_password_hash(hashPass, Password):     #Checking the password is valid or not
         id=teacher.id
@@ -141,9 +141,13 @@ def teacher_login():
         print("All details fetched!")
         user = User(id,Name,Email,Password, phoneNo, dob,None, None, None, teacher_assigned_slot,"Teacher")
         login_user(user)
+<<<<<<< HEAD
         return jsonify({'status' : 'Teacher Login successful', 'role':'teacher'})
+=======
+        return jsonify({'status' : 'Teacher Login successful'}), 200
+>>>>>>> 5c0e69ad643eb6e1367c9fbed89a3122a9f03444
     else:
-        return jsonify({'status' : 'Teacher Wrong password'})
+        return jsonify({'status' : 'Teacher Wrong password'}), 402
 
 
 
@@ -164,7 +168,7 @@ def student_login():
             student=student_dict
             break
     if student==None:
-        return jsonify({'status' : 'ERROR ,Student email doesnt exist'}), 404
+        return jsonify({'status' : 'ERROR ,Student email doesnt exist'}), 402
     hashPass=student['password']
     if check_password_hash(hashPass, Password):  #Checking the password is valid or not
         id=1
@@ -179,7 +183,7 @@ def student_login():
         login_user(user)
         return jsonify({'status' : 'Student Login successful', 'role':'student'}), 200
     else:
-        return jsonify({'status' : 'Student Wrong password'}), 400
+        return jsonify({'status' : 'Student Wrong password'}), 402
 
 
 
@@ -198,16 +202,16 @@ def admin_login():
             admin=admin_dict
             break
     if admin==None:
-        return jsonify({'status' : 'ERROR ,Admin email doesnt exist'})
+        return jsonify({'status' : 'ERROR ,Admin email doesnt exist'}), 402
     hashPass=admin['password']
     if check_password_hash(hashPass, Password):
         id=admin.id
         Name=admin['name']
         user = User(id,Name,Email,Password, None, None,None, None, None, None,"Admin")
         login_user(user)
-        return jsonify({'status' : 'Admin Login successful'})
+        return jsonify({'status' : 'Admin Login successful'}), 200
     else:
-        return jsonify({'status' : 'Admin Wrong password'})
+        return jsonify({'status' : 'Admin Wrong password'}), 402
 
 
 
