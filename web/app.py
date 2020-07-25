@@ -14,9 +14,11 @@ db = firestore.client()
 login_manager = LoginManager()
 login_manager.init_app(app)
 login_manager.login_view = "login"
+
 teachers_ref = db.collection('teachers')
 students_ref=db.collection('students')
 admins_ref=db.collection('admins')
+jobs_ref = db.collection('jobs')
 
 
 
@@ -223,8 +225,7 @@ def admin_login():
 #defines  the USER class common to all 3 stakeholders - for simplicity
 class User(UserMixin):
 
-    def __init__(self,id,name,email,password, phoneNo, dob,attendance, starting_score, student_assigned_slot, teacher_assigned_slot,role,active = True):
-        self.id = id
+    def __init__(self,name,email,password, phoneNo, dob,attendance, starting_score, student_assigned_slot, teacher_assigned_slot,role,active = True):
         self.name = name
         self.email = email
         self.password = password
@@ -258,7 +259,6 @@ def load_user(id):
     student = students_ref.document(id).get()    #Check if the id is in student database
     if student!=None:
         student=student.to_dict()
-        id=student.id
         Email=student['email']
         Name=student['name']
         phoneNo=student['phoneNo']
@@ -266,20 +266,19 @@ def load_user(id):
         starting_score=student['starting_score']
         student_assigned_slot=student['student_assigned_slot']
         Password=""
-        user = User(id,Name,Email,Password, phoneNo, dob,None, starting_score, student_assigned_slot, None,"Student")
+        user = User(Name,Email,Password, phoneNo, dob,None, starting_score, student_assigned_slot, None,"Student")
         return user
 
     teacher = teachers_ref.document(id).get()  ##Check if the id is in teacher database
     if(teacher!=None):
         teacher=teacher.to_dict()
-        id=teacher.id
         Email=teacher['email']
         Name=teacher['name']
         phoneNo=teacher['phoneNo']
         dob=teacher['dob']
         teacher_assigned_slot=teacher['teacher_assigned_slot']
         Password=""
-        user = User(id,Name,Email,Password, phoneNo, dob,None, None, None, teacher_assigned_slot,"Teacher")
+        user = User(Name,Email,Password, phoneNo, dob,None, None, None, teacher_assigned_slot,"Teacher")
         return user
 
     admin = admins_ref.document(id).get()  ##Check if the id is in admin database
@@ -288,7 +287,7 @@ def load_user(id):
         id=admin.id
         Name=admin['name']
         Password=""
-        user = User(id,Name,Email,Password, None, None,None, None, None, None,"Admin")
+        user = User(Name,Email,Password, None, None,None, None, None, None,"Admin")
         return user
 
 @app.route('/getStudentDetails')
@@ -301,6 +300,17 @@ def getStudentDetails():
         student.append(student_dict)
     data = {"data":student}
     return jsonify(data)
+
+@app.route('/getJobDetails')
+@cross_origin()
+def getJobDetails():
+    jobs_data = jobs_ref.get()
+    job=[]
+    for row in jobs_data:
+        job_dict=row.to_dict()
+        student.append(job_dict)
+    data = {"data":job}
+    return jsonify(data) 
         
 #LOGOUT ROUTES
 @app.route('/logout')
