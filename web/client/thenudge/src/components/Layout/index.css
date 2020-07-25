@@ -20,6 +20,10 @@
     display: block;
     margin:10px 0px
   }
+  .sidenav-logo {
+    color: white;
+    text-align: center;
+  }
   .selected-nav {
     color: #110225 !important;
     background-color: white;

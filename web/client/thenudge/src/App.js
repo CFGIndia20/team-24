@@ -19,6 +19,7 @@ import TeacherProfile from "./components/Teacher/TeacherProfile";
 import StudentRoute from './components/Common/StudentRoute';
 import AdminRoute from "./components/Common/AdminRoute";
 import TeacherRoute from "./components/Common/TeacherRoute";
+import AddJob from './components/Admin/addjob';
 
 function App() {
   return (
@@ -33,8 +34,9 @@ function App() {
           <StudentRoute exact path="/leaderboard" component={LeaderBoard} />
           <StudentRoute exact path="/jobs" component={JobListing} />
           <StudentRoute exact path="/schedule" component={Schedule} />
-          <StudentRoute exact path="/userprofile" component={UserProfile }/>
+          <StudentRoute exact path="/userprofile" component={UserProfile} />
           <TeacherRoute exact path="/teacherprofile" component={TeacherProfile} />
+          <AdminRoute path="/adminprofile" component={AddJob} />
         </Switch>
       </Router>
     </Provider>

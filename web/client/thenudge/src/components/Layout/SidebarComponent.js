@@ -8,11 +8,12 @@ const SidebarComponent = (props) => {
     if (user == "student") {
         return (
             <div className="sidenav">
+                <span className="sidenav-logo"><i class="fa fa-book" aria-hidden="true"></i>  Allotify</span>
                 <Link to="/schedule" style={{ textDecoration: "none" }}><span className={path === "/schedule" ? "selected-nav" : ""}><i className="fa fa-calendar" aria-hidden="true"></i>  Schedule</span></Link>
                 <Link to="/jobs" style={{ textDecoration: "none" }}><span className={path === "/jobs" ? "selected-nav" : ""}><i className="fa fa-briefcase" aria-hidden="true"></i>  Job Listing</span></Link>
                 <Link to="/userprofile" style={{ textDecoration: "none" }}><span className={path === "/userprofile" ? "selected-nav" : ""}><i className="fa fa fa-user-o" aria-hidden="true"></i>  Profile</span></Link>
                 <Link to="/leaderboard" style={{ textDecoration: "none" }}><span className={path === "/leaderboard" ? "selected-nav" : ""}><i className="fa fa-calendar-o" aria-hidden="true"></i>  Leaderboard</span></Link>
-                <Link to="/" style={{ textDecoration: "none" }}><span><i class="fa fa-sign-out" aria-hidden="true"></i>  Log out</span></Link>
+                <Link to="/" style={{ textDecoration: "none" }}><span><i className="fa fa-sign-out" aria-hidden="true"></i>  Log out</span></Link>
             </div >
         );
     }
@@ -21,16 +22,17 @@ const SidebarComponent = (props) => {
             <div className="sidenav">
                 <Link to="/schedule" style={{ textDecoration: "none" }}><span className={path === "/schedule" ? "selected-nav" : ""}><i className="fa fa-calendar" aria-hidden="true"></i>  Schedule</span></Link>
                 <Link to="/teacherprofile" style={{ textDecoration: "none" }}><span className={path === "/teacherprofile" ? "selected-nav" : ""}><i className="fa fa fa-user-o" aria-hidden="true"></i>  TeacherProfile</span></Link>
-                <Link to="/" style={{ textDecoration: "none" }}><span><i class="fa fa-sign-out" aria-hidden="true"></i>  Log out</span></Link>
+                <Link to="/" style={{ textDecoration: "none" }}><span><i className="fa fa-sign-out" aria-hidden="true"></i>  Log out</span></Link>
             </div >
         )
     }
     if (user == "admin") {
         return (
             <div className="sidenav">
-                <Link to="/addslot" style={{ textDecoration: "none" }}><span className={path === "/addslot" ? "selected-nav" : ""}><i className="fa fa-calendar" aria-hidden="true"></i>  Schedule</span></Link>
+                <Link to="/addslot" style={{ textDecoration: "none" }}><span className={path === "/addslot" ? "selected-nav" : ""}><i className="fa fa-calendar" aria-hidden="true"></i>  Add Slot</span></Link>
+                <Link to="/addjob" style={{ textDecoration: "none" }}><span className={path === "/addjob" ? "selected-nav" : ""}><i className="fa fa-calendar" aria-hidden="true"></i>  Add Job</span></Link>
                 <Link to="/notifications" style={{ textDecoration: "none" }}><span className={path === "/notifications" ? "selected-nav" : ""}><i className="fa fa fa-user-o" aria-hidden="true"></i>  TeacherProfile</span></Link>
-                <Link to="/" style={{ textDecoration: "none" }}><span><i class="fa fa-sign-out" aria-hidden="true"></i>  Log out</span></Link>
+                <Link to="/" style={{ textDecoration: "none" }}><span><i className="fa fa-sign-out" aria-hidden="true"></i>  Log out</span></Link>
             </div >
         )
     }

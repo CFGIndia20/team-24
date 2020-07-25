@@ -31,6 +31,10 @@ class UserProfile extends Component {
                 <div className="field-label">DOB</div>
                 <div className="field-value">dateofbirth</div>
               </div>
+              <div className="field">
+                <div className="field-label">Aadhar</div>
+                <div className="field-value">875212341234</div>
+              </div>
 
               {/* <div className="btn-grp">
           <button className="button save-btn">Add Friend</button>
