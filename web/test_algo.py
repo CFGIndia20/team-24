@@ -60,27 +60,28 @@ def add_student():
                 "student_attendance": random.randint(60, 100),
                 "starting_score": random.randint(50, 100),
                 "student_assigned_slot":None,
-                "preference":[(i%13)+1,((i+1)%13)+1, ((i+2)%13) + 1 ]
+                "preference":random.randint(1,8)
             })
         except:
             return jsonify({'status': 'student Unsignup successful'}), 418
     return jsonify({'status': 'student signup successful'}), 200
 
-def addMarks(marks,batch,student_dict):
+def addMarks(marks,batch,student_dict,pref,pref_dict):
     if marks>=50 and marks<60:
         batch["50"].append(student_dict['name'])
+        pref_dict["50"].append(pref)
     elif marks>=60 and marks<70:
         batch["60"].append(student_dict['name'])
+        pref_dict["60"].append(pref)
     elif marks>=70 and marks<80:
         batch["70"].append(student_dict['name'])
+        pref_dict["70"].append(pref)
     elif marks>=80 and marks<90:
         batch["80"].append(student_dict['name'])
+        pref_dict["80"].append(pref)
     else:
         batch["90"].append(student_dict['name'])
-
-def addPref(slot_preference,student_dict):
-        for i in range(3):
-            slot_preference[student_dict['name']].append(student_dict['preference'][i])
+        pref_dict["90"].append(pref)
 
 
 @app.route('/allocateBatch')
@@ -93,24 +94,24 @@ def allocatebatch():
         "90":[]
     }
 
-    slot_preference={
-        "N"+str(i):[] for i in range(1,76)
+    pref_dict = {
+        "50":[],
+        "60":[],
+        "70":[],
+        "80":[],
+        "90":[]
     }
 
+    
     slot ={
-        1:[],
-        2:[],
-        3:[],
-        4:[],
-        5:[],
-        6:[],
-        7:[],
-        8:[],
-        9:[],
-        10:[],
-        11:[],
-        12:[],
-        13:[]
+        "q1":{0:0},
+        "q2":{0:0},
+        "q3":{0:0},
+        "q4":{0:0},
+        "q5":{0:0},
+        "q6":{0:0},
+        "q7":{0:0},
+        "q8":{0:0},
     }
 
 
@@ -118,18 +119,13 @@ def allocatebatch():
     for row in students_data:
         student_dict=row.to_dict()
         marks = student_dict['starting_score']
-        addMarks(marks,batch,student_dict)
-        addPref(slot_preference,student_dict)
+        pref = student_dict['preference']
+        addMarks(marks,batch,student_dict,pref,pref_dict)
 
-    for key,value in batch.items():
-        student = value
-        for j in student:
-            for i in slot_preference[j]:
-                slot[i].append(j)
-                break
+    
                 
         
-    return jsonify({"data":slot})
+    return jsonify({"data":batch,"data1":pref_dict})
 
 
 
