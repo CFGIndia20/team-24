@@ -43,7 +43,7 @@ def student_signup():
             student=student_dict
             break
     if student!=None:
-        return jsonify({'status': 'Duplicate signup. Failed'}), 402
+        return jsonify({'status': 'Duplicate signup. Failed'}), 418
     #If no duplicate signup then
     # student_phno = data['PhoneNo']
     student_phno = "9876543210"
@@ -73,7 +73,7 @@ def student_signup():
             "preference3":preference3
         })
     except:
-        return jsonify({'status': 'student Unsignup successful'}), 402
+        return jsonify({'status': 'student Unsignup successful'}), 418
     return jsonify({'status': 'student signup successful'}), 200
 
 
@@ -95,7 +95,7 @@ def teacher_signup():
             teacher=teacher_dict
             break
     if teacher!=None:
-        return jsonify({'status': 'Duplicate signup. Failed'}), 402
+        return jsonify({'status': 'Duplicate signup. Failed'}), 418
     teacher_phno = data['PhoneNo']
     teacher_password = data['Password']
     hashedPassword = generate_password_hash(teacher_password, method='sha256')
@@ -112,7 +112,7 @@ def teacher_signup():
         "teacher_assigned_slot":teacher_assigned_slot
         })
     except:
-        return jsonify({'status': 'teacher signup Unsuccessful'}), 402
+        return jsonify({'status': 'teacher signup Unsuccessful'}), 418
     return jsonify({'status': 'teacher signup successful'}), 200
 
 
@@ -132,7 +132,7 @@ def teacher_login():
             teacher=teacher_dict
             break
     if teacher==None:
-        return jsonify({'status' : 'ERROR ,Teacher email doesnt exist'}), 402
+        return jsonify({'status' : 'ERROR ,Teacher email doesnt exist'}), 418
     hashPass=teacher['password']      #If the user info is present in database
     if check_password_hash(hashPass, Password):     #Checking the password is valid or not
         id=teacher.id
@@ -146,7 +146,7 @@ def teacher_login():
         login_user(user)
         return jsonify({'status' : 'Teacher Login successful'}), 200
     else:
-        return jsonify({'status' : 'Teacher Wrong password'}), 402
+        return jsonify({'status' : 'Teacher Wrong password'}), 418
 
 
 
@@ -167,7 +167,7 @@ def student_login():
             student=student_dict
             break
     if student==None:
-        return jsonify({'status' : 'ERROR ,Student email doesnt exist'}), 402
+        return jsonify({'status' : 'ERROR ,Student email doesnt exist'}), 418
     hashPass=student['password']
     if check_password_hash(hashPass, Password):  #Checking the password is valid or not
         id=1
@@ -182,7 +182,7 @@ def student_login():
         login_user(user)
         return jsonify({'status' : 'Student Login successful', 'role':'student'}), 200
     else:
-        return jsonify({'status' : 'Student Wrong password'}), 402
+        return jsonify({'status' : 'Student Wrong password'}), 418
 
 
 
@@ -201,7 +201,7 @@ def admin_login():
             admin=admin_dict
             break
     if admin==None:
-        return jsonify({'status' : 'ERROR ,Admin email doesnt exist'}), 402
+        return jsonify({'status' : 'ERROR ,Admin email doesnt exist'}), 418
     hashPass=admin['password']
     if check_password_hash(hashPass, Password):
         id=admin.id
@@ -210,7 +210,7 @@ def admin_login():
         login_user(user)
         return jsonify({'status' : 'Admin Login successful'}), 200
     else:
-        return jsonify({'status' : 'Admin Wrong password'}), 402
+        return jsonify({'status' : 'Admin Wrong password'}), 418
 
 
 
