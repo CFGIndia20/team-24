@@ -20,7 +20,6 @@ export const loginUser = (userData,userType,history) => (dispatch) => {
           });
     }
     if (userType === "student") {
-      console.log('af');
         axios
           .post("http://localhost:5000/studentlogin", userData)
           .then((res) => {
