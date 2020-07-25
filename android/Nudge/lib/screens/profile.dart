@@ -3,21 +3,7 @@ import "package:Nudge/screens/homepage.dart";
 import "package:Nudge/data/globals.dart" as global;
 
 
-// "06/08/1999"
-// email
-// "agrimnautiyal1999@gmail.com"
-// name
-// "Agrim Nautiyal"
-// password
-// "sha256$R8w0pkss$bcb479803efa33382c5c0a422af0876c64fb82e638d270537da19305b10f3af5"
-// phoneNo
-// "9159289775"
-// starting_score
-// "100"
-// student_assigned_slot
-// "s2"
-// student_attendance
-// "90"
+
 
 class UserProfilePage extends StatelessWidget {
   final String _fullName = global.name;
@@ -29,8 +15,8 @@ class UserProfilePage extends StatelessWidget {
   // final String _scores = global.;
 
   Widget _buildCoverImage(Size screenSize) {
-    // return Scaffold(
-    //   appBar: AppBar(title: Text("Profile"),),
+    return Scaffold(
+      appBar: AppBar(title: Text("Profile"),),
           body: Container(
         height: screenSize.height / 2.6,
         decoration: BoxDecoration(
@@ -39,8 +25,8 @@ class UserProfilePage extends StatelessWidget {
             fit: BoxFit.cover,
           ),
         ),
-      );
-    // );
+      ),
+    );
   }
 
   Widget _buildProfileImage() {
@@ -176,8 +162,7 @@ class UserProfilePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Size screenSize = MediaQuery.of(context).size;
-    return Scaffold(
-      body: Stack(
+    return  Stack(
         children: <Widget>[
           _buildCoverImage(screenSize),
           SafeArea(
@@ -203,7 +188,7 @@ class UserProfilePage extends StatelessWidget {
             ),
           ),
         ],
-      ),
+      // ),
     );
   }
 }

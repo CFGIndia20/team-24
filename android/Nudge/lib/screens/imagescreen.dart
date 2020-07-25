@@ -90,13 +90,13 @@ class ImageScreen extends StatelessWidget {
         //     itemCount: SList.h.length,
         //   ),
         // ),
-      );
+      // );
       else if(url=="https://thumbs.dreamstime.com/b/young-woman-adult-student-autumn-back-to-school-park-going-university-college-asian-girl-smiling-happy-pretty-mixed-race-32608952.jpg")
-      return Scaffold(
-        backgroundColor: Colors.black87,
-        appBar: AppBar(
-          title: Text("Nudge"),
-        ),
+      // return Scaffold(
+      //   backgroundColor: Colors.black87,
+      //   appBar: AppBar(
+      //     title: Text("Nudge"),
+      //   ),
         // body: Container(
         //   padding: EdgeInsets.all(20),
         //   child: GridView.builder(
@@ -141,8 +141,8 @@ class ImageScreen extends StatelessWidget {
         //                       // ),
         //                     ),
         //                   ),
-        body:UserProfilePage(),
-                        );
+        return UserProfilePage();
+                        // );
         
       
       else if (url=="https://i.pinimg.com/originals/f4/26/90/f4269058bffae58474f816f8613b7a60.png")
