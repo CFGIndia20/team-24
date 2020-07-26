@@ -105,7 +105,7 @@ def allocatebatch():
     }
 
     slot_preference={
-        "N"+str(i):[0,0] for i in range(1,76)
+        "N"+str(i):0 for i in range(1,76)
     }
 
     slot ={
@@ -120,11 +120,7 @@ def allocatebatch():
     }
 
     teachers ={
-    'a':[],
-    'b':[],
-    'c':[],
-    'd':[],
-    'e':[]
+        "Name"+str(i):[] for i in range(1,6)
     }
 
     count = 0
@@ -136,17 +132,16 @@ def allocatebatch():
         student_dict=row.to_dict()
         marks = student_dict['starting_score']
         addMarks(marks,batch,student_dict)
-        slot_preference[student_dict['name']][0]=student_dict['preference']
-        slot_preference[student_dict['name']][1]=id1
+        slot_preference[student_dict['name']]=student_dict['preference']
+    
 
     for key,value in batch.items():
         student = value
         for j in student:
             for key in slot.keys():
-                if key==str(slot_preference[j][0]):
+                if key==str(slot_preference[j]):
                     if valid(key,slot):
                         slot[key][0] = slot[key][0]+1
-                        students_ref.document
                         break
                     else:
                         slot[key][0] = 1
@@ -162,13 +157,15 @@ def allocatebatch():
                     slot[key][0]=slot[key][0]+slot[j][0]
                     slot[j][0]=0
     
-    """for key in slot.keys():
+    for key in slot.keys():
         if slot[key][1]!=0 and slot[key][0]==0:
             total = slot[key][1]
         elif slot[key][1]!=0 and slot[key][0]!=0:
             total = slot[key][1]+1
         elif slot[key][1]==0 and slot[key][0]!=0:
             total = 1
+        else:
+            total = 0
         
 
         for i in range(total):
@@ -185,11 +182,11 @@ def allocatebatch():
                         continue
                     if abs(int(cur_slot)-int(key))>1:
                         teachers[j].append(key)
-                        break"""
+                        break
                 
                 
         
-    return jsonify({"data":slot})
+    return jsonify({"data":teachers})
 
 def sub(slot):
     for j in teachers:

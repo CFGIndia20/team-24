@@ -446,6 +446,12 @@ def allocatebatch():
         "8": [0, 0]
     }
 
+    teachers ={
+        "Name"+str(i):[] for i in range(1,6)
+    }
+
+    count = 0
+
     students_data = students_ref.get()
     for row in students_data:
         student_dict = row.to_dict()
@@ -475,7 +481,36 @@ def allocatebatch():
                     slot[key][0] = slot[key][0]+slot[j][0]
                     slot[j][0] = 0
 
-    return jsonify({"data": slot})
+    for key in slot.keys():
+        if slot[key][1]!=0 and slot[key][0]==0:
+            total = slot[key][1]
+        elif slot[key][1]!=0 and slot[key][0]!=0:
+            total = slot[key][1]+1
+        elif slot[key][1]==0 and slot[key][0]!=0:
+            total = 1
+        else:
+            total = 0
+        
+
+        for i in range(total):
+            if count!=5:
+                for j in teachers:
+                    if len(teachers[j])==0:
+                        teachers[j].append(key)
+                        count = count + 1
+                        break
+            else:
+                for j in teachers:
+                    cur_slot = teachers[j][-1]
+                    if len(teachers[j])>=4:
+                        continue
+                    if abs(int(cur_slot)-int(key))>1:
+                        teachers[j].append(key)
+                        break
+                
+                
+        
+    return jsonify({"data":teachers})
 
 
 # LOGOUT ROUTES
