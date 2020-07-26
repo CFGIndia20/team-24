@@ -2,29 +2,22 @@ import 'dart:math';
 
 import 'package:Nudge/screens/homepage.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import "package:Nudge/data/list.dart";
+
 import "package:Nudge/data/globals.dart" as global;
 import "package:cloud_firestore/cloud_firestore.dart";
 
-
+//login part for the students
 
 enum AuthMode { Signup, Login }
 
 class AuthScreen extends StatelessWidget {
-
-
   static const routeName = '/auth';
-
-
 
   @override
   Widget build(BuildContext context) {
     final deviceSize = MediaQuery.of(context).size;
-    // final transformConfig = Matrix4.rotationZ(-8 * pi / 180);
-    // transformConfig.translate(-10.0);
+
     return Scaffold(
-      // resizeToAvoidBottomInset: false,
       body: Stack(
         children: <Widget>[
           Container(
@@ -92,8 +85,6 @@ class AuthScreen extends StatelessWidget {
   }
 }
 
-
-
 class AuthCard extends StatefulWidget {
   const AuthCard({
     Key key,
@@ -105,18 +96,16 @@ class AuthCard extends StatefulWidget {
 
 class _AuthCardState extends State<AuthCard>
     with SingleTickerProviderStateMixin {
-
-      
   final GlobalKey<FormState> _formKey = GlobalKey();
   AuthMode _authMode = AuthMode.Login;
   Map<String, String> _authData = {
     'email': '',
     'password': '',
   };
-  
+
   var _isLoading = false;
   final _passwordController = TextEditingController();
-  final _emailController=TextEditingController();
+  final _emailController = TextEditingController();
   AnimationController _controller;
   Animation<Size> _heightAnimation;
   Animation<double> _opacityAnimation;
@@ -176,7 +165,6 @@ class _AuthCardState extends State<AuthCard>
     );
   }
 
-
   @override
   Widget build(BuildContext context) {
     final deviceSize = MediaQuery.of(context).size;
@@ -205,14 +193,14 @@ class _AuthCardState extends State<AuthCard>
                     keyboardType: TextInputType.emailAddress,
                     controller: _emailController,
                     validator: (value) {
-                      if (value.isEmpty ) {
+                      if (value.isEmpty) {
                         return 'Invalid email!';
                       }
                     },
                     onSaved: (value) {
                       print("email");
                       _authData['email'] = _emailController.text;
-                      global.emailid=value;
+                      global.emailid = value;
                     },
                   ),
                   TextFormField(
@@ -264,24 +252,23 @@ class _AuthCardState extends State<AuthCard>
                     CircularProgressIndicator()
                   else
                     RaisedButton(
-                      child: Text(
-                           'LOGIN' ),
-                      onPressed: ()async{
+                      child: Text('LOGIN'),
+                      onPressed: () async {
                         await getData1();
                         print(_emailController.text);
                         print(_passwordController.text);
-                          global.emailid=_emailController.text;
-                          
-                          print(_authData["email"]);
-                          print(global.emailid);
-                          print("hjf");
-                          print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
-                          // _submit();
+                        global.emailid = _emailController.text;
+
+                        print(_authData["email"]);
+                        print(global.emailid);
+                        print("hjf");
+                        print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
+                        // _submit();
                         Navigator.of(context).pushNamed(HomePage.routename);
-                      // Navigator.of(context).pushNamed(
-                      //    HomePage.routename,arguments:User(
-                      //      _authData["email"]
-                      //     ));
+                        // Navigator.of(context).pushNamed(
+                        //    HomePage.routename,arguments:User(
+                        //      _authData["email"]
+                        //     ));
                       },
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(30),
@@ -292,7 +279,6 @@ class _AuthCardState extends State<AuthCard>
                       textColor:
                           Theme.of(context).primaryTextTheme.button.color,
                     ),
-                 
                 ],
               ),
             ),
@@ -300,7 +286,7 @@ class _AuthCardState extends State<AuthCard>
         ));
   }
 
-   getData1() async {
+  getData1() async {
     final databaseReference = await Firestore.instance;
     databaseReference
         .collection("students")
@@ -312,21 +298,23 @@ class _AuthCardState extends State<AuthCard>
         if (f.data["email"] == global.emailid) {
           // print('${f.data["email"]}}');
           // print('${f.data}}');
-          global.name=f.data['name'];
-          global.dob=f.data["dob"];
-          global.attendance=f.data["student_attendance"].toString();
-          global.phonenumber=f.data["phoneNo"];
-          global.id=f.data["student_assigned_slot"].toString();
-          global.slot=global.ab[global.id];
-          global.score=f.data["starting_score"].toString();
+          global.name = f.data['name'];
+          global.dob = f.data["dob"];
+          global.attendance = f.data["student_attendance"].toString();
+          global.phonenumber = f.data["phoneNo"];
+          global.id = f.data["student_assigned_slot"].toString();
+          global.slot = global.ab[global.id];
+          global.score = f.data["starting_score"].toString();
           print(f.data["name"]);
           print("done\n\n\n\n\n\n\n");
         }
         // else print("nope");
-        else{
-          SnackBar(content: Text("Wrong Credentials"),);
+        else {
+          SnackBar(
+            content: Text("Wrong Credentials"),
+          );
         }
       });
     });
+  }
 }
-    }

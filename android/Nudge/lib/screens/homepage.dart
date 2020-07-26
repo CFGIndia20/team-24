@@ -7,10 +7,11 @@ import "package:Nudge/data/list.dart";
 import "package:Nudge/data/globals.dart" as global;
 import "package:cloud_firestore/cloud_firestore.dart";
 
+//the homepage of the app which has 4 categories.
+
 class HomePage extends StatefulWidget {
-  // String emailid;
-  // HomePage(this.emailid);
-  static const routename = "/homepage";
+ 
+  static const routename = "/homepage"; //route 1
   @override
   _HomePageState createState() => _HomePageState();
 }
@@ -23,37 +24,28 @@ class _HomePageState extends State<HomePage> {
         .getDocuments()
         .then((QuerySnapshot snapshot) {
       snapshot.documents.forEach((f) {
-        //  print('${f.data}}');
         print(global.emailid);
         if (f.data["email"] == global.emailid) {
-          // print('${f.data["email"]}}');
-          // print('${f.data}}');
-          global.name=f.data['name'];
-          global.dob=f.data["dob"];
-          global.attendance=f.data["student_attendance"].toString();
-          global.phonenumber=f.data["phoneNo"];
-          global.id=f.data["student_assigned_slot"].toString();
-          global.slot=global.ab[global.id];
-          global.score=f.data["starting_score"].toString();
+          //storing of data in global variables.
+
+          global.name = f.data['name'];
+          global.dob = f.data["dob"];
+          global.attendance = f.data["student_attendance"].toString();
+          global.phonenumber = f.data["phoneNo"];
+          global.id = f.data["student_assigned_slot"].toString();
+          global.slot = global.ab[global.id];
+          global.score = f.data["starting_score"].toString();
           print(f.data["name"]);
           print("done\n\n\n\n\n\n\n");
         }
         // else print("nope");
-        else{
-          SnackBar(content: Text("Wrong Credentials"),);
+        else {
+          SnackBar(
+            content: Text("Wrong Credentials"),
+          );
         }
       });
     });
-//   databaseReference
-//     .collection("teachers")
-//     .where("address.country", isEqualTo: "USA")
-//     .getDocuments()
-//     .then((value) {
-//   value.documents.forEach((result) {
-//     print(result.data);
-//   });
-// });
-// }
   }
 
   @override
@@ -83,8 +75,9 @@ class _HomePageState extends State<HomePage> {
                               borderRadius: BorderRadius.circular(20),
                               child: GestureDetector(
                                 child: Image.network(link, fit: BoxFit.cover),
-                                onTap: () async{
-                                 await getData1();
+                                onTap: () async {
+                                  //check the validity
+                                  await getData1();
                                   print(global.emailid);
                                   Navigator.push<Widget>(
                                     context,
@@ -120,23 +113,7 @@ class _HomePageState extends State<HomePage> {
                                       })),
                             )
                           ],
-                        )
-                        // child: Card(
-                        //     elevation: 10,
-                        // child: Stack(
-                        //   children: <Widget>[
-
-                        // child: ClipRRect(
-                        //   borderRadius: BorderRadius.circular(20),
-                        //   child: Image.network(link, fit: BoxFit.cover),
-                        // )
-
-                        //  ],),
-
-                        //   ],
-                        // ),
-                        // ),
-                        );
+                        ));
                   });
                 }).toList(),
                 enableInfiniteScroll: true,
@@ -151,15 +128,5 @@ class _HomePageState extends State<HomePage> {
             ],
           ),
         ));
-  }
+  } //implementing a carousel page
 }
-
-// class User {
-//   final String userName;
-//   final String password;
-
-//   User(this.userName, this.password);
-// }
-
-
-// com.example.Nudge

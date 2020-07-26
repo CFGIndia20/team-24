@@ -3,13 +3,15 @@ import "package:Nudge/screens/homepage.dart";
 import "package:Nudge/data/globals.dart" as global;
 import "package:google_fonts/google_fonts.dart";
 
+//building the profile page for the users
+
 class UserProfilePage extends StatelessWidget {
   final String _fullName = global.name;
   final String _emailid = global.emailid;
-  final String _bio = "PhoneNo:"+global.phonenumber;
+  final String _bio = "PhoneNo:" + global.phonenumber;
   final String _startingscore = global.score;
   final String _attendance = global.attendance;
-  // final String _scores = global.;
+  
 
   Widget _buildCoverImage(Size screenSize) {
     return Scaffold(
@@ -173,14 +175,12 @@ class UserProfilePage extends StatelessWidget {
                 Padding(
                   padding: EdgeInsets.all(20),
                 ),
-
                 _buildBio(context),
                 Padding(
                   padding: EdgeInsets.all(5),
                 ),
                 _buildSeparator(screenSize),
                 SizedBox(height: 10.0),
-                
                 SizedBox(height: 8.0),
                 FlatButton(
                   color: Colors.blue[100],
@@ -192,7 +192,6 @@ class UserProfilePage extends StatelessWidget {
                     Navigator.of(context).popAndPushNamed(HomePage.routename);
                   },
                 )
-                
               ],
             ),
           ),

@@ -2,6 +2,7 @@ import "package:flutter/material.dart";
 import "package:google_fonts/google_fonts.dart";
 import "package:Nudge/data/globals.dart" as global;
 
+//shows the time table of a particular day,attendance,score till tat particular day
 class Box extends StatelessWidget {
   final title;
   Box(@required this.title);
@@ -63,7 +64,6 @@ class Box extends StatelessWidget {
             ),
           ),
         ),
-
         ClipRRect(
           borderRadius: BorderRadius.circular(25),
           child: Card(
