@@ -105,7 +105,7 @@ def allocatebatch():
     }
 
     slot_preference={
-        "N"+str(i):0 for i in range(1,76)
+        "N"+str(i):[0,0] for i in range(1,76)
     }
 
     slot ={
@@ -136,15 +136,17 @@ def allocatebatch():
         student_dict=row.to_dict()
         marks = student_dict['starting_score']
         addMarks(marks,batch,student_dict)
-        slot_preference[student_dict['name']]=student_dict['preference']
+        slot_preference[student_dict['name']][0]=student_dict['preference']
+        slot_preference[student_dict['name']][1]=id1
 
     for key,value in batch.items():
         student = value
         for j in student:
             for key in slot.keys():
-                if key==str(slot_preference[j]):
+                if key==str(slot_preference[j][0]):
                     if valid(key,slot):
                         slot[key][0] = slot[key][0]+1
+                        students_ref.document
                         break
                     else:
                         slot[key][0] = 1
@@ -160,7 +162,7 @@ def allocatebatch():
                     slot[key][0]=slot[key][0]+slot[j][0]
                     slot[j][0]=0
     
-    for key in slot.keys():
+    """for key in slot.keys():
         if slot[key][1]!=0 and slot[key][0]==0:
             total = slot[key][1]
         elif slot[key][1]!=0 and slot[key][0]!=0:
@@ -183,11 +185,11 @@ def allocatebatch():
                         continue
                     if abs(int(cur_slot)-int(key))>1:
                         teachers[j].append(key)
-                        break
+                        break"""
                 
                 
         
-    return jsonify({"data":teachers})
+    return jsonify({"data":slot})
 
 def sub(slot):
     for j in teachers:
