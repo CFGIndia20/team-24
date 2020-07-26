@@ -48,7 +48,7 @@ def student_signup():
     if student!=None:
         return jsonify({'status': 'Duplicate signup. Failed'}), 418
     #If no duplicate signup then
-    student_phno = data['PhoneNo']
+    student_phno = None
     student_password = data['Password']
     hashedPassword = generate_password_hash(student_password, method='sha256')
     student_dob = data['dob']
@@ -69,9 +69,8 @@ def student_signup():
             "student_attendance":student_attendance,
             "starting_score":student_starting_score,
             "student_assigned_slot":assigned_slot,
-            "preference1":preference1,
-            "preference2":preference2,
-            "preference3":preference3
+            "preference":preference,
+
         })
     except:
         return jsonify({'status': 'student Unsignup successful'}), 418

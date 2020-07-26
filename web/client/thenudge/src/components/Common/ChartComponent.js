@@ -12,6 +12,7 @@ export default function ({labels, dataset}) {
 
     const containerStyles = {
         maxWidth: 600,
+        background: 'transparent'
     };
 
     const datasets = dataset.map((dataset,index) => (
@@ -24,21 +25,24 @@ export default function ({labels, dataset}) {
       />
     ));
     return (
-
-        <div
+      <div
         className="rainbow-p-vertical_medium rainbow-m_auto"
         style={containerStyles}
+      >
+        <div
+          className="rainbow-align-content_center"
+          style={{ background: "transparent" }}
         >
-        <div className="rainbow-align-content_center">
-            <Chart
+          <Chart
             labels={labels}
             type="line"
             className="rainbow-m-horizontal_xx-large rainbow-m-top_x-large"
-            >
+            style={{ background: "transparent" }}
+          >
             {datasets}
-            </Chart>
+          </Chart>
         </div>
-        </div>
-)
+      </div>
+    );
 }
 

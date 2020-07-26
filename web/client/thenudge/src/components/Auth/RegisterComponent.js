@@ -5,7 +5,6 @@ import { withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { registerStudent } from '../../redux/actions/authActions';
-import { CSSTransition } from 'react-transition-group';
 
 class RegisterComponent extends Component {
   constructor(props) {
@@ -39,7 +38,7 @@ class RegisterComponent extends Component {
       Email: this.state.email,
       Password: this.state.password,
       dob: this.state.dob,
-      preference: this.state.pref1,
+      preference: this.state.preference,
       student_starting_score: Math.floor(Math.random() * 100) 
     }
 
