@@ -1,7 +1,10 @@
 .main {
     margin-left: 240px; /* Same as the width of the sidebar */
     padding: 0px 10px;
+<<<<<<< HEAD
     background: url("https://png.pngtree.com/thumb_back/fw800/background/20190222/ourmid/pngtree-minimalistic-polygonal-abstract-creative-geometric-background-polygontechnologybluebackground-image_49481.jpg");
+=======
+>>>>>>> 3ed3d18e08db5dea55c039ea5530b7b799738866
     background-repeat: no-repeat;
     background-position: center;
     background-size: cover;

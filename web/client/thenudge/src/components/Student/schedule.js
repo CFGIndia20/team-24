@@ -2,77 +2,34 @@ import React, { Component } from 'react';
 import SidebarComponent from "../Layout/SidebarComponent"
 import "./index.css"
 import { connect } from "react-redux"
+import CardComponent from "../Common/CardComponent"
 class Schedule extends Component {
-    state = {}
+    state = {
+        slots: [
+            { title: "Title", description: "Description", time: "12-1", teacher: "Miss Braganza" },
+        ]
+    }
     render() {
         return (
-          <>
-            <SidebarComponent />
-            <div className="main">
-              <div className="container main-content">
-                <div class="card flex-row flex-wrap">
-                  <div class="card-header border-0">
-                    <img src="//placehold.it/200" alt="" />
-                  </div>
-                  <div class="card-block px-2">
-                    <h4 class="card-title">Title</h4>
-                    <p class="card-text">Description</p>
-                    <a href="#" class="btn btn-primary">
-                      BUTTON
-                    </a>
-                  </div>
-                  <div class="w-100"></div>
-                  <div class="card-footer w-100 text-muted">FOOTER</div>
-                </div>
+            <>
+                <SidebarComponent />
+                <div className="main">
+                    <div className="container main-content">
+                        <h2 className="display-4">Schedule</h2>
+                        <br />
+                        <div className="row no-gutters justify-content-between card-responsive" >
+                            {this.state.slots.map((job, index) => (
+                                <div className="hover-magnify" key={index}>
+                                    <CardComponent
+                                        slot={true}
+                                        info={job} />
+                                </div>
+                            ))}
+                        </div>
 
-                <div class="card flex-row flex-wrap">
-                  <div class="card-header border-0">
-                    <img src="//placehold.it/200" alt="" />
-                  </div>
-                  <div class="card-block px-2">
-                    <h4 class="card-title">Title</h4>
-                    <p class="card-text">Description</p>
-                    <a href="#" class="btn btn-primary">
-                      BUTTON
-                    </a>
-                  </div>
-                  <div class="w-100"></div>
-                  <div class="card-footer w-100 text-muted">FOOTER</div>
+                    </div>
                 </div>
-
-                <div class="card flex-row flex-wrap">
-                  <div class="card-header border-0">
-                    <img src="//placehold.it/200" alt="" />
-                  </div>
-                  <div class="card-block px-2">
-                    <h4 class="card-title">Title</h4>
-                    <p class="card-text">Description</p>
-                    <a href="#" class="btn btn-primary">
-                      BUTTON
-                    </a>
-                  </div>
-                  <div class="w-100"></div>
-                  <div class="card-footer w-100 text-muted">FOOTER</div>
-                </div>
-
-                <div class="card flex-row flex-wrap">
-                  <div class="card-header border-0">
-                    <img src="//placehold.it/200" alt="" />
-                  </div>
-                  <div class="card-block px-2">
-                    <h4 class="card-title">Title</h4>
-                    <p class="card-text">Description</p>
-                    <a href="#" class="btn btn-primary">
-                      BUTTON
-                    </a>
-                  </div>
-                  <div class="w-100"></div>
-                  <div class="card-footer w-100 text-muted">FOOTER</div>
-                </div>
-                
-              </div>
-            </div>
-          </>
+            </>
         );
     }
 }

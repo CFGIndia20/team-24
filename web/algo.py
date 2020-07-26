@@ -16,15 +16,70 @@ slot_preference = {
 
 # 0th: no of students in the current batch, 1st: Total Number of batches
 slot = {
-   "1":[0,0],
-    "2":[0,0],
-    "3":[0,0],
-    "4":[0,0],
-    "5":[0,0],
-    "6":[0,0],
-    "7":[0,0],
-    "8":[0,0]
+   "1":[0,2],
+    "2":[0,1],
+    "3":[0,1],
+    "4":[8,0],
+    "5":[7,1],
+    "6":[6,1],
+    "7":[8,0],
+    "8":[6,0]
 }
+
+teachers ={
+    'a':[],
+    'b':[],
+    'c':[],
+    'd':[],
+    'e':[]
+}
+
+
+def assign():
+    global count
+    for key in slot.keys():
+        if slot[key][1]!=0 and slot[key][0]==0:
+            total = slot[key][1]
+        elif slot[key][1]!=0 and slot[key][0]!=0:
+            total = slot[key][1]+1
+        elif slot[key][1]==0 and slot[key][0]!=0:
+            total = 1
+        print(key,total)
+        
+
+        for i in range(total):
+            if count!=5:
+                for j in teachers:
+                    if len(teachers[j])==0:
+                        teachers[j].append(key)
+                        count = count + 1
+                        break
+            else:
+                for j in teachers:
+                    cur_slot = teachers[j][-1]
+                    if len(teachers[j])>=3:
+                        continue
+                    if abs(int(cur_slot)-int(key))>1:
+                        teachers[j].append(key)
+                        break
+
+def sub(slot):
+    for j in teachers:
+        if len(teachers[j])==0:
+                teachers[j].append(slot)
+                return
+    for j in teachers:
+        cur_slot = teachers[j][-1]
+        if len(teachers[j])>=3:
+            continue
+        if abs(int(cur_slot)-int(slot))>1:
+            teachers[j].append(slot)
+            break
+
+                
+count = 0
+assign()
+print(teachers)
 
 def valid(key):
     if slot[key][0]<2:
@@ -48,8 +103,8 @@ def check():
 
         
 
-check()
-print(slot["1"][0]+1)
+#check()
+
 
 """
 def isValid(i):
