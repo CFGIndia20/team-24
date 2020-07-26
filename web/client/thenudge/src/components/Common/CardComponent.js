@@ -12,8 +12,8 @@ class CardComponent extends Component {
     render() {
         if (this.props.slot) {
             return (
-                <div style={{ margin: "20px 0px" }}>
-                    <div className="card" style={{ width: 'auto', maxWidth: "400px", minWidth: "200px" }}>
+                <div>
+                    <div className="card box-shadow-around-black" style={{ width: 'auto', maxWidth: "400px", minWidth: "200px" }}>
                         <img className="card-img-top" src="https://images.indianexpress.com/2015/04/students-l1.jpg" />
                         <div className="card-body">
                             <h4 className="card-title">{this.props.info.title}</h4>

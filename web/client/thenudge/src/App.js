@@ -7,11 +7,11 @@ import { BrowserRouter as Router, Switch, Route, withRouter } from "react-router
 import RegisterComponent from './components/Auth/RegisterComponent';
 import Landing from './components/Layout/Landing';
 import SidebarComponent from './components/Layout/SidebarComponent';
-import StudentDashboard from './components/Student/dashboard';
-import LeaderBoard from "./components/Student/leaderboard"
-import JobListing from './components/Student/jobListing';
+import StudentDashboard from './components/Student/Dashboard';
+import LeaderBoard from "./components/Student/Leaderboard"
+import JobListing from './components/Student/JobListing';
 import Profile from "./components/Student/Profile"
-import Schedule from './components/Student/schedule';
+import Schedule from './components/Student/Schedule';
 import { Provider } from 'react-redux';
 import { store, persistor } from './redux/store';
 import UserProfile from './components/Student/UserProfile';

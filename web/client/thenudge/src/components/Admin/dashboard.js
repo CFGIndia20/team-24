@@ -1,3 +1,9 @@
+//  Admin Dashboard
+//
+//  Dashboard component for displaying the student information
+//  along with the list of alloted teachers
+//
+
 import React, { Component } from 'react';
 import SidebarComponent from "../Layout/SidebarComponent";
 import ChartComponent from '../Common/ChartComponent';

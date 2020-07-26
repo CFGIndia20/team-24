@@ -6,6 +6,7 @@ export const getStudents = () => (dispatch) => {
 
     dispatch(setStudentLoading());
 
+    // Fetch request
     axios.get('http://localhost:5000/getStudentDetails')
         .then(res => {
             dispatch({
@@ -21,6 +22,7 @@ export const setStudentLoading = () => ({
     type: SET_STUDENTS_LOADING
 })
 
+// Action for getting student data and their scores
 export const getLeader = () => dispatch => [
     axios.get('http://localhost:5000/leaderboard')
         .then(res => {

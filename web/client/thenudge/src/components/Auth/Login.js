@@ -54,7 +54,7 @@ class Login extends Component {
         return (
           <div className="container mt-5 mb-5">
             <div className="row justify-content-center">
-              <div className="col-md-6 col-lg-4 mt-3 pb-4 bg-light box-shadow-around-black rounded-border">
+              <div className="col-md-6 col-lg-4 col-10 mt-3 pb-4 bg-light box-shadow-around-black rounded-border">
                 <h1 className="display-4 text-center">Login</h1>
                 <form
                   className="form-container"
