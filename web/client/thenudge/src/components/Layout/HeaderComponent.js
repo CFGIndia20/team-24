@@ -4,10 +4,10 @@ import { Link } from 'react-router-dom';
 class NavbarComponent extends Component {
     render() {
         return (
-          <div className="navbar navbar-expand-md navbar-light bg-light box-shadow-down-black">
+          <div className="navbar navbar-expand-md navbar-dark bg-dark box-shadow-down-black">
             <div className="container">
-              <Link to="#" className="navbar-brand">
-                Allotify
+              <Link to="/" className="navbar-brand">
+                <img src="https://global-uploads.webflow.com/5d89ca3decc11853f33732a0/5dc97719673bd991e9f5f361_logo%20TheNudge%20white%20and%20Yellow.png" height="20px"/>
               </Link>
               <button
                 className="navbar-toggler"
