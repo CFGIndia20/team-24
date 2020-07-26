@@ -342,7 +342,8 @@ def get_leader_board():
         if email not in student_leaderboard.keys():  # storing email as key in the dictionary
             student_leaderboard[email] = [
                 student_dict['name'], (student_dict['student_attendance']+student_dict['starting_score'])/2]
-    return jsonify(student_leaderboard)
+    sorted_leaderboard = sorted(student_leaderboard.items(), key=lambda x: x[1][1], reverse=True)  #sort the leaderboard in descending order
+    return jsonify(sorted_leaderboard)
 
 
 # job addition route

@@ -21,7 +21,7 @@ import AdminRoute from "./components/Common/AdminRoute";
 import TeacherRoute from "./components/Common/TeacherRoute";
 import AddJob from './components/Admin/addjob';
 import { PersistGate } from 'redux-persist/lib/integration/react';
-import AdminDashboard from './components/Admin/Dashboard';
+import AdminDashboard from './components/Admin/dashboard';
 import Notify from "./components/Admin/notify";
 
 function App() {
