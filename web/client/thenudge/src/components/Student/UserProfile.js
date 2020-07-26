@@ -20,17 +20,17 @@ class UserProfile extends Component {
 
                 <div className="field">
                   <div className="field-label">Name</div>
-                  <div className="field-value">Some name</div>
+                  <div className="field-value">John Doe</div>
                 </div>
 
                 <div className="field">
                   <div className="field-label">Email</div>
-                  <div className="field-value">test@test.com</div>
+                  <div className="field-value">johndoe@test.com</div>
                 </div>
 
                 <div className="field">
                   <div className="field-label">DOB</div>
-                  <div className="field-value">dateofbirth</div>
+                  <div className="field-value">12/10/1999</div>
                 </div>
                 <div className="field">
                   <div className="field-label">Aadhar</div>
