@@ -20,6 +20,7 @@ jobs_ref = db.collection('jobs')
 def home():
     return jsonify({'status' : 'home'})
 
+# used to populate the jobs database
 @app.route('/addJobs')
 def add_jobs():
     for i in range(5):
@@ -31,6 +32,7 @@ def add_jobs():
 
     return jsonify({'status': 'teacher signup successful'}), 200
 
+# used to populate the teacher database
 @app.route('/addTeacher')
 def add_teacher():
     for i in range(5,6):
@@ -46,6 +48,7 @@ def add_teacher():
 
     return jsonify({'status': 'teacher signup successful'}), 200
 
+# used to populate the student database
 @app.route('/addStudent')
 def add_student():
     for i in range(1, 76):
@@ -66,6 +69,8 @@ def add_student():
             return jsonify({'status': 'student Unsignup successful'}), 418
     return jsonify({'status': 'student signup successful'}), 200
 
+
+# mock algo creation
 def addMarks(marks,batch,student_dict):
     if marks>=50 and marks<60:
         batch["50"].append(student_dict['name'])
@@ -178,6 +183,8 @@ def allocatebatch():
             else:
                 for j in teachers:
                     cur_slot = teachers[j][-1]
+                    if abs(int(teachers[j][0])-int(key))>8:
+                        continue
                     if len(teachers[j])>=4:
                         continue
                     if abs(int(cur_slot)-int(key))>1:

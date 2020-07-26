@@ -1,3 +1,5 @@
+""" Algo check with dummy data """
+
 batches = {
     "10": ['a','b','c','d'],
     "20": ['e','f','g','h']

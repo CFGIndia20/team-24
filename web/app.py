@@ -1,13 +1,18 @@
+# importing all libraries
 from flask_login import LoginManager, UserMixin, login_user, login_required, logout_user, current_user
 from flask import Flask, render_template, request, jsonify, flash, redirect, url_for
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_cors import CORS, cross_origin
 import requests
 from firebase_admin import credentials, firestore, initialize_app
+
+# creating an instance and setting config variables
 app = Flask(__name__)
 cors = CORS(app)
 app.config['CORS_HEADERS'] = 'Content-Type'
 app.secret_key = 'secret-key'
+
+# firebase connection
 cred = credentials.Certificate('service.json')
 default_app = initialize_app(cred)
 db = firestore.client()
@@ -15,6 +20,7 @@ login_manager = LoginManager()
 login_manager.init_app(app)
 login_manager.login_view = "login"
 
+# creating various objects for connection to various tables
 teachers_ref = db.collection('teachers')
 students_ref = db.collection('students')
 admins_ref = db.collection('admins')
@@ -300,6 +306,7 @@ def getStudentDetails():
     return jsonify(data), 200
 
 
+# get all teacher details from the databse
 @app.route('/getTeacherDetails')
 @cross_origin()
 @login_required
@@ -330,7 +337,7 @@ def getJobDetails():
     return jsonify(data)
 
 
-# leader_board
+# get all data for leader board
 @app.route('/leaderboard')
 @cross_origin()
 def get_leader_board():
@@ -402,6 +409,7 @@ def get_complaint():
 
     return jsonify(unresolved_complaints)
 
+# get list of candidates applying to a job
 @app.route('/getCandidates')
 @cross_origin
 def get_candidates():
@@ -414,7 +422,7 @@ def get_candidates():
     return jsonify(data)
 
 
-
+# add marks in a particular range to the dictionary
 def addMarks(marks, batch, student_dict):
     if marks >= 50 and marks < 60:
         batch["50"].append(student_dict['name'])
@@ -428,13 +436,18 @@ def addMarks(marks, batch, student_dict):
         batch["90"].append(student_dict['name'])
 
 
+# check if the number of students in a slot dont exceed 15
 def valid(key, slot):
-    if slot[key][0] < 8:
+    if slot[key][0] < 15:
         return True
 
 
+# main algorithm to determine the allocation of batches
+# called initially once registration is done
 @app.route('/allocateBatch')
 def allocatebatch():
+    
+    # keep all the students scoring similar marks in same key 
     batch = {
         "50": [],
         "60": [],
@@ -443,12 +456,15 @@ def allocatebatch():
         "90": []
     }
 
+    # get list of all the slot preferences of a student
     slot_preference = {
         "N"+str(i): 0 for i in range(1, 76)
     }
 
+    # allocate student according to the slot
+    # index 0 indicates the number of students in current slot, index 1 indicates the total number of slots
     slot = {
-        "1": [0, 0],
+        "1": [0, 0], 
         "2": [0, 0],
         "3": [0, 0],
         "4": [0, 0],
@@ -458,12 +474,14 @@ def allocatebatch():
         "8": [0, 0]
     }
 
+    # slots the teacher will be conducting
     teachers ={
         "Name"+str(i):[] for i in range(1,6)
     }
 
     count = 0
 
+    # get student data from db
     students_data = students_ref.get()
     for row in students_data:
         student_dict = row.to_dict()
@@ -471,6 +489,7 @@ def allocatebatch():
         addMarks(marks, batch, student_dict)
         slot_preference[student_dict['name']] = student_dict['preference']
 
+    # traverse the marks dictionary for homogeneous allocation
     for key, value in batch.items():
         student = value
         for j in student:
@@ -484,6 +503,8 @@ def allocatebatch():
                         slot[key][1] = slot[key][1]+1
                         break
 
+    # traverse the slotted allotment to check if any slot has less than 8 students in 
+    # that case merge two slots and combine to one
     for key in slot.keys():
         if slot[key][0] < 4:
             for j in slot.keys():
@@ -493,6 +514,8 @@ def allocatebatch():
                     slot[key][0] = slot[key][0]+slot[j][0]
                     slot[j][0] = 0
 
+    # allocation of teacher
+    # calculate the total number of session in each slot
     for key in slot.keys():
         if slot[key][1]!=0 and slot[key][0]==0:
             total = slot[key][1]
@@ -503,7 +526,11 @@ def allocatebatch():
         else:
             total = 0
         
-
+        # allocate teacher keeping all constraint in mind
+            # 1. all teacher should have a slot
+            # 2. No consecutive slot
+            # 3. No more than 4 slots
+            # 4. Gap to first slot should not be more than 8 hours
         for i in range(total):
             if count!=5:
                 for j in teachers:
@@ -514,6 +541,8 @@ def allocatebatch():
             else:
                 for j in teachers:
                     cur_slot = teachers[j][-1]
+                    if abs(int(teachers[j][0])-int(key))>8:
+                        continue
                     if len(teachers[j])>=4:
                         continue
                     if abs(int(cur_slot)-int(key))>1:
@@ -521,7 +550,7 @@ def allocatebatch():
                         break
                 
                 
-        
+    # return slots for teachers and batches for student 
     return jsonify({"teacher":teachers,
                         "student":slot_preference})
 
