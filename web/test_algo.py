@@ -157,7 +157,7 @@ def allocatebatch():
                     slot[key][0]=slot[key][0]+slot[j][0]
                     slot[j][0]=0
     
-    for key in slot.keys():
+    """for key in slot.keys():
         if slot[key][1]!=0 and slot[key][0]==0:
             total = slot[key][1]
         elif slot[key][1]!=0 and slot[key][0]!=0:
@@ -182,11 +182,11 @@ def allocatebatch():
                         continue
                     if abs(int(cur_slot)-int(key))>1:
                         teachers[j].append(key)
-                        break
+                        break"""
                 
                 
         
-    return jsonify({"data":teachers})
+    return jsonify({"data":slot})
 
 def sub(slot):
     for j in teachers:
