@@ -1,5 +1,6 @@
 // import 'dart:html';
 
+import 'package:Nudge/data/list.dart';
 import 'package:Nudge/widgets/box.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 

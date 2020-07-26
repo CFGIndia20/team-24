@@ -5,57 +5,37 @@ class SList{
   static final List<String> list=[
     'https://thumbs.dreamstime.com/b/young-woman-adult-student-autumn-back-to-school-park-going-university-college-asian-girl-smiling-happy-pretty-mixed-race-32608952.jpg',
     'https://i.pinimg.com/originals/f4/26/90/f4269058bffae58474f816f8613b7a60.png',
-    'https://media.gettyimages.com/photos/group-portrait-of-business-people-in-conference-room-picture-idsb10067935a-006https://media.gettyimages.com/photos/group-portrait-of-business-people-in-conference-room-picture-idsb10067935a-006https://media.gettyimages.com/photos/group-portrait-of-business-people-in-conference-room-picture-idsb10067935a-006',
+    'https://previews.123rf.com/images/fizkes/fizkes1802/fizkes180200374/95308921-two-diverse-young-businessmen-talking-discussing-new-project-idea-caucasian-hr-holding-job-interview.jpg',
     ];
     static final Map<String,String> listtitle={
       'https://thumbs.dreamstime.com/b/young-woman-adult-student-autumn-back-to-school-park-going-university-college-asian-girl-smiling-happy-pretty-mixed-race-32608952.jpg':'Profile',
     'https://i.pinimg.com/originals/f4/26/90/f4269058bffae58474f816f8613b7a60.png':'Time-Table',
-        'https://media.gettyimages.com/photos/group-portrait-of-business-people-in-conference-room-picture-idsb10067935a-006https://media.gettyimages.com/photos/group-portrait-of-business-people-in-conference-room-picture-idsb10067935a-006https://media.gettyimages.com/photos/group-portrait-of-business-people-in-conference-room-picture-idsb10067935a-006'
+        'https://previews.123rf.com/images/fizkes/fizkes1802/fizkes180200374/95308921-two-diverse-young-businessmen-talking-discussing-new-project-idea-caucasian-hr-holding-job-interview.jpg'
 :'Jobs',
     };
+    static final List<String> jobimg=[
+
+    ];
 
 
 static final List h=[
-  {"title":"Job1",
-  "url":"https://www.myntra.com/",
-  "image":"https://media.gettyimages.com/photos/group-portrait-of-business-people-in-conference-room-picture-idsb10067935a-006https://media.gettyimages.com/photos/group-portrait-of-business-people-in-conference-room-picture-idsb10067935a-006https://media.gettyimages.com/photos/group-portrait-of-business-people-in-conference-room-picture-idsb10067935a-006"},
+  {"title":"abc",
+  
+  "image":"https://images.unsplash.com/photo-1522071820081-009f0129c71c?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&w=1000&q=80"},
   
   
-  {"title":"Job2",
-  "url":"https://www.flipkart.com/",
-  "image":"https://media.gettyimages.com/photos/group-portrait-of-business-people-in-conference-room-picture-idsb10067935a-006https://media.gettyimages.com/photos/group-portrait-of-business-people-in-conference-room-picture-idsb10067935a-006https://media.gettyimages.com/photos/group-portrait-of-business-people-in-conference-room-picture-idsb10067935a-006"
+  {"title":"jpmc",
+  
+  "image":"https://image.freepik.com/free-photo/group-people-working-out-business-plan-office_1303-15866.jpg"
   },
-  {"title":"Job3",
-  "url":"https://www.amazon.in/",
-  "image":"https://media.gettyimages.com/photos/group-portrait-of-business-people-in-conference-room-picture-idsb10067935a-006https://media.gettyimages.com/photos/group-portrait-of-business-people-in-conference-room-picture-idsb10067935a-006https://media.gettyimages.com/photos/group-portrait-of-business-people-in-conference-room-picture-idsb10067935a-006"
-  },
-  {"title":"Job4",
-  "url":"https://www.snapdeal.com/",
-  "image":"https://media.gettyimages.com/photos/group-portrait-of-business-people-in-conference-room-picture-idsb10067935a-006https://media.gettyimages.com/photos/group-portrait-of-business-people-in-conference-room-picture-idsb10067935a-006https://media.gettyimages.com/photos/group-portrait-of-business-people-in-conference-room-picture-idsb10067935a-006"
-  },
-  {"title":"job5",
-  "url":"https://www.shopclues.com/",
-  "image":"https://media.gettyimages.com/photos/group-portrait-of-business-people-in-conference-room-picture-idsb10067935a-006https://media.gettyimages.com/photos/group-portrait-of-business-people-in-conference-room-picture-idsb10067935a-006https://media.gettyimages.com/photos/group-portrait-of-business-people-in-conference-room-picture-idsb10067935a-006"
+  {"title":"xyz",
+  
+  "image":"https://previews.123rf.com/images/fizkes/fizkes1802/fizkes180200374/95308921-two-diverse-young-businessmen-talking-discussing-new-project-idea-caucasian-hr-holding-job-interview.jpg"
   },
   
-  {"title":"job6",
-  "url":"https://www.aliexpress.com/",
-  "image":"https://media.gettyimages.com/photos/group-portrait-of-business-people-in-conference-room-picture-idsb10067935a-006https://media.gettyimages.com/photos/group-portrait-of-business-people-in-conference-room-picture-idsb10067935a-006https://media.gettyimages.com/photos/group-portrait-of-business-people-in-conference-room-picture-idsb10067935a-006"
-  },
-  {"title":"job7",
-  "url":"https://www.seasonsway.com/household-items.html",
-  "image":"https://media.gettyimages.com/photos/group-portrait-of-business-people-in-conference-room-picture-idsb10067935a-006https://media.gettyimages.com/photos/group-portrait-of-business-people-in-conference-room-picture-idsb10067935a-006https://media.gettyimages.com/photos/group-portrait-of-business-people-in-conference-room-picture-idsb10067935a-006"
-  },
-   {"title":"job8",
-  "url":"https://www.bigbasket.com/cl/cleaning-household/",
-  "image":"https://media.gettyimages.com/photos/group-portrait-of-business-people-in-conference-room-picture-idsb10067935a-006https://media.gettyimages.com/photos/group-portrait-of-business-people-in-conference-room-picture-idsb10067935a-006https://media.gettyimages.com/photos/group-portrait-of-business-people-in-conference-room-picture-idsb10067935a-006"
-  },
-   {"title":"job9",
-  "url":"https://thedecorkart.com/",
-  "image":"https://media.gettyimages.com/photos/group-portrait-of-business-people-in-conference-room-picture-idsb10067935a-006https://media.gettyimages.com/photos/group-portrait-of-business-people-in-conference-room-picture-idsb10067935a-006https://media.gettyimages.com/photos/group-portrait-of-business-people-in-conference-room-picture-idsb10067935a-006"
-  },
 
 ];
+
 
  
 
