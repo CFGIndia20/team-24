@@ -17,9 +17,9 @@ class ImageScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    if(url=="https://media.gettyimages.com/photos/group-portrait-of-business-people-in-conference-room-picture-idsb10067935a-006https://media.gettyimages.com/photos/group-portrait-of-business-people-in-conference-room-picture-idsb10067935a-006https://media.gettyimages.com/photos/group-portrait-of-business-people-in-conference-room-picture-idsb10067935a-006")
+    if(url=="https://previews.123rf.com/images/fizkes/fizkes1802/fizkes180200374/95308921-two-diverse-young-businessmen-talking-discussing-new-project-idea-caucasian-hr-holding-job-interview.jpg")
       
-        return Jobs();
+        return Box1("Job");
         // body: Container(
         //   padding: EdgeInsets.all(20),
         //   child: GridView.builder(

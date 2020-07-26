@@ -39,6 +39,9 @@ class _HomePageState extends State<HomePage> {
           print("done\n\n\n\n\n\n\n");
         }
         // else print("nope");
+        else{
+          SnackBar(content: Text("Wrong Credentials"),);
+        }
       });
     });
 //   databaseReference

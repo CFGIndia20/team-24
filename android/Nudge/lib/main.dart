@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import "screens/homepage.dart";
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import "screens/job_details.dart";
 
 
 void main() {
@@ -23,7 +24,9 @@ class MyApp extends StatelessWidget {
       ),
       home: AuthScreen(),
       routes: {
-        HomePage.routename:(cxt)=>HomePage(),
+        HomePage.routename:(ctx)=>HomePage(),
+        DJ.routename:(ctx)=>DJ(),
+        
       },
     );
   }

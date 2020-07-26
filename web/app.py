@@ -20,6 +20,7 @@ students_ref = db.collection('students')
 admins_ref = db.collection('admins')
 jobs_ref = db.collection('jobs')
 complaints_ref = db.collection('complaints')
+application_ref = db.collection('application')
 
 
 # test Route
@@ -400,6 +401,18 @@ def get_complaint():
                 [complaint_dict['email'], complaint_dict['complaint']])
 
     return jsonify(unresolved_complaints)
+
+@app.route('/getCandidates')
+@cross_origin
+def get_candidates():
+    application_data = application_ref.get()
+    application = []
+    for row in application_data:
+        application_data = row.to_dict()
+        application.append(application_data)
+    data = {"data": application}
+    return jsonify(data)
+
 
 
 def addMarks(marks, batch, student_dict):

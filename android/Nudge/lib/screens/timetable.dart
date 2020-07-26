@@ -40,7 +40,7 @@ class Box extends StatelessWidget {
             color: Colors.yellow,
             child: Center(
               child: Text(
-                "Timin:${global.slot}",
+                "Timing:${global.slot}",
                 style: GoogleFonts.pacifico(
                   fontSize: 25,
                 ),
