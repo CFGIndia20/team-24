@@ -45,13 +45,8 @@ def student_signup():
             break
     if student != None:
         return jsonify({'status': 'Duplicate signup. Failed'}), 418
-<<<<<<< HEAD
     #If no duplicate signup then
     student_phno = None
-=======
-    # If no duplicate signup then
-    student_phno = data['PhoneNo']
->>>>>>> 3ed3d18e08db5dea55c039ea5530b7b799738866
     student_password = data['Password']
     hashedPassword = generate_password_hash(student_password, method='sha256')
     student_dob = data['dob']
@@ -64,7 +59,6 @@ def student_signup():
     try:
         students_ref.document().set({
             "name": student_name,
-<<<<<<< HEAD
             "password":hashedPassword ,
             "email":student_email,
             "phoneNo":student_phno,
@@ -74,18 +68,6 @@ def student_signup():
             "student_assigned_slot":assigned_slot,
             "preference":preference,
 
-=======
-            "password": hashedPassword,
-            "email": student_email,
-            "phoneNo": student_phno,
-            "dob": student_dob,
-            "student_attendance": student_attendance,
-            "starting_score": student_starting_score,
-            "student_assigned_slot": assigned_slot,
-            "preference1": preference1,
-            "preference2": preference2,
-            "preference3": preference3
->>>>>>> 3ed3d18e08db5dea55c039ea5530b7b799738866
         })
     except:
         return jsonify({'status': 'student Unsignup successful'}), 418

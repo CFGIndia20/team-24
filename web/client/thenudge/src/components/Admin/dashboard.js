@@ -13,7 +13,8 @@ class AdminDashboard extends Component {
 
         this.state = {
             isLoading: true,
-            students: null
+            students: null,
+            teachers: null
         }
     }
 
@@ -22,20 +23,70 @@ class AdminDashboard extends Component {
 
         Axios.get('http://localhost:5000/allocateBatch')
         .then(res => {
-            console.log(res.data);
+            this.setState({
+                teachers: res.data.data
+            });
+            console.log(this.state);
         });
     }
 
     render() {
 
+        let teachers = '';
+
+        const timeslots = { 1: "9 - 10 A.M." ,
+                             2: "10 - 11 A.M.",
+                             3: "11 - 12 Noon",
+                             4: "12 - 1 P.M.",
+                             5: "2 - 3 P.M.",
+                             6: "3 - 4 P.M.",
+                             7: "5 - 6 P.M.",
+                             8: "6 - 7 P.M."}
+
+        if(this.state.teachers){
+            let teachers_list = {...this.state.teachers};
+            let teacher_names = Object.keys(teachers_list);
+            let slots = Object.values(teachers_list);
+            slots = slots.map(slots => {
+                return slots.map(slot => timeslots[slot]);
+            })
+            teachers = (
+              <div className="row">
+                <div className="col-8">
+                  <h1 className="display-4">Teachers Slots</h1>
+                  <table class="table table-hover">
+                    <thead>
+                      <tr>
+                        <th scope="col">Name</th>
+                        <th scope="col">Slots Alloted</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      
+                        {teacher_names.map((name,index) => {
+                            return (
+                              <tr>
+                                <td scope="row">{name}</td>
+                                <td>
+                                  {slots[index].reduce((final,sub)=> `${final},${sub}`)}
+                                </td>
+                              </tr>
+                            );
+                        })}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            );
+        }
+
         return (
-<<<<<<< HEAD
           <>
             <SidebarComponent user="admin" />
             <div className="main">
               <div className="container main-content">
-                <div className="row ">
-                  <div className="col-6">
+                <div className="row">
+                  <div className="col-8">
                     <h1 className="display-4">Student Insights</h1>
                     <hr />
                     <ChartComponent
@@ -68,41 +119,8 @@ class AdminDashboard extends Component {
                     />
                   </div>
                 </div>
-                </div>
-                <div className="row">
-=======
-            <>
-                <SidebarComponent user="admin" />
-                <div className="main">
-                    <div className="container main-content">
-                        <h1 className="display-4">Student Insights</h1>
-                        <hr />
-                        <div className="row ">
-                            <div className="col-6 bg-light">
-                                <ChartComponent
-                                    labels={[
-                                        "9-10 A.M.",
-                                        "10-11 A.M.",
-                                        "11-12 Noon",
-                                        "12-1 P.M.",
-                                        "2-3 P.M.",
-                                        "3-4 P.M.",
-                                        "5-6 P.M.",
-                                        "6-7 P.M."
-                                    ]}
-                                    dataset={[
-                                        {
-                                            title: "Time Slot Preference",
-                                            values: ['12', '10', '35', '45', '32', '49', '23', '19'],
-                                            color: "#000",
-                                        }
-                                    ]}
-                                />
-                            </div>
-                        </div>
-                    </div>
->>>>>>> 3ed3d18e08db5dea55c039ea5530b7b799738866
-                </div>
+                {teachers}
+              </div>
             </div>
           </>
         );
