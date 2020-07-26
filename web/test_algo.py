@@ -83,6 +83,16 @@ def valid(key,slot):
     if slot[key][0]<8:
         return True
 
+@app.route('/update')
+def update():
+    students_data = students_ref.get()
+    for row in students_data:
+        id1 = row.id
+        student_dict=row.to_dict()
+        students_ref.document(id1).update({'phoneNo':"12345678"})
+        
+
+
 
 @app.route('/allocateBatch')
 def allocatebatch():
@@ -109,17 +119,23 @@ def allocatebatch():
         "8":[0,0]
     }
 
+    teachers ={
+    'a':[],
+    'b':[],
+    'c':[],
+    'd':[],
+    'e':[]
+    }
+
+    count = 0
+
 
     students_data = students_ref.get()
     for row in students_data:
+        id1 = row.id
         student_dict=row.to_dict()
         marks = student_dict['starting_score']
         addMarks(marks,batch,student_dict)
-<<<<<<< HEAD
-        addPref(slot_preference,student_dict)
-
-    return jsonify({"data":slot_preference})
-=======
         slot_preference[student_dict['name']]=student_dict['preference']
 
     for key,value in batch.items():
@@ -143,14 +159,48 @@ def allocatebatch():
                 if slot[key][0]+slot[j][0]<=8 and slot[key][0]+slot[j][0]>=4:
                     slot[key][0]=slot[key][0]+slot[j][0]
                     slot[j][0]=0
+    
+    for key in slot.keys():
+        if slot[key][1]!=0 and slot[key][0]==0:
+            total = slot[key][1]
+        elif slot[key][1]!=0 and slot[key][0]!=0:
+            total = slot[key][1]+1
+        elif slot[key][1]==0 and slot[key][0]!=0:
+            total = 1
+        
+
+        for i in range(total):
+            if count!=5:
+                for j in teachers:
+                    if len(teachers[j])==0:
+                        teachers[j].append(key)
+                        count = count + 1
+                        break
+            else:
+                for j in teachers:
+                    cur_slot = teachers[j][-1]
+                    if len(teachers[j])>=4:
+                        continue
+                    if abs(int(cur_slot)-int(key))>1:
+                        teachers[j].append(key)
+                        break
                 
                 
         
-    return jsonify({"data":slot})
->>>>>>> ad45d1a756b4713a13e88dfac87bb2c2c0bd039b
+    return jsonify({"data":teachers})
 
-
-
+def sub(slot):
+    for j in teachers:
+        if len(teachers[j])==0:
+                teachers[j].append(slot)
+                return
+    for j in teachers:
+        cur_slot = teachers[j][-1]
+        if len(teachers[j])>=3:
+            continue
+        if abs(int(cur_slot)-int(slot))>1:
+            teachers[j].append(slot)
+            break
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(debug=True,port=5002)
