@@ -5,13 +5,18 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import "package:Nudge/data/list.dart";
 import "package:Nudge/data/globals.dart" as global;
+import "package:cloud_firestore/cloud_firestore.dart";
 
 
 
 enum AuthMode { Signup, Login }
 
 class AuthScreen extends StatelessWidget {
+
+
   static const routeName = '/auth';
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -87,6 +92,8 @@ class AuthScreen extends StatelessWidget {
   }
 }
 
+
+
 class AuthCard extends StatefulWidget {
   const AuthCard({
     Key key,
@@ -98,6 +105,8 @@ class AuthCard extends StatefulWidget {
 
 class _AuthCardState extends State<AuthCard>
     with SingleTickerProviderStateMixin {
+
+      
   final GlobalKey<FormState> _formKey = GlobalKey();
   AuthMode _authMode = AuthMode.Login;
   Map<String, String> _authData = {
@@ -167,69 +176,6 @@ class _AuthCardState extends State<AuthCard>
     );
   }
 
-  // Future<void> _submit() async {
-  //   if (!_formKey.currentState.validate()) {
-  //     // Invalid!
-  //     return;
-  //   }
-  //   _formKey.currentState.save();
-  //   setState(() {
-  //     _isLoading = true;
-  //   });
-  //   try {
-  //     if (_authMode == AuthMode.Login) {
-  //       // Log user in
-       
-  //        global.emailid= _authData['email'];
-          
-        
-  //     // }
-  //     } 
-  //     // else {
-  //     //   // Sign user up
-  //     //   await Provider.of<Auth>(context, listen: false).signup(
-  //     //     _authData['email'],
-  //     //     _authData['password'],
-  //     //   );
-  //     // }
-  //   // } on HttpException catch (error) {
-  //   //   var errorMessage = 'Authentication failed';
-  //   //   if (error.toString().contains('EMAIL_EXISTS')) {
-  //   //     errorMessage = 'This email address is already in use.';
-  //   //   } else if (error.toString().contains('INVALID_EMAIL')) {
-  //   //     errorMessage = 'This is not a valid email address';
-  //   //   } else if (error.toString().contains('WEAK_PASSWORD')) {
-  //   //     errorMessage = 'This password is too weak.';
-  //   //   } else if (error.toString().contains('EMAIL_NOT_FOUND')) {
-  //   //     errorMessage = 'Could not find a user with that email.';
-  //   //   } else if (error.toString().contains('INVALID_PASSWORD')) {
-  //   //     errorMessage = 'Invalid password.';
-  //   //   }
-  //   //   _showErrorDialog(errorMessage);
-  //   } catch (error) {
-  //     const errorMessage =
-  //         'Could not authenticate you. Please try again later.';
-  //     _showErrorDialog(errorMessage);
-  //   }
-
-  //   setState(() {
-  //     _isLoading = false;
-  //   });
-  // }
-
-  // // void _switchAuthMode() {
-  // //   if (_authMode == AuthMode.Login) {
-  // //     setState(() {
-  // //       _authMode = AuthMode.Signup;
-  // //     });
-  // //     _controller.forward();
-  // //   } else {
-  // //     setState(() {
-  // //       _authMode = AuthMode.Login;
-  // //     });
-  // //     _controller.reverse();
-  // //   }
-  // // }
 
   @override
   Widget build(BuildContext context) {
@@ -320,7 +266,8 @@ class _AuthCardState extends State<AuthCard>
                     RaisedButton(
                       child: Text(
                            'LOGIN' ),
-                      onPressed: (){
+                      onPressed: ()async{
+                        await getData1();
                         print(_emailController.text);
                         print(_passwordController.text);
                           global.emailid=_emailController.text;
@@ -345,19 +292,41 @@ class _AuthCardState extends State<AuthCard>
                       textColor:
                           Theme.of(context).primaryTextTheme.button.color,
                     ),
-                  // FlatButton(
-                  //   child: Text(
-                  //       '${_authMode == AuthMode.Login ? 'SIGNUP' : 'LOGIN'} INSTEAD'),
-                  //   onPressed: _switchAuthMode,
-                  //   padding:
-                  //       EdgeInsets.symmetric(horizontal: 30.0, vertical: 4),
-                  //   materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                  //   textColor: Theme.of(context).primaryColor,
-                  // ),
+                 
                 ],
               ),
             ),
           ),
         ));
   }
+
+   getData1() async {
+    final databaseReference = await Firestore.instance;
+    databaseReference
+        .collection("students")
+        .getDocuments()
+        .then((QuerySnapshot snapshot) {
+      snapshot.documents.forEach((f) {
+        //  print('${f.data}}');
+        print(global.emailid);
+        if (f.data["email"] == global.emailid) {
+          // print('${f.data["email"]}}');
+          // print('${f.data}}');
+          global.name=f.data['name'];
+          global.dob=f.data["dob"];
+          global.attendance=f.data["student_attendance"].toString();
+          global.phonenumber=f.data["phoneNo"];
+          global.id=f.data["student_assigned_slot"].toString();
+          global.slot=global.ab[global.id];
+          global.score=f.data["starting_score"].toString();
+          print(f.data["name"]);
+          print("done\n\n\n\n\n\n\n");
+        }
+        // else print("nope");
+        else{
+          SnackBar(content: Text("Wrong Credentials"),);
+        }
+      });
+    });
 }
+    }
