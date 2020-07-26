@@ -58,6 +58,7 @@ export const loginUser = (userData, userType, history) => (dispatch) => {
 // Action for registering user
 export const registerStudent = (studentData, history) => (dispatch) => {
 
+  // Posting the user data for registration
   axios.post('http://localhost:5000/studentsignup', studentData)
     .then(res => {
       history.push('/login');
@@ -68,6 +69,7 @@ export const registerStudent = (studentData, history) => (dispatch) => {
 
 }
 
+// Logout action
 export const logout = () => dispatch => {
   dispatch({
     type: "LOGOUT"

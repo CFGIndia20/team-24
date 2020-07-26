@@ -1,5 +1,6 @@
 import axios from "axios";
 
+// Action for adding jobs
 export const addJob = (userData) => (dispatch) => {
 
     axios
@@ -15,8 +16,10 @@ export const addJob = (userData) => (dispatch) => {
 
 };
 
+// Getting job details
 export const getJobDetails = () => (dispatch) => {
 
+    // fetching the list of jobs
     axios
         .get("http://localhost:5000/getJobDetails")
         .then((res) => {
