@@ -523,7 +523,8 @@ def allocatebatch():
                 
                 
         
-    return jsonify({"data":teachers})
+    return jsonify({"teacher":teachers,
+                        "student":slot_preference})
 
 
 # LOGOUT ROUTES
